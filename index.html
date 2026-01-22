@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Disruptive Technology - Study Hub</title>
-
+    
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@500;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
-
+        /* --- CSS VARIABLES & THEMES --- */
         :root {
-
+            /* Default (Plain) */
             --bg-color: #f8f9fa;
             --container-bg: #ffffff;
             --text-primary: #2c3e50;
@@ -23,6 +24,7 @@
             --list-hover: #f1f3f5;
         }
 
+        /* RGB Theme */
         body.theme-rgb {
             --bg-color: #0f0f0f;
             --container-bg: #1a1a1a;
@@ -36,6 +38,7 @@
             --list-hover: #333;
         }
 
+        /* AI Theme */
         body.theme-ai {
             --bg-color: #000000;
             --container-bg: #001100;
@@ -49,19 +52,23 @@
             --list-hover: #003300;
         }
 
+        /* --- GLOBAL --- */
         * { box-sizing: border-box; transition: background 0.3s, color 0.3s; }
         body { margin: 0; background: var(--bg-color); color: var(--text-primary); font-family: var(--font-main); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
 
+        /* --- EFFECTS --- */
         .scanlines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 2px, 3px 100%; pointer-events: none; z-index: 9999; display: none; }
         body.theme-ai .scanlines { display: block; }
 
+        /* --- NAV --- */
         nav { padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; background: var(--container-bg); border-bottom: var(--border); }
         .back-btn { text-decoration: none; color: var(--text-primary); font-weight: bold; }
         .back-btn:hover { color: var(--accent); }
-
+        
         select#theme-switcher { padding: 8px; border-radius: var(--border-radius); border: 1px solid #ccc; background: var(--bg-color); color: var(--text-primary); cursor: pointer; }
         body.theme-ai select#theme-switcher { background: black; border: 1px solid #00ff00; color: #00ff00; }
 
+        /* --- HEADER --- */
         header { text-align: center; padding: 60px 20px; }
         h1 { font-size: 3rem; margin: 0; text-transform: uppercase; letter-spacing: 2px; }
         body.theme-rgb h1 { background: linear-gradient(90deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000); background-size: 400%; -webkit-background-clip: text; color: transparent; animation: rainbow 10s linear infinite; }
@@ -69,6 +76,7 @@
         body.theme-ai h1::after { content: '_'; animation: blink 1s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
+        /* --- CARDS --- */
         .container { max-width: 1000px; margin: 0 auto; padding: 20px; flex-grow: 1; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .card { background: var(--container-bg); padding: 40px 30px; border-radius: var(--border-radius); box-shadow: var(--card-shadow); border: var(--border); text-align: center; cursor: pointer; position: relative; }
@@ -79,6 +87,7 @@
         body.theme-rgb .card:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 255, 255, 0.6); }
         body.theme-ai .card:hover { background: #002200; box-shadow: inset 0 0 20px #00ff00; }
 
+        /* --- MODAL --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 100; backdrop-filter: blur(5px); }
         .modal-overlay.active { display: flex; }
         .modal-box { background: var(--container-bg); padding: 30px; border-radius: var(--border-radius); border: var(--border); width: 90%; max-width: 500px; min-height: 300px; display: flex; flex-direction: column; }
@@ -110,6 +119,7 @@
     <div class="scanlines"></div>
 
     <nav>
+        <!-- BACK TO HUB -->
         <a href="https://bibhavdas.github.io/BTBT-SECTION-D-HUB/study.html" class="back-btn">⬅ Back to Hub</a>
         <select id="theme-switcher" onchange="setTheme(this.value)">
             <option value="theme-plain">Plain (Default)</option>
@@ -125,18 +135,21 @@
 
     <div class="container">
         <div class="grid">
-            <div class="card" onclick="alert('No teacher resources uploaded yet.')">
+            <!-- 1. TEACHER RESOURCES (UPDATED ONCLICK) -->
+            <div class="card" onclick="openResources()">
                 <div style="font-size: 3rem; margin-bottom: 10px;">👨‍🏫</div>
                 <h2>Teacher Resources</h2>
                 <p>Slides & Syllabus</p>
             </div>
 
-            <div class="card" onclick="openModal()">
+            <!-- 2. CLASS NOTES -->
+            <div class="card" onclick="openNotes()">
                 <div style="font-size: 3rem; margin-bottom: 10px;">📝</div>
                 <h2>Class Notes</h2>
                 <p>Raw & Digitalized</p>
             </div>
 
+            <!-- 3. QUESTIONS -->
             <div class="card" onclick="alert('Question bank coming soon.')">
                 <div style="font-size: 3rem; margin-bottom: 10px;">❓</div>
                 <h2>Questions</h2>
@@ -145,25 +158,49 @@
         </div>
     </div>
 
-    <div class="modal-overlay" id="notesModal" onclick="closeModalOutside(event)">
+    <!-- MODAL -->
+    <div class="modal-overlay" id="genericModal" onclick="closeModalOutside(event)">
         <div class="modal-box">
             <div class="modal-header">
                 <span class="modal-back" id="modalBackBtn" onclick="showFormatView()">⬅ Back</span>
-                <span class="modal-title" id="modalTitle">Select Format</span>
+                <span class="modal-title" id="modalTitle">Title</span>
                 <span class="modal-close" onclick="closeModal()">×</span>
             </div>
 
+            <!-- VIEW 1: SELECT FORMAT (Only for Notes) -->
             <div id="view-format">
-                <button class="btn" onclick="showTopics('raw')">📄 Raw (PDF Scans)</button>
-                <button class="btn" onclick="showTopics('digital')">💻 Digitalized (HTML)</button>
+                <button class="btn" onclick="showNoteTopics('raw')">📄 Raw (PDF Scans)</button>
+                <button class="btn" onclick="showNoteTopics('digital')">💻 Digitalized (HTML)</button>
             </div>
 
+            <!-- VIEW 2: LIST OF ITEMS (For Notes & Resources) -->
             <div id="view-list"></div>
         </div>
     </div>
 
     <script>
+        // --- DATA RESOURCES ---
+        
+        // 1. Teacher Resources (PPTs, Docs)
+        const resourceDB = [
+            { 
+                title: "Introduction to AI Disruptive System", 
+                type: "PDF/Doc",
+                url: "https://drive.usercontent.google.com/download?id=1YXOosS1oJh9WIw10aIQZJwtRoIXSaYxI&export=download" 
+            },
+            { 
+                title: "Machine Learning (PPTX)", 
+                type: "Presentation",
+                url: "https://docs.google.com/presentation/d/1284TSoLmoqB1Q49ra22FdurfC1knBkT2/edit?usp=sharing&ouid=111235267144580638220&rtpof=true&sd=true" 
+            },
+            { 
+                title: "Use of AI in Various Industries", 
+                type: "Document",
+                url: "https://docs.google.com/document/d/1M_M_4ZbiF5yX3Q6ga84Db-nSh3Dj9sT-/edit?usp=drive_link&ouid=111235267144580638220&rtpof=true&sd=true" 
+            }
+        ];
 
+        // 2. Class Notes (Raw & Digital)
         const notesDB = {
             'digital': [
                 { 
@@ -172,7 +209,6 @@
                     url: "disruptive-notes.html" 
                 }
             ],
-
             'raw': [
                 { 
                     title: "Unit 1: Handwritten Scan", 
@@ -182,6 +218,7 @@
             ]
         };
 
+        // --- THEME LOGIC ---
         function setTheme(themeName) {
             document.body.className = themeName;
             localStorage.setItem('disruptive-theme', themeName);
@@ -192,48 +229,74 @@
             document.getElementById('theme-switcher').value = savedTheme;
         })();
 
-        const modal = document.getElementById('notesModal');
+        // --- MODAL CONTROLLER ---
+        const modal = document.getElementById('genericModal');
         const viewFormat = document.getElementById('view-format');
         const viewList = document.getElementById('view-list');
         const modalTitle = document.getElementById('modalTitle');
         const backBtn = document.getElementById('modalBackBtn');
 
-        function openModal() { modal.classList.add('active'); showFormatView(); }
+        // Helper: Close Modal
         function closeModal() { modal.classList.remove('active'); }
         function closeModalOutside(e) { if(e.target === modal) closeModal(); }
+
+        // 1. OPEN CLASS NOTES (Shows Format Selection First)
+        function openNotes() {
+            modal.classList.add('active');
+            showFormatView();
+        }
 
         function showFormatView() {
             viewFormat.style.display = 'flex';
             viewList.style.display = 'none';
-            modalTitle.innerText = "Select Format";
+            modalTitle.innerText = "Select Note Format";
             backBtn.style.visibility = 'hidden';
         }
 
-        function showTopics(type) {
+        function showNoteTopics(type) {
             const data = notesDB[type];
             viewFormat.style.display = 'none';
             viewList.style.display = 'flex';
             backBtn.style.visibility = 'visible';
             modalTitle.innerText = type === 'digital' ? "Digital Notes" : "Raw PDFs";
-            viewList.innerHTML = '';
+            renderList(data, 'date');
+        }
 
-            if(data.length === 0) {
-                viewList.innerHTML = '<p style="opacity:0.6;">No notes found.</p>';
+        // 2. OPEN TEACHER RESOURCES (Shows List Directly)
+        function openResources() {
+            modal.classList.add('active');
+            viewFormat.style.display = 'none';
+            viewList.style.display = 'flex';
+            // No back button needed as there is no previous step for resources
+            backBtn.style.visibility = 'hidden'; 
+            modalTitle.innerText = "Teacher Resources";
+            renderList(resourceDB, 'type');
+        }
+
+        // Generic List Renderer
+        function renderList(data, subtextKey) {
+            viewList.innerHTML = '';
+            if(!data || data.length === 0) {
+                viewList.innerHTML = '<p style="opacity:0.6;">No items found.</p>';
                 return;
             }
 
-            data.forEach(note => {
-                const item = document.createElement('div');
-                item.className = 'note-item';
-                item.onclick = () => window.open(note.url, '_blank');
-                item.innerHTML = `
+            data.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'note-item';
+                div.onclick = () => window.open(item.url, '_blank');
+                
+                // Determine what to show in the subtitle (Date or Type)
+                const subtitle = item[subtextKey] || '';
+
+                div.innerHTML = `
                     <div>
-                        <div class="note-title">${note.title}</div>
-                        <div class="note-date">${note.date}</div>
+                        <div class="note-title">${item.title}</div>
+                        <div class="note-date">${subtitle}</div>
                     </div>
                     <div>➤</div>
                 `;
-                viewList.appendChild(item);
+                viewList.appendChild(div);
             });
         }
     </script>
