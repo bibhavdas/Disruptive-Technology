@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disruptive Technology Notes</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #c0392b;
+            --light-bg: #f4f7f6;
+            --white: #ffffff;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--light-bg);
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        h3 {
+            color: #555;
+            margin-top: 25px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Styling for Definitions */
+        .definition-box {
+            border-left: 5px solid;
+            padding-left: 15px;
+            margin: 15px 0;
+        }
+
+        .fit-appropriate { border-color: var(--success-color); }
+        .fit-under { border-color: var(--warning-color); }
+        .fit-over { border-color: var(--danger-color); }
+
+        strong {
+            color: var(--primary-color);
+        }
+
+        /* Diagrams and SVGs */
+        .visual-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 20px 0;
+            gap: 20px;
+        }
+
+        .chart-box {
+            text-align: center;
+            width: 30%;
+            min-width: 200px;
+        }
+        
+        svg {
+            width: 100%;
+            height: 150px;
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        tr:hover { background-color: #f1f1f1; }
+
+        /* Confusion Matrix Specifics */
+        .confusion-matrix th.side-header {
+            background-color: var(--accent-color);
+            width: 150px;
+        }
+        
+        .tp-cell { background-color: rgba(39, 174, 96, 0.2); font-weight: bold; }
+        .tn-cell { background-color: rgba(39, 174, 96, 0.2); font-weight: bold; }
+        .fp-cell { background-color: rgba(192, 57, 43, 0.1); }
+        .fn-cell { background-color: rgba(192, 57, 43, 0.1); }
+
+        /* Pipeline Flow */
+        .pipeline {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .step {
+            background: var(--accent-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .step::after {
+            content: "→";
+            position: absolute;
+            right: -20px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .step:last-child::after {
+            content: "";
+        }
+
+        /* Lists */
+        ul.models-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul.models-list li {
+            background: #eef2f3;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .step::after { display: none; } /* Hide arrows on mobile stack */
+            .pipeline { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Disruptive Technology</h1>
+        <p>Machine Learning Fundamentals & Concepts (Dated: 22/01/2026)</p>
+    </header>
+
+    <div class="container">
+
+        <!-- PAGE 1: Model Fitting -->
+        <section id="model-fitting">
+            <h2>Model Fitting Concepts</h2>
+            
+            <div class="visual-container">
+                <div class="chart-box">
+                    <svg viewBox="0 0 200 150">
+                        <line x1="20" y1="130" x2="180" y2="130" stroke="#333" stroke-width="2"/>
+                        <line x1="20" y1="130" x2="20" y2="20" stroke="#333" stroke-width="2"/>
+                        <!-- Data Points -->
+                        <circle cx="40" cy="100" r="3" fill="#888"/> <circle cx="60" cy="90" r="3" fill="#888"/>
+                        <circle cx="90" cy="60" r="3" fill="#888"/> <circle cx="120" cy="40" r="3" fill="#888"/>
+                        <circle cx="160" cy="30" r="3" fill="#888"/>
+                        <!-- Line -->
+                        <line x1="20" y1="80" x2="180" y2="80" stroke="red" stroke-width="3"/>
+                    </svg>
+                    <p><strong>Underfitting</strong><br><small>Too Simple</small></p>
+                </div>
+                <div class="chart-box">
+                    <svg viewBox="0 0 200 150">
+                        <line x1="20" y1="130" x2="180" y2="130" stroke="#333" stroke-width="2"/>
+                        <line x1="20" y1="130" x2="20" y2="20" stroke="#333" stroke-width="2"/>
+                        <!-- Data Points -->
+                        <circle cx="40" cy="100" r="3" fill="#888"/> <circle cx="60" cy="90" r="3" fill="#888"/>
+                        <circle cx="90" cy="60" r="3" fill="#888"/> <circle cx="120" cy="40" r="3" fill="#888"/>
+                        <circle cx="160" cy="30" r="3" fill="#888"/>
+                        <!-- Line -->
+                        <path d="M20,120 Q90,70 180,30" stroke="green" fill="none" stroke-width="3"/>
+                    </svg>
+                    <p><strong>Appropriate Fitting</strong><br><small>Balanced</small></p>
+                </div>
+                <div class="chart-box">
+                    <svg viewBox="0 0 200 150">
+                        <line x1="20" y1="130" x2="180" y2="130" stroke="#333" stroke-width="2"/>
+                        <line x1="20" y1="130" x2="20" y2="20" stroke="#333" stroke-width="2"/>
+                        <!-- Data Points -->
+                        <circle cx="40" cy="100" r="3" fill="#888"/> <circle cx="60" cy="90" r="3" fill="#888"/>
+                        <circle cx="90" cy="60" r="3" fill="#888"/> <circle cx="120" cy="40" r="3" fill="#888"/>
+                        <circle cx="160" cy="30" r="3" fill="#888"/>
+                        <!-- Line -->
+                        <path d="M20,120 L40,100 L60,90 L90,60 L120,40 L160,30 L180,10" stroke="blue" fill="none" stroke-width="3"/>
+                    </svg>
+                    <p><strong>Overfitting</strong><br><small>Too Complex (Noise)</small></p>
+                </div>
+            </div>
+
+            <div class="card fit-appropriate definition-box">
+                <h3>Appropriate Fitting</h3>
+                <p>In machine learning, the <strong>best fit model</strong> is one that optimally balances model complexity. It performs well on both training data and new unseen data. This balance is known as the <em>Bias-Variance Trade-off</em>. It ensures the model has strong generalizability and can make reliable predictions in real-world applications.</p>
+            </div>
+
+            <div class="card fit-under definition-box">
+                <h3>Under-fitting</h3>
+                <p>Underfitting occurs when a model is <strong>too simple</strong> to capture the essential patterns in the data (High Bias). It performs poorly on both the training and test datasets.</p>
+            </div>
+
+            <div class="card fit-over definition-box">
+                <h3>Overfitting</h3>
+                <p>Overfitting occurs when a model is <strong>too complex</strong> and learns the noise and random fluctuations in the training dataset (High Variance). It performs exceptionally well on training data but poorly on unseen data.</p>
+            </div>
+        </section>
+
+        <!-- PAGE 2: Supervised Learning -->
+        <section id="supervised-learning">
+            <h2>Supervised Learning</h2>
+            <p>Supervised learning involves training a model on labeled data.</p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>1. Regression</h3>
+                    <p>Regression in machine learning is a supervised learning technique used to predict a <strong>continuous numerical value</strong> based on one or more input or independent features.</p>
+                    <p>In regression, the model learns the relationship between input features and output by fitting a mathematical function to the training data.</p>
+                    <p><strong>Examples:</strong> Predicting market salary, temperature, sales, etc.</p>
+                </div>
+
+                <div class="card">
+                    <h3>2. Classification</h3>
+                    <p>Classification is a supervised learning technique used to predict a <strong>category or class label</strong> for given input data.</p>
+                    <p>In classification, the model learns from labeled training data and assigns new data points to predefined classes.</p>
+                    <p><strong>Examples:</strong> Yes/No, True/False, Color grading, etc.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Classification Example: Hair Length vs Gender</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hair Length</th>
+                            <th>Gender</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>50 cm</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>80 cm</td>
+                            <td>F</td>
+                        </tr>
+                        <tr>
+                            <td>5 cm</td>
+                            <td>M</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><strong>Types of Classification:</strong></p>
+                <ul>
+                    <li><strong>Binary:</strong> 2 Classes (e.g., Male/Female, Spam/Not Spam).</li>
+                    <li><strong>Multiclass:</strong> More than 2 Classes.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- PAGE 3: Pipeline & Models -->
+        <section id="pipeline">
+            <h2>Pipeline of Supervised Learning</h2>
+            <div class="pipeline">
+                <div class="step">Collect Labeled Data</div>
+                <div class="step">Data Preprocessing</div>
+                <div class="step">Split Data (Train/Test)</div>
+                <div class="step">Select Algorithm</div>
+                <div class="step">Train & Evaluate</div>
+                <div class="step">Prediction</div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Regression Models</h3>
+                    <ul class="models-list">
+                        <li>i) Linear Regression</li>
+                        <li>ii) Multiple Linear Regression</li>
+                        <li>iii) Polynomial Regression</li>
+                        <li>iv) Decision Tree Regression</li>
+                        <li>v) Random Forest Regression</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Classification Models</h3>
+                    <ul class="models-list">
+                        <li>1) Logistic Regression</li>
+                        <li>2) Decision Tree</li>
+                        <li>3) Random Forest</li>
+                        <li>4) Support Vector Machine (SVM)</li>
+                        <li>5) K-Nearest Neighbour (KNN)</li>
+                        <li>6) Naive Bayes</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>Performance Metrics</h2>
+            <div class="card">
+                <p>Performance matrices are measured to evaluate the effectiveness of machine learning models by comparing predicted results with actual outcomes.</p>
+                
+                <h3>Confusion Matrix</h3>
+                <table class="confusion-matrix">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" style="background:white; border:none;"></th>
+                            <th colspan="2">Predicted Class (Practical)</th>
+                        </tr>
+                        <tr>
+                            <th>Positive</th>
+                            <th>Negative</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="side-header">Actual Positive</th>
+                            <td class="tp-cell">TP (True Positive)</td>
+                            <td class="fn-cell">FN (False Negative)</td>
+                        </tr>
+                        <tr>
+                            <th class="side-header">Actual Negative</th>
+                            <td class="fp-cell">FP (False Positive)</td>
+                            <td class="tn-cell">TN (True Negative)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>

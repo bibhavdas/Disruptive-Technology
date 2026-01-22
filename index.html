@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disruptive Technology - Study Hub</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@500;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS VARIABLES & THEMING SYSTEM --- */
+        :root {
+            /* Default (Plain) Theme */
+            --bg-color: #f8f9fa;
+            --container-bg: #ffffff;
+            --text-primary: #2c3e50;
+            --text-secondary: #5a6268;
+            --accent: #007bff;
+            --border-radius: 12px;
+            --font-main: 'Inter', sans-serif;
+            --card-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            --border: 1px solid #e9ecef;
+            --glow: none;
+            --list-hover: #f1f3f5;
+        }
+
+        /* RGB Theme (Gamer/Cyberpunk) */
+        body.theme-rgb {
+            --bg-color: #0f0f0f;
+            --container-bg: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --accent: #ff0055;
+            --border-radius: 0px;
+            --font-main: 'Orbitron', sans-serif;
+            --card-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
+            --border: 2px solid transparent; 
+            --glow: 0 0 10px rgba(0, 255, 255, 0.5);
+            --list-hover: #333;
+        }
+
+        /* AI/Terminal Theme (Hacker) */
+        body.theme-ai {
+            --bg-color: #000000;
+            --container-bg: #001100;
+            --text-primary: #00ff00;
+            --text-secondary: #00cc00;
+            --accent: #00ff00;
+            --border-radius: 0;
+            --font-main: 'Fira Code', monospace;
+            --card-shadow: none;
+            --border: 1px solid #00ff00;
+            --glow: none;
+            --list-hover: #003300;
+        }
+
+        /* --- GLOBAL STYLES --- */
+        * { box-sizing: border-box; transition: background 0.3s, color 0.3s; }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .scanlines {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none; z-index: 9999;
+            display: none;
+        }
+        body.theme-ai .scanlines { display: block; }
+
+        /* --- NAV & HEADER --- */
+        nav {
+            padding: 20px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--container-bg);
+            border-bottom: var(--border);
+            z-index: 10;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: bold;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .back-btn:hover { color: var(--accent); }
+
+        select#theme-switcher {
+            padding: 8px 12px;
+            border-radius: var(--border-radius);
+            border: 1px solid #ccc;
+            background: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            cursor: pointer;
+        }
+        body.theme-ai select#theme-switcher {
+            background: black; border: 1px solid #00ff00; color: #00ff00;
+        }
+
+        header { text-align: center; padding: 60px 20px; }
+        h1 { font-size: 3rem; margin: 0; text-transform: uppercase; letter-spacing: 2px; }
+        
+        /* RGB Title Animation */
+        body.theme-rgb h1 {
+            background: linear-gradient(90deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+            background-size: 400%; -webkit-background-clip: text; color: transparent;
+            animation: rainbow 10s linear infinite; text-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+        @keyframes rainbow { 0% { background-position: 0%; } 100% { background-position: 400%; } }
+        
+        /* AI Cursor */
+        body.theme-ai h1::after { content: '_'; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* --- GRID & CARDS --- */
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; flex-grow: 1; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+
+        .card {
+            background: var(--container-bg); padding: 40px 30px;
+            border-radius: var(--border-radius); box-shadow: var(--card-shadow);
+            border: var(--border); text-align: center; cursor: pointer;
+            position: relative; overflow: hidden;
+        }
+
+        .card h2 { margin-top: 0; }
+        .card p { color: var(--text-secondary); font-size: 0.9rem; }
+
+        /* RGB Card Styles */
+        body.theme-rgb .card {
+            border: 2px solid transparent; background-clip: padding-box;
+            box-shadow: 0 0 15px rgba(0, 200, 255, 0.2);
+        }
+        body.theme-rgb .card::before {
+            content: ''; position: absolute; top: -2px; bottom: -2px; left: -2px; right: -2px;
+            background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff); z-index: -1;
+        }
+        body.theme-rgb .card:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 255, 255, 0.6); }
+
+        /* AI Card Styles */
+        body.theme-ai .card:hover { background: #002200; box-shadow: inset 0 0 20px #00ff00; }
+
+        /* --- DYNAMIC MODAL --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center;
+            z-index: 100; backdrop-filter: blur(5px);
+        }
+        .modal-overlay.active { display: flex; }
+        
+        .modal-box {
+            background: var(--container-bg); padding: 30px;
+            border-radius: var(--border-radius); border: var(--border);
+            width: 90%; max-width: 500px; min-height: 300px;
+            text-align: center; position: relative;
+            display: flex; flex-direction: column;
+        }
+        body.theme-rgb .modal-box { border: 2px solid cyan; box-shadow: 0 0 30px cyan; }
+        
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--text-secondary); padding-bottom: 10px; }
+        .modal-title { font-size: 1.5rem; font-weight: bold; margin: 0; }
+        .modal-close { font-size: 1.5rem; cursor: pointer; color: var(--text-primary); }
+        .modal-back { font-size: 1.2rem; cursor: pointer; color: var(--accent); visibility: hidden; }
+
+        /* View Containers */
+        #view-format, #view-list { flex-grow: 1; display: flex; flex-direction: column; gap: 15px; }
+        #view-list { display: none; }
+
+        /* Buttons */
+        .btn {
+            padding: 20px; border: none; border-radius: var(--border-radius);
+            background: var(--accent); color: white;
+            font-family: var(--font-main); font-weight: bold; font-size: 1.1rem;
+            cursor: pointer; width: 100%; transition: transform 0.2s;
+        }
+        
+        /* Theme Specific Buttons */
+        body.theme-plain .btn:hover { background: #0056b3; transform: translateY(-2px); }
+        body.theme-rgb .btn {
+            background: transparent; border: 2px solid #fff; color: #fff; text-transform: uppercase;
+            box-shadow: 0 0 10px #fff;
+        }
+        body.theme-rgb .btn:hover { background: white; color: black; box-shadow: 0 0 20px white; }
+        body.theme-ai .btn { background: black; border: 1px solid #00ff00; color: #00ff00; }
+        body.theme-ai .btn:hover { background: #00ff00; color: black; }
+
+        /* List Items */
+        .note-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px; border-bottom: 1px solid var(--text-secondary);
+            cursor: pointer; text-align: left;
+        }
+        .note-item:hover { background-color: var(--list-hover); }
+        .note-title { font-weight: bold; }
+        .note-date { font-size: 0.8rem; opacity: 0.7; }
+
+        body.theme-rgb .note-item { border-bottom: 1px solid rgba(255,255,255,0.2); }
+        body.theme-rgb .note-item:hover { background-color: rgba(255,255,255,0.1); box-shadow: 0 0 10px rgba(0,255,255,0.2); }
+        body.theme-ai .note-item { border-bottom: 1px dashed #00ff00; }
+
+    </style>
+</head>
+<body class="theme-plain">
+
+    <div class="scanlines"></div>
+
+    <nav>
+        <a href="study.html" class="back-btn">⬅ Back to Hub</a>
+        <select id="theme-switcher" onchange="setTheme(this.value)">
+            <option value="theme-plain">Plain (Default)</option>
+            <option value="theme-rgb">RGB (Gamer)</option>
+            <option value="theme-ai">AI (Terminal)</option>
+        </select>
+    </nav>
+
+    <header>
+        <h1 id="page-title">Disruptive Technology</h1>
+        <p style="margin-top: 10px; opacity: 0.8;">Section D Resources</p>
+    </header>
+
+    <div class="container">
+        <div class="grid">
+            <div class="card" onclick="alert('No teacher resources uploaded yet.')">
+                <div style="font-size: 3rem; margin-bottom: 10px;">👨‍🏫</div>
+                <h2>Teacher Resources</h2>
+                <p>Slides & Syllabus</p>
+            </div>
+
+            <div class="card" onclick="openModal()">
+                <div style="font-size: 3rem; margin-bottom: 10px;">📝</div>
+                <h2>Class Notes</h2>
+                <p>Raw & Digitalized</p>
+            </div>
+
+            <div class="card" onclick="alert('Question bank coming soon.')">
+                <div style="font-size: 3rem; margin-bottom: 10px;">❓</div>
+                <h2>Questions</h2>
+                <p>Previous Years & Practice</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTES MODAL -->
+    <div class="modal-overlay" id="notesModal" onclick="closeModalOutside(event)">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="modal-back" id="modalBackBtn" onclick="showFormatView()">⬅ Back</span>
+                <span class="modal-title" id="modalTitle">Select Format</span>
+                <span class="modal-close" onclick="closeModal()">×</span>
+            </div>
+
+            <!-- VIEW 1: SELECT FORMAT -->
+            <div id="view-format">
+                <button class="btn" onclick="showTopics('raw')">📄 Raw (PDF Scans)</button>
+                <button class="btn" onclick="showTopics('digital')">💻 Digitalized (HTML)</button>
+            </div>
+
+            <!-- VIEW 2: LIST OF TOPICS -->
+            <div id="view-list">
+                <!-- Content injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATABASE OF NOTES ---
+        // Edit this object to add more notes in the future
+        const notesDB = {
+            'digital': [
+                { title: "Unit 1: Model Fitting & Supervised Learning", date: "Jan 2025", url: "disruptive-notes.html" }
+            ],
+            'raw': [
+                { title: "Unit 1: Handwritten Scan", date: "Jan 2025", url: "#" } // Placeholder link
+            ]
+        };
+
+        // --- THEME LOGIC ---
+        function setTheme(themeName) {
+            document.body.className = themeName;
+            localStorage.setItem('disruptive-theme', themeName);
+        }
+        (function() {
+            const savedTheme = localStorage.getItem('disruptive-theme') || 'theme-plain';
+            document.body.className = savedTheme;
+            document.getElementById('theme-switcher').value = savedTheme;
+        })();
+
+        // --- MODAL LOGIC ---
+        const modal = document.getElementById('notesModal');
+        const viewFormat = document.getElementById('view-format');
+        const viewList = document.getElementById('view-list');
+        const modalTitle = document.getElementById('modalTitle');
+        const backBtn = document.getElementById('modalBackBtn');
+
+        function openModal() {
+            modal.classList.add('active');
+            showFormatView(); // Always start at format selection
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        function closeModalOutside(e) {
+            if(e.target === modal) closeModal();
+        }
+
+        // Show View 1: Format Selection
+        function showFormatView() {
+            viewFormat.style.display = 'flex';
+            viewList.style.display = 'none';
+            modalTitle.innerText = "Select Format";
+            backBtn.style.visibility = 'hidden';
+        }
+
+        // Show View 2: Topic List
+        function showTopics(type) {
+            const data = notesDB[type];
+            viewFormat.style.display = 'none';
+            viewList.style.display = 'flex';
+            backBtn.style.visibility = 'visible';
+            
+            modalTitle.innerText = type === 'digital' ? "Digital Notes" : "Raw PDFs";
+            
+            // Clear previous list
+            viewList.innerHTML = '';
+
+            if(data.length === 0) {
+                viewList.innerHTML = '<p style="opacity:0.6;">No notes found for this category.</p>';
+                return;
+            }
+
+            // Generate List Items
+            data.forEach(note => {
+                const item = document.createElement('div');
+                item.className = 'note-item';
+                item.onclick = () => {
+                    if(note.url === '#') alert('File not uploaded yet.');
+                    else window.location.href = note.url;
+                };
+                
+                item.innerHTML = `
+                    <div class="note-info">
+                        <div class="note-title">${note.title}</div>
+                        <div class="note-date">${note.date}</div>
+                    </div>
+                    <div>➤</div>
+                `;
+                viewList.appendChild(item);
+            });
+        }
+    </script>
+</body>
+</html>
