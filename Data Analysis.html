@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analysis: The Complete Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
+
+        :root {
+            --bg-color: #f9f9f9;
+            --text-color: #2c3e50;
+            --primary-accent: #e67e22; /* Vibrant Orange */
+            --secondary-accent: #2980b9; /* Deep Blue */
+            --tertiary-accent: #27ae60; /* Emerald Green */
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Magazine Layout Wrapper */
+        .magazine-wrapper {
+            max-width: 1100px;
+            margin: 40px auto;
+            background: var(--card-bg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border-top: 8px solid var(--primary-accent);
+        }
+
+        /* Hero Header */
+        .magazine-header {
+            padding: 60px 40px;
+            text-align: center;
+            background: linear-gradient(to bottom, #ffffff, #f1f5f9);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .category-tag {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85em;
+            color: var(--primary-accent);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        h1.headline {
+            font-family: 'Playfair Display', serif;
+            font-size: 4em;
+            font-weight: 900;
+            line-height: 1.1;
+            margin: 0 0 20px 0;
+            color: var(--text-color);
+        }
+
+        .subheadline {
+            font-size: 1.4em;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 50px 40px;
+        }
+
+        .grid-2-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2-col {
+                grid-template-columns: 1fr;
+            }
+            h1.headline { font-size: 2.5em; }
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2em;
+            color: var(--secondary-accent);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        h3 {
+            font-size: 1.3em;
+            color: var(--text-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.15em;
+            margin-bottom: 20px;
+        }
+
+        ul.styled-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul.styled-list li {
+            font-size: 1.15em;
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        ul.styled-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-accent);
+            font-weight: bold;
+        }
+
+        /* Callout Box */
+        .callout-box {
+            background: #f8fafc;
+            border-left: 5px solid var(--tertiary-accent);
+            padding: 25px;
+            margin: 30px 0;
+            font-size: 1.1em;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Animations & SVG Containers */
+        .svg-showcase {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .svg-caption {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #64748b;
+            margin-top: 15px;
+            font-size: 0.95em;
+        }
+
+        /* Interactive Timeline (Lifecycle) */
+        .lifecycle-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .lifecycle-step {
+            background: var(--secondary-accent);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+            position: relative;
+            animation: pulseBg 3s infinite alternate;
+        }
+
+        .lifecycle-step::after {
+            content: '>';
+            position: absolute;
+            right: -12px;
+            color: var(--text-color);
+            font-weight: bold;
+        }
+        .lifecycle-step:last-child::after { content: ''; }
+
+        @keyframes pulseBg {
+            0% { box-shadow: 0 0 0 0 rgba(41, 128, 185, 0.4); }
+            100% { box-shadow: 0 0 10px 4px rgba(41, 128, 185, 0); }
+        }
+
+        /* Tools Tags */
+        .tool-tag {
+            display: inline-block;
+            background: white;
+            border: 2px solid var(--primary-accent);
+            color: var(--primary-accent);
+            padding: 5px 15px;
+            border-radius: 4px;
+            margin: 5px;
+            font-weight: bold;
+        }
+
+        /* Q&A Section Styling */
+        .qa-section {
+            background: #1e293b;
+            color: white;
+            padding: 60px 40px;
+        }
+
+        .qa-section h2 {
+            color: white;
+            border-color: #334155;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        details {
+            background: #334155;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            overflow: hidden;
+            border-left: 4px solid var(--primary-accent);
+        }
+
+        summary {
+            padding: 20px;
+            font-size: 1.15em;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        summary::-webkit-details-marker { display: none; }
+        summary::after {
+            content: '+';
+            font-size: 1.5em;
+            color: var(--primary-accent);
+        }
+        details[open] summary::after { content: '-'; }
+
+        .answer-text {
+            padding: 0 20px 20px 20px;
+            font-size: 1.1em;
+            color: #cbd5e1;
+            line-height: 1.7;
+            border-top: 1px solid #475569;
+            margin-top: 10px;
+            padding-top: 15px;
+        }
+
+        /* Specific SVG Keyframes */
+        @keyframes dropData {
+            0% { transform: translateY(-50px); opacity: 0; }
+            30% { opacity: 1; }
+            70% { transform: translateY(80px); opacity: 1; }
+            100% { transform: translateY(120px); opacity: 0; }
+        }
+        .data-drop-1 { animation: dropData 2.5s infinite linear; }
+        .data-drop-2 { animation: dropData 2.5s infinite linear 0.8s; }
+        .data-drop-3 { animation: dropData 2.5s infinite linear 1.6s; }
+
+        @keyframes bulbGlow {
+            0%, 100% { fill: #f39c12; filter: drop-shadow(0 0 2px #f1c40f); }
+            50% { fill: #f1c40f; filter: drop-shadow(0 0 15px #f1c40f); }
+        }
+        .insight-bulb { animation: bulbGlow 2s infinite ease-in-out; }
+
+        @keyframes scanGlass {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(60px, -20px); }
+            100% { transform: translate(0, 0); }
+        }
+        .magnify { animation: scanGlass 4s infinite ease-in-out; }
+
+        @keyframes trendGrow {
+            0% { stroke-dashoffset: 100; opacity: 0; }
+            50%, 100% { stroke-dashoffset: 0; opacity: 1; }
+        }
+        .trend-line { 
+            stroke-dasharray: 100;
+            animation: trendGrow 3s infinite;
+        }
+
+        @keyframes pulseTarget {
+            0% { r: 5; opacity: 1; }
+            100% { r: 25; opacity: 0; }
+        }
+        .target-ring { animation: pulseTarget 1.5s infinite ease-out; }
+
+        @keyframes conveyorMove {
+            0% { stroke-dashoffset: 100; }
+            100% { stroke-dashoffset: 0; }
+        }
+        .conveyor-belt {
+            stroke-dasharray: 10;
+            animation: conveyorMove 1s infinite linear;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="magazine-wrapper">
+        
+        <!-- Header -->
+        <header class="magazine-header">
+            <span class="category-tag">Disruptive Technology</span>
+            <h1 class="headline">The Art of Data Analysis</h1>
+            <p class="subheadline">How raw numbers and chaotic inputs are transformed into the insights that predict the future and drive modern decision-making.</p>
+        </header>
+
+        <!-- Section 1: Definition & Outcomes -->
+        <section class="content-section grid-2-col">
+            <div>
+                <h2>What is Data Analysis?</h2>
+                <p>Data Analytics is a systematic process of <strong>data collection, data cleaning, organizing, analyzing,</strong> and <strong>interpreting data</strong> to extract meaningful insights for better decision-making.</p>
+                
+                <h3>Basic Outcomes of Analytical Projects</h3>
+                <p>Organizations invest heavily in analytics to achieve these five foundational outcomes:</p>
+                <ul class="styled-list">
+                    <li>Improve Decision Making</li>
+                    <li>Identifying Patterns and Trends</li>
+                    <li>Increase Operational Efficiency</li>
+                    <li>Reduce Risk</li>
+                    <li>Outcome Prediction</li>
+                </ul>
+            </div>
+            
+            <div class="svg-showcase">
+                <!-- SVG 1: The Funnel of Analytics -->
+                <svg width="300" height="300" viewBox="0 0 300 300">
+                    <!-- Falling Data -->
+                    <g class="data-drop-1" font-family="monospace" font-size="18" fill="#7f8c8d">
+                        <text x="120" y="40">101</text>
+                        <text x="160" y="20">{x}</text>
+                    </g>
+                    <g class="data-drop-2" font-family="monospace" font-size="18" fill="#7f8c8d">
+                        <text x="140" y="10">NaN</text>
+                        <text x="170" y="40">01</text>
+                    </g>
+                    <g class="data-drop-3" font-family="monospace" font-size="18" fill="#7f8c8d">
+                        <text x="110" y="30">null</text>
+                        <text x="150" y="50">#</text>
+                    </g>
+                    
+                    <!-- Funnel -->
+                    <path d="M 50 80 L 250 80 L 180 180 L 180 230 L 120 230 L 120 180 Z" fill="none" stroke="#2980b9" stroke-width="4"/>
+                    <line x1="80" y1="120" x2="220" y2="120" stroke="#3498db" stroke-width="2" stroke-dasharray="5"/>
+                    <line x1="100" y1="150" x2="200" y2="150" stroke="#3498db" stroke-width="2" stroke-dasharray="5"/>
+
+                    <!-- Glowing Insight Bulb -->
+                    <path class="insight-bulb" d="M 150 240 C 135 240 130 255 130 265 C 130 275 140 280 140 280 L 160 280 C 160 280 170 275 170 265 C 170 255 165 240 150 240 Z"/>
+                    <rect x="142" y="282" width="16" height="8" fill="#95a5a6"/>
+                </svg>
+                <div class="svg-caption">Fig 1: Processing raw, chaotic data through the analytics funnel to extract glowing insights.</div>
+            </div>
+        </section>
+
+        <!-- Section 2: Types of Analysis -->
+        <section class="content-section" style="background: #fdfdfd; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+            <h2>The Four Types of Data Analysis</h2>
+            <p>Data analysis is an evolutionary scale. As systems become more advanced, they move from simply looking at the past to actively shaping the future.</p>
+
+            <!-- SVG 2: 4 Types Grid -->
+            <div class="svg-showcase" style="background: white; margin: 40px 0;">
+                <svg width="100%" height="250" viewBox="0 0 800 250">
+                    
+                    <!-- 1. Descriptive -->
+                    <g transform="translate(40, 40)">
+                        <rect x="0" y="0" width="150" height="150" fill="#f8fafc" stroke="#cbd5e1" rx="8"/>
+                        <text x="75" y="130" font-family="sans-serif" font-size="14" font-weight="bold" fill="#2c3e50" text-anchor="middle">1. Descriptive</text>
+                        <text x="75" y="145" font-family="sans-serif" font-size="10" fill="#7f8c8d" text-anchor="middle">What happened?</text>
+                        <!-- Bar Chart -->
+                        <rect x="30" y="80" width="20" height="30" fill="#3498db"/>
+                        <rect x="65" y="50" width="20" height="60" fill="#3498db"/>
+                        <rect x="100" y="20" width="20" height="90" fill="#3498db"/>
+                    </g>
+
+                    <!-- 2. Diagnostic -->
+                    <g transform="translate(230, 40)">
+                        <rect x="0" y="0" width="150" height="150" fill="#f8fafc" stroke="#cbd5e1" rx="8"/>
+                        <text x="75" y="130" font-family="sans-serif" font-size="14" font-weight="bold" fill="#2c3e50" text-anchor="middle">2. Diagnostic</text>
+                        <text x="75" y="145" font-family="sans-serif" font-size="10" fill="#7f8c8d" text-anchor="middle">Why did it happen?</text>
+                        <!-- Chart with Magnifying Glass -->
+                        <path d="M 30 80 L 60 40 L 90 60 L 120 20" fill="none" stroke="#bdc3c7" stroke-width="4"/>
+                        <g class="magnify">
+                            <circle cx="50" cy="50" r="15" fill="rgba(46, 204, 113, 0.2)" stroke="#27ae60" stroke-width="3"/>
+                            <line x1="60" y1="60" x2="75" y2="75" stroke="#27ae60" stroke-width="4"/>
+                        </g>
+                    </g>
+
+                    <!-- 3. Predictive -->
+                    <g transform="translate(420, 40)">
+                        <rect x="0" y="0" width="150" height="150" fill="#f8fafc" stroke="#cbd5e1" rx="8"/>
+                        <text x="75" y="130" font-family="sans-serif" font-size="14" font-weight="bold" fill="#2c3e50" text-anchor="middle">3. Predictive</text>
+                        <text x="75" y="145" font-family="sans-serif" font-size="10" fill="#7f8c8d" text-anchor="middle">What will happen?</text>
+                        <!-- Trend Line -->
+                        <path d="M 30 90 Q 75 90 120 20" fill="none" stroke="#e67e22" stroke-width="4" class="trend-line"/>
+                        <circle cx="120" cy="20" r="6" fill="#e67e22"/>
+                    </g>
+
+                    <!-- 4. Prescriptive -->
+                    <g transform="translate(610, 40)">
+                        <rect x="0" y="0" width="150" height="150" fill="#f8fafc" stroke="#cbd5e1" rx="8"/>
+                        <text x="75" y="130" font-family="sans-serif" font-size="14" font-weight="bold" fill="#2c3e50" text-anchor="middle">4. Prescriptive</text>
+                        <text x="75" y="145" font-family="sans-serif" font-size="10" fill="#7f8c8d" text-anchor="middle">What should we do?</text>
+                        <!-- Action Target -->
+                        <circle cx="75" cy="55" r="25" fill="none" stroke="#8e44ad" stroke-width="4"/>
+                        <circle cx="75" cy="55" r="10" fill="#8e44ad"/>
+                        <circle cx="75" cy="55" r="0" fill="none" stroke="#8e44ad" stroke-width="2" class="target-ring"/>
+                    </g>
+
+                </svg>
+            </div>
+
+            <div class="grid-2-col">
+                <div>
+                    <ul class="styled-list">
+                        <li><strong>Descriptive Analysis:</strong> Examines historical data to understand past events.</li>
+                        <li><strong>Diagnostic Analysis:</strong> Finds the root causes for anything that happened in our data. <em>(Why did it happen?)</em></li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="styled-list">
+                        <li><strong>Predictive Analysis:</strong> Works with Machine Learning (ML) algorithms to predict future or target values based on existing data.</li>
+                        <li><strong>Prescriptive Analysis:</strong> Generates data output that prescribes or recommends specific actions.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Lifecycle & Tools -->
+        <section class="content-section">
+            <h2>The Data Analytics Lifecycle</h2>
+            <p>Professional data analysis is not random; it follows a strict, 7-step assembly line to ensure accuracy and actionable results.</p>
+            
+            <div class="lifecycle-container">
+                <div class="lifecycle-step">Problem Def.</div>
+                <div class="lifecycle-step">Data Collection</div>
+                <div class="lifecycle-step">Data Cleaning</div>
+                <div class="lifecycle-step">Data Transform</div>
+                <div class="lifecycle-step" style="background: var(--primary-accent);">Data Analysis</div>
+                <div class="lifecycle-step">Visualization</div>
+                <div class="lifecycle-step" style="background: var(--tertiary-accent);">Decision Making</div>
+            </div>
+
+            <div class="callout-box">
+                <h3>The Analyst's Toolkit</h3>
+                <p><strong>Programming:</strong> <span class="tool-tag">Python</span> <span class="tool-tag">R</span> <span class="tool-tag">SQL</span></p>
+                <p><strong>Visualization:</strong> <span class="tool-tag">Excel</span> <span class="tool-tag">Power BI</span> <span class="tool-tag">Tableau*</span></p>
+                <p><strong>Data Storing:</strong> Cloud Platforms, Big Data infrastructure.</p>
+                <p style="font-size: 0.85em; color: #7f8c8d; margin-top: 15px;"><em>*Note from the editor: "Tab loop" in classroom notes is frequently a mishearing of <strong>Tableau</strong>, one of the tech industry's leading, standard data visualization tools!</em></p>
+            </div>
+        </section>
+
+        <!-- Section 4: Problem Statement -->
+        <section class="content-section" style="background: #f0f8ff;">
+            <h2>Real-World Problem Statement</h2>
+            <p><strong>The Objective:</strong> Create a system that calculates a student's final marks on the basis of their attendance percentage, mid-sem marks, and viva marks. What type of ML model do you need to solve this problem?</p>
+            
+            <p style="font-size: 1.3em; color: var(--tertiary-accent); font-weight: bold;">Answer: A Supervised Learning Model.</p>
+
+            <!-- SVG 4: Supervised Learning -->
+            <div class="svg-showcase" style="background: white;">
+                <svg width="600" height="200" viewBox="0 0 600 200">
+                    <!-- Inputs -->
+                    <rect x="20" y="20" width="120" height="30" rx="4" fill="#3498db"/>
+                    <text x="80" y="40" font-family="sans-serif" font-size="12" fill="white" text-anchor="middle">Attendance %</text>
+                    
+                    <rect x="20" y="85" width="120" height="30" rx="4" fill="#3498db"/>
+                    <text x="80" y="105" font-family="sans-serif" font-size="12" fill="white" text-anchor="middle">Mid-Sem Marks</text>
+                    
+                    <rect x="20" y="150" width="120" height="30" rx="4" fill="#3498db"/>
+                    <text x="80" y="170" font-family="sans-serif" font-size="12" fill="white" text-anchor="middle">Viva Marks</text>
+
+                    <!-- Arrows to Model -->
+                    <path d="M 140 35 L 250 100" stroke="#95a5a6" stroke-width="2" marker-end="url(#arrow)"/>
+                    <path d="M 140 100 L 250 100" stroke="#95a5a6" stroke-width="2" marker-end="url(#arrow)"/>
+                    <path d="M 140 165 L 250 100" stroke="#95a5a6" stroke-width="2" marker-end="url(#arrow)"/>
+
+                    <!-- ML Model Node -->
+                    <rect x="250" y="60" width="140" height="80" rx="10" fill="#2c3e50"/>
+                    <text x="320" y="95" font-family="sans-serif" font-size="14" font-weight="bold" fill="#f1c40f" text-anchor="middle">SUPERVISED</text>
+                    <text x="320" y="115" font-family="sans-serif" font-size="12" fill="white" text-anchor="middle">Learning Model</text>
+
+                    <!-- Arrow to Output -->
+                    <path d="M 390 100 L 460 100" stroke="#95a5a6" stroke-width="3" stroke-dasharray="5" class="conveyor-belt"/>
+
+                    <!-- Output -->
+                    <rect x="460" y="70" width="120" height="60" rx="8" fill="#27ae60"/>
+                    <text x="520" y="105" font-family="sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">Final Marks</text>
+                </svg>
+                <div class="svg-caption">Fig 2: Because we have known input features predicting a known output label, a Supervised ML model is required.</div>
+            </div>
+        </section>
+
+        <!-- Interactive Q&A Section -->
+        <section class="qa-section">
+            <h2>Test Your Knowledge</h2>
+            <p style="text-align: center; color: #94a3b8; margin-bottom: 30px;">Click the questions below to reveal the in-depth answers and review your mastery of Data Analysis.</p>
+
+            <details>
+                <summary>1. What is the primary goal of Data Analytics?</summary>
+                <div class="answer-text">The primary goal of Data Analytics is to transform raw, chaotic data into a structured format through systematic collection, cleaning, and organization. Ultimately, it aims to extract meaningful, actionable insights that empower businesses and individuals to make better, data-driven decisions.</div>
+            </details>
+
+            <details>
+                <summary>2. Name three of the five basic outcomes of data analytical projects.</summary>
+                <div class="answer-text">Any three of the following are correct: 1) Improve decision making by relying on facts rather than intuition, 2) Identifying hidden patterns and trends within large datasets, 3) Increase operational efficiency by optimizing processes, 4) Reduce risk by foreseeing potential issues, and 5) Outcome prediction using historical data.</div>
+            </details>
+
+            <details>
+                <summary>3. If a retail store notices a sudden drop in sales and wants to figure out why, which type of Analysis should they use?</summary>
+                <div class="answer-text">Diagnostic Analysis is the perfect tool for this scenario. While descriptive analysis tells you that sales dropped, diagnostic analysis digs deeper to find the root causes—answering exactly <em>why</em> it happened by identifying anomalies or specific correlations in the historical data.</div>
+            </details>
+
+            <details>
+                <summary>4. Which type of Data Analysis heavily involves Machine Learning algorithms?</summary>
+                <div class="answer-text">Predictive Analysis. This advanced stage relies heavily on Machine Learning (ML) algorithms. By feeding historical data into these algorithms, the system can identify patterns and predict future outcomes or target values with a high degree of probability.</div>
+            </details>
+
+            <details>
+                <summary>5. What is Prescriptive Analysis?</summary>
+                <div class="answer-text">Prescriptive Analysis is the final and most advanced stage of data analysis. Once the system predicts what will happen, prescriptive analysis takes it a step further by prescribing or recommending specific, actionable solutions to optimize the outcome based on the data.</div>
+            </details>
+
+            <details>
+                <summary>6. According to the Lifecycle, what is the very first step you must take before collecting data?</summary>
+                <div class="answer-text">The very first, crucial step is Problem Definition. Before gathering a single piece of data, analysts must clearly define the business problem or objective they are trying to solve to ensure the rest of the lifecycle is focused and effective.</div>
+            </details>
+
+            <details>
+                <summary>7. After Data Analysis is complete, what is the next immediate step in the lifecycle?</summary>
+                <div class="answer-text">Following Data Analysis, the next immediate step is Data Visualization. This involves translating complex analytical results into visual formats like charts, graphs, and dashboards, making it easier for stakeholders to digest the insights before Decision Making.</div>
+            </details>
+
+            <details>
+                <summary>8. Name one programming language and one visualization tool used in Data Analytics.</summary>
+                <div class="answer-text">For Programming, professionals commonly use languages like Python, R, or SQL to query and manipulate data. For Visualization, industry-standard tools include Excel, Power BI, and Tableau.</div>
+            </details>
+
+            <details>
+                <summary>9. Why is calculating Final Marks based on Attendance, Mid-sem, and Viva considered a Supervised model?</summary>
+                <div class="answer-text">You would need a Supervised Learning model because you are providing the algorithm with known input features (attendance, mid-sem, viva) to predict a specific, known output label (final marks). The model uses this "supervised" training to perfectly map the relationship between inputs and outputs.</div>
+            </details>
+        </section>
+
+    </div>
+
+</body>
+</html>

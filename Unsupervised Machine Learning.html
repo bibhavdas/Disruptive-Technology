@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsupervised Machine Learning - Tech Encyclopedia</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --border-color: #e1e4e8;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 40px 20px;
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        /* Sidebar Table of Contents */
+        .sidebar {
+            width: 250px;
+            background-color: #fbfbfb;
+            border-right: 1px solid var(--border-color);
+            padding: 20px;
+            display: none;
+        }
+
+        @media(min-width: 768px) {
+            .sidebar { display: block; }
+        }
+
+        .sidebar h3 {
+            font-size: 1.1em;
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            font-size: 0.95em;
+            transition: color 0.2s;
+        }
+
+        .sidebar a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        /* Main Content */
+        .content {
+            flex: 1;
+            padding: 40px;
+            max-width: 800px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-top: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            color: #444;
+        }
+
+        p, li {
+            font-size: 1.05em;
+            color: #4a4a4a;
+        }
+
+        .highlight {
+            background-color: #eef5f9;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .qa-box {
+            background: #fafafa;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .qa-box strong {
+            display: block;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        /* SVG Containers */
+        .svg-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            background: #f8f9fa;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* SVG Animations */
+        @keyframes clusterAnimation1 {
+            0%, 20% { transform: translate(0, 0); }
+            80%, 100% { transform: translate(-80px, -40px); }
+        }
+        @keyframes clusterAnimation2 {
+            0%, 20% { transform: translate(0, 0); }
+            80%, 100% { transform: translate(80px, 50px); }
+        }
+        .dot-group-1 { animation: clusterAnimation1 4s infinite alternate ease-in-out; }
+        .dot-group-2 { animation: clusterAnimation2 4s infinite alternate ease-in-out; }
+        
+        @keyframes pulseScam {
+            0% { r: 5; fill: var(--accent-color); opacity: 0.5; }
+            50% { r: 10; fill: red; opacity: 1; }
+            100% { r: 5; fill: var(--accent-color); opacity: 0.5; }
+        }
+        .scam-dot { animation: pulseScam 2s infinite; }
+
+        @keyframes outlierMove {
+            0%, 20% { transform: translateX(0); opacity: 1; }
+            80%, 100% { transform: translateX(200px); fill: var(--accent-color); }
+        }
+        .outlier-dot { animation: outlierMove 4s infinite alternate ease-in-out; }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <h3>Contents</h3>
+            <ul>
+                <li><a href="#definition">1. What is Unsupervised Machine Learning?</a></li>
+                <li><a href="#types">2. Two Main Types</a></li>
+                <li><a href="#clustering-types">3. Types of Clustering</a></li>
+                <li><a href="#scams">4. Real-World Application: Spotting Scams</a></li>
+                <li><a href="#outliers">5. What is an Outlier?</a></li>
+                <li><a href="#quiz">Test Your Knowledge!</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Article -->
+        <article class="content">
+            <p><em>Category: Disruptive Technology > Unsupervised Machine Learning</em></p>
+            <h1>Unsupervised Machine Learning</h1>
+
+            <h2 id="definition">1. What is Unsupervised Machine Learning?</h2>
+            <p>Imagine you have a huge bucket of mixed-up Legos, but no instruction manual telling you what to build or what the pieces are. If you decide to group them by color or size all by yourself, you are acting like an <strong>Unsupervised Machine Learning</strong> model!</p>
+            
+            <div class="highlight">
+                <strong>The Definition:</strong> In unsupervised learning, we feed the computer <strong>unlabeled data</strong> (data that doesn't have "tags" or "right answers" attached to it). The machine's job is to analyze this data on its own and find hidden patterns, structures, and relationships <strong>without any human intervention</strong>.
+            </div>
+
+            <p><strong>The Salary vs. Spending Example:</strong> Consider a graph comparing "Salary" and "Spending". If a store feeds customer data into an unsupervised machine, it might group (or "cluster") customers together. For example, it might discover a group of people with <em>low salary but high spending</em>, or <em>high salary and low spending</em>. The machine figures out these groups entirely on its own!</p>
+
+            <!-- SVG Animation: Clustering -->
+            <div class="svg-container">
+                <svg width="400" height="200" viewBox="0 0 400 200">
+                    <text x="10" y="20" font-family="sans-serif" font-size="12" fill="#666">Machine organizing random data into clusters...</text>
+                    
+                    <!-- Axes -->
+                    <line x1="40" y1="180" x2="380" y2="180" stroke="#333" stroke-width="2"/>
+                    <line x1="40" y1="180" x2="40" y2="40" stroke="#333" stroke-width="2"/>
+                    <text x="340" y="195" font-family="sans-serif" font-size="12">Salary</text>
+                    <text x="10" y="35" font-family="sans-serif" font-size="12">Spending</text>
+
+                    <!-- Group 1 -->
+                    <g class="dot-group-1" fill="#3498db">
+                        <circle cx="200" cy="100" r="5" />
+                        <circle cx="215" cy="95" r="5" />
+                        <circle cx="190" cy="110" r="5" />
+                        <circle cx="205" cy="115" r="5" />
+                    </g>
+
+                    <!-- Group 2 -->
+                    <g class="dot-group-2" fill="#2ecc71">
+                        <circle cx="180" cy="120" r="5" />
+                        <circle cx="170" cy="105" r="5" />
+                        <circle cx="160" cy="130" r="5" />
+                        <circle cx="190" cy="125" r="5" />
+                    </g>
+                </svg>
+            </div>
+
+            <h2 id="types">2. Two Main Types of Unsupervised Learning</h2>
+            <p>This branch of machine learning is typically divided into two main methodologies:</p>
+
+            <h3>A. Association</h3>
+            <ul>
+                <li><strong>What it is:</strong> This is a rule-based method used to find interesting, hidden relationships between different items.</li>
+                <li><strong>The Example:</strong> The <strong>[Butter / Bread]</strong> pairing is a classic example! If a machine analyzes supermarket receipts, it might notice a pattern: <em>If a customer buys bread, they are highly likely to buy butter.</em> The store can use this "association" to put butter and bread next to each other in the aisle to increase sales.</li>
+            </ul>
+
+            <h3>B. Clustering</h3>
+            <ul>
+                <li><strong>What it is:</strong> This is the method of grouping data points together. The rule is simple: objects inside the <em>same</em> group (cluster) should be very similar to each other, and objects in <em>different</em> groups should be very different from each other.</li>
+            </ul>
+
+            <h2 id="clustering-types">3. Types of Clustering</h2>
+            <p>Clustering can be further broken down into specific algorithms:</p>
+            <ul>
+                <li><strong>Hierarchical Clustering:</strong> Think of this like a family tree. It groups similar data points into a "tree-like structure." The best part about this method is that you don't need to tell the computer how many clusters to make in advance; it builds the tree organically.</li>
+                <li><strong>Partitional Clustering:</strong> This method divides data into strict, non-overlapping subsets. Every single piece of data belongs to <em>exactly one</em> group, with no overlap.</li>
+            </ul>
+
+            <h2 id="scams">4. Real-World Application: Spotting Scams</h2>
+            <p>Clustering is incredibly useful in the banking and finance sector. Imagine a system observing normal groups of transactions labeled <strong>CREDIT, BANK,</strong> and <strong>UPI</strong>.</p>
+            
+            <p><strong>What it means:</strong> If the machine groups normal, safe transactions into distinct clusters, anything that <em>doesn't</em> fit into those normal groups stands out as an "unclassified event." These weird, out-of-place events are often flagged as potential <strong>scams or fraud</strong>.</p>
+
+            <!-- SVG Animation: Scam Detection -->
+            <div class="svg-container">
+                <svg width="400" height="200" viewBox="0 0 400 200">
+                    <text x="10" y="20" font-family="sans-serif" font-size="12" fill="#666">Spotting unclassified events (Scams)</text>
+                    
+                    <!-- Normal Bank Cluster -->
+                    <circle cx="120" cy="100" r="40" fill="none" stroke="#3498db" stroke-dasharray="4"/>
+                    <text x="105" y="70" font-family="sans-serif" font-size="10" fill="#3498db">Normal Bank</text>
+                    <circle cx="110" cy="90" r="4" fill="#3498db"/>
+                    <circle cx="130" cy="110" r="4" fill="#3498db"/>
+                    <circle cx="100" cy="115" r="4" fill="#3498db"/>
+                    <circle cx="135" cy="85" r="4" fill="#3498db"/>
+
+                    <!-- Normal UPI Cluster -->
+                    <circle cx="250" cy="120" r="40" fill="none" stroke="#2ecc71" stroke-dasharray="4"/>
+                    <text x="235" y="90" font-family="sans-serif" font-size="10" fill="#2ecc71">Normal UPI</text>
+                    <circle cx="240" cy="110" r="4" fill="#2ecc71"/>
+                    <circle cx="260" cy="130" r="4" fill="#2ecc71"/>
+                    <circle cx="230" cy="135" r="4" fill="#2ecc71"/>
+                    <circle cx="265" cy="105" r="4" fill="#2ecc71"/>
+
+                    <!-- Scam / Outlier -->
+                    <text x="320" y="55" font-family="sans-serif" font-size="12" fill="#e74c3c" font-weight="bold">SCAM?</text>
+                    <path d="M 330 65 L 340 85" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <circle cx="345" cy="95" r="6" class="scam-dot"/>
+                </svg>
+            </div>
+
+            <h2 id="outliers">5. What is an Outlier?</h2>
+            <p>Imagine a graph showing a cluster of dots. Most of the dots represent ages ranging from 18 to 20, so the average age is around 19.</p>
+            <p>However, there is one dot sitting way out there on its own: <strong>Age 30</strong>.</p>
+            <p><strong>The Concept:</strong> Because "Age 30" is so different from the rest of the group, it will pull the mathematical average up, distorting the data. Data points that are drastically different from the rest of the crowd are called <strong>OUTLIERS</strong>. Unsupervised learning is great at catching these outliers!</p>
+
+            <!-- SVG Animation: Outliers -->
+            <div class="svg-container">
+                <svg width="400" height="150" viewBox="0 0 400 150">
+                    <text x="10" y="20" font-family="sans-serif" font-size="12" fill="#666">How an outlier distorts average data...</text>
+                    
+                    <line x1="40" y1="100" x2="380" y2="100" stroke="#333" stroke-width="2"/>
+                    <text x="60" y="120" font-family="sans-serif" font-size="12">Age 18-20</text>
+                    <text x="280" y="120" font-family="sans-serif" font-size="12">Age 30</text>
+
+                    <!-- Normal Cluster -->
+                    <circle cx="70" cy="90" r="5" fill="#3498db"/>
+                    <circle cx="85" cy="85" r="5" fill="#3498db"/>
+                    <circle cx="95" cy="95" r="5" fill="#3498db"/>
+                    <circle cx="80" cy="75" r="5" fill="#3498db"/>
+                    <circle cx="105" cy="88" r="5" fill="#3498db"/>
+
+                    <!-- Moving Outlier -->
+                    <circle cx="100" cy="90" r="5" fill="#3498db" class="outlier-dot"/>
+                </svg>
+            </div>
+
+            <h2 id="quiz">Test Your Knowledge!</h2>
+            <p>Here are some questions and answers to help you study and ensure you've mastered the concepts:</p>
+
+            <div class="qa-box">
+                <strong>1. What is the main difference between the data used in supervised learning vs. unsupervised learning?</strong>
+                Unsupervised learning uses <strong>unlabelled data</strong> (data that doesn't have "tags," categories, or correct answers attached to it). The machine has to figure it out on its own.
+            </div>
+
+            <div class="qa-box">
+                <strong>2. In your own words, what is the main goal of Unsupervised Machine Learning?</strong>
+                The main goal is to analyze unlabelled data to find hidden patterns, structures, and relationships <strong>without any human intervention</strong>.
+            </div>
+
+            <div class="qa-box">
+                <strong>3. If a grocery store wants to know which products are frequently bought together, which unsupervised learning technique should they use: Association or Clustering?</strong>
+                They should use <strong>Association</strong>.
+            </div>
+
+            <div class="qa-box">
+                <strong>4. Explain the "Bread/Butter" concept in the context of Machine Learning.</strong>
+                This is an example of an <strong>Association</strong> rule. It means the machine identifies hidden relationships between items—like noticing that customers who buy bread are also highly likely to buy butter. Stores use these insights to stock related items together.
+            </div>
+
+            <div class="qa-box">
+                <strong>5. What is the core rule of Clustering regarding "similarities" inside a group versus outside a group?</strong>
+                The core rule is to group objects so that objects <em>inside</em> the same cluster share the <strong>most similarities</strong>, while having <strong>less or no similarities</strong> with the objects of another cluster.
+            </div>
+
+            <div class="qa-box">
+                <strong>6. Which type of clustering creates a "tree-like structure" and does not require you to pre-define the number of clusters?</strong>
+                <strong>Hierarchical Clustering</strong>.
+            </div>
+
+            <div class="qa-box">
+                <strong>7. Which type of clustering divides data into strict, non-overlapping sets where an object can only belong to one subset?</strong>
+                <strong>Partitional Clustering</strong>.
+            </div>
+
+            <div class="qa-box">
+                <strong>8. How can clustering help a bank identify UPI or Credit Card scams?</strong>
+                The machine groups standard, normal transactions into distinct clusters (like normal CREDIT, BANK, or UPI activity). If a transaction happens that does not fit into any of these normal groups, it becomes an "unclassified event." These abnormal events are flagged as potential <strong>scams</strong>.
+            </div>
+
+            <div class="qa-box">
+                <strong>9. What is an "Outlier"?</strong>
+                An outlier is a piece of data that sits far outside the normal range of the rest of the dataset. It is an abnormality that does not fit in with the main cluster.
+            </div>
+
+            <div class="qa-box">
+                <strong>10. Using the previous example, explain how an outlier can affect the average of a dataset.</strong>
+                Consider a cluster of people whose ages are tightly grouped between <strong>18 and 20</strong>, meaning the average age is around 19. However, there is one person who is <strong>Age 30</strong>. Because this number is so much higher than the rest (an outlier), it will artificially pull the mathematical average up, making it look like the group is older than it actually is. Such data are called OUTLIERS.
+            </div>
+
+        </article>
+    </div>
+
+</body>
+</html>

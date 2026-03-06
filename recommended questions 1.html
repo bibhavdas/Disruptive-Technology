@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disruptive Technology - Exam Prep Guide</title>
+    <style>
+        :root {
+            --paper-bg: #fdfbf7;
+            --text-dark: #2c3e50;
+            --text-blue: #1e3a8a;
+            --accent-red: #e74c3c;
+            --accent-green: #27ae60;
+            --border-color: #bdc3c7;
+            --highlight: #e0f7fa;
+            --font-main: 'Georgia', serif;
+            --font-ui: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: #e0e4e8;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .exam-sheet {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--paper-bg);
+            padding: 50px 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--accent-red);
+            border-radius: 4px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-family: var(--font-ui);
+            color: var(--text-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            font-family: var(--font-ui);
+            color: var(--text-dark);
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 5px;
+            margin-top: 40px;
+        }
+
+        h3 {
+            color: var(--text-blue);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .question-block {
+            margin-bottom: 25px;
+        }
+
+        .question-text {
+            font-weight: bold;
+            font-family: var(--font-ui);
+            color: #34495e;
+            margin-bottom: 10px;
+        }
+
+        .answer-text {
+            margin-left: 20px;
+        }
+
+        /* Math Fraction Styling */
+        .math-equation {
+            display: inline-flex;
+            align-items: center;
+            font-family: var(--font-ui);
+            font-size: 1.1rem;
+            margin: 10px 0;
+            background: #fff;
+            padding: 10px 15px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .fraction {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            margin: 0 8px;
+        }
+
+        .numerator {
+            border-bottom: 2px solid var(--text-dark);
+            padding: 0 5px 2px;
+            font-weight: bold;
+        }
+
+        .denominator {
+            padding: 2px 5px 0;
+            font-weight: bold;
+        }
+        
+        .operator {
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        /* SVG Animations & Layout */
+        .svg-container {
+            width: 100%;
+            text-align: center;
+            margin: 30px 0;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Matrix Animation */
+        .cell {
+            transition: fill 0.3s;
+        }
+        .cell:hover {
+            fill: var(--highlight);
+        }
+        .tp-cell { animation: pulseGreen 3s infinite alternate; }
+        .fn-cell, .fp-cell { animation: pulseRed 3s infinite alternate; }
+        .tn-cell { animation: pulseGreen 3s infinite alternate 1s; }
+
+        @keyframes pulseGreen {
+            0% { fill: #ffffff; }
+            100% { fill: #e8f5e9; }
+        }
+        @keyframes pulseRed {
+            0% { fill: #ffffff; }
+            100% { fill: #ffebee; }
+        }
+
+        /* Chart Animation */
+        .draw-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: dash 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes dash {
+            0% { stroke-dashoffset: 1000; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        /* Grid for properties */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .highlight-box {
+            background-color: #f1f8ff;
+            border-left: 3px solid #3498db;
+            padding: 10px 15px;
+            font-size: 0.95rem;
+        }
+
+        @media print {
+            body { background-color: white; }
+            .exam-sheet { box-shadow: none; border-left: none; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="exam-sheet">
+    <header>
+        <h1>Disruptive Technology</h1>
+        <p><strong>Section:</strong> AI Evaluation Metrics & General Theory</p>
+        <p><em>Exam Preparation Notes</em></p>
+    </header>
+
+    <!-- SECTION 1: NUMERICALS -->
+    <section>
+        <h2>Part 1: Model Evaluation Calculations</h2>
+        <p><strong>Scenario:</strong> A spam detection model is evaluated. The model correctly identifies most spam emails but also misclassifies some legitimate emails as spam.</p>
+
+        <div class="svg-container">
+            <h3 style="text-align: center; margin-bottom: 15px;">Confusion Matrix Visualization</h3>
+            <svg width="500" height="250" viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg">
+                <!-- Headers -->
+                <text x="215" y="25" font-family="Segoe UI" font-size="14" font-weight="bold" fill="#2c3e50">Predicted Spam</text>
+                <text x="365" y="25" font-family="Segoe UI" font-size="14" font-weight="bold" fill="#2c3e50">Predicted Not Spam</text>
+                
+                <text x="10" y="90" font-family="Segoe UI" font-size="14" font-weight="bold" fill="#2c3e50">Actual Spam</text>
+                <text x="10" y="190" font-family="Segoe UI" font-size="14" font-weight="bold" fill="#2c3e50">Actual Not Spam</text>
+
+                <!-- Grid Cells -->
+                <g stroke="#2c3e50" stroke-width="2">
+                    <!-- TP -->
+                    <rect x="150" y="40" width="150" height="100" fill="white" class="cell tp-cell"/>
+                    <text x="225" y="90" font-family="Segoe UI" font-size="20" font-weight="bold" text-anchor="middle" stroke="none" fill="#27ae60">70</text>
+                    <text x="225" y="115" font-family="Segoe UI" font-size="12" text-anchor="middle" stroke="none" fill="#7f8c8d">True Positive (TP)</text>
+
+                    <!-- FN -->
+                    <rect x="300" y="40" width="150" height="100" fill="white" class="cell fn-cell"/>
+                    <text x="375" y="90" font-family="Segoe UI" font-size="20" font-weight="bold" text-anchor="middle" stroke="none" fill="#e74c3c">10</text>
+                    <text x="375" y="115" font-family="Segoe UI" font-size="12" text-anchor="middle" stroke="none" fill="#7f8c8d">False Negative (FN)</text>
+
+                    <!-- FP -->
+                    <rect x="150" y="140" width="150" height="100" fill="white" class="cell fp-cell"/>
+                    <text x="225" y="190" font-family="Segoe UI" font-size="20" font-weight="bold" text-anchor="middle" stroke="none" fill="#e74c3c">20</text>
+                    <text x="225" y="215" font-family="Segoe UI" font-size="12" text-anchor="middle" stroke="none" fill="#7f8c8d">False Positive (FP)</text>
+
+                    <!-- TN -->
+                    <rect x="300" y="140" width="150" height="100" fill="white" class="cell tn-cell"/>
+                    <text x="375" y="190" font-family="Segoe UI" font-size="20" font-weight="bold" text-anchor="middle" stroke="none" fill="#27ae60">100</text>
+                    <text x="375" y="215" font-family="Segoe UI" font-size="12" text-anchor="middle" stroke="none" fill="#7f8c8d">True Negative (TN)</text>
+                </g>
+            </svg>
+        </div>
+
+        <div class="grid-2">
+            <!-- Accuracy -->
+            <div class="question-block">
+                <div class="question-text">1) Accuracy</div>
+                <div class="answer-text">
+                    <p>Ratio of correct predictions to total observations.</p>
+                    <div class="math-equation">
+                        Accuracy = 
+                        <div class="fraction">
+                            <span class="numerator">TP + TN</span>
+                            <span class="denominator">Total</span>
+                        </div>
+                        =
+                        <div class="fraction">
+                            <span class="numerator">70 + 100</span>
+                            <span class="denominator">200</span>
+                        </div>
+                        = <strong style="color:var(--text-blue); margin-left: 5px;">0.85 (85%)</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Precision -->
+            <div class="question-block">
+                <div class="question-text">2) Precision</div>
+                <div class="answer-text">
+                    <p>Accuracy of the positive predictions.</p>
+                    <div class="math-equation">
+                        Precision = 
+                        <div class="fraction">
+                            <span class="numerator">TP</span>
+                            <span class="denominator">TP + FP</span>
+                        </div>
+                        =
+                        <div class="fraction">
+                            <span class="numerator">70</span>
+                            <span class="denominator">70 + 20</span>
+                        </div>
+                        = <strong style="color:var(--text-blue); margin-left: 5px;">0.777 (77.7%)</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recall -->
+            <div class="question-block">
+                <div class="question-text">3) Recall (Sensitivity)</div>
+                <div class="answer-text">
+                    <p>Ability to find all actual positive instances.</p>
+                    <div class="math-equation">
+                        Recall = 
+                        <div class="fraction">
+                            <span class="numerator">TP</span>
+                            <span class="denominator">TP + FN</span>
+                        </div>
+                        =
+                        <div class="fraction">
+                            <span class="numerator">70</span>
+                            <span class="denominator">70 + 10</span>
+                        </div>
+                        = <strong style="color:var(--text-blue); margin-left: 5px;">0.875 (87.5%)</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- F1 Score -->
+            <div class="question-block">
+                <div class="question-text">4) F1 Score</div>
+                <div class="answer-text">
+                    <p>Harmonic mean of Precision and Recall.</p>
+                    <div class="math-equation">
+                        F1 = 2 × 
+                        <div class="fraction">
+                            <span class="numerator">Prec × Rec</span>
+                            <span class="denominator">Prec + Rec</span>
+                        </div>
+                        = 2 ×
+                        <div class="fraction">
+                            <span class="numerator">0.68</span>
+                            <span class="denominator">1.652</span>
+                        </div>
+                        = <strong style="color:var(--text-blue); margin-left: 5px;">0.823 (82.3%)</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: THEORY -->
+    <section>
+        <h2>Part 2: Theoretical AI Questions</h2>
+
+        <div class="question-block">
+            <div class="question-text">1) Difference between Supervised, Unsupervised, and Semi-Supervised AI Models</div>
+            <div class="answer-text">
+                <ul>
+                    <li><strong>Supervised Learning:</strong> The algorithm is trained using well-labeled data. It maps input variables (X) to an output variable (Y). <em>Example:</em> Image classification (dog vs. cat).</li>
+                    <li><strong>Unsupervised Learning:</strong> The algorithm trains on unlabeled data, finding hidden patterns or intrinsic structures within the data. <em>Example:</em> Customer clustering based on purchasing habits.</li>
+                    <li><strong>Semi-Supervised Learning:</strong> A hybrid approach utilizing a small amount of labeled data alongside a large pool of unlabeled data, drastically reducing the cost of data labeling while improving accuracy.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">2) Brief description about Reinforcement Learning</div>
+            <div class="answer-text">
+                <p>Reinforcement Learning (RL) is a behavior-based learning model where an <strong>agent</strong> learns to make decisions by taking actions in an <strong>environment</strong> to maximize cumulative <strong>rewards</strong>. It operates on a trial-and-error basis. It is widely used in robotics, gaming (e.g., AlphaGo), and autonomous vehicles.</p>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">3) Difference between Regression and Classification. Explain with examples.</div>
+            <div class="answer-text">
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                    <tr style="background: var(--text-blue); color: white;">
+                        <th style="padding: 10px; border: 1px solid var(--border-color);">Feature</th>
+                        <th style="padding: 10px; border: 1px solid var(--border-color);">Classification</th>
+                        <th style="padding: 10px; border: 1px solid var(--border-color);">Regression</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid var(--border-color);"><strong>Output Type</strong></td>
+                        <td style="padding: 10px; border: 1px solid var(--border-color);">Categorical / Discrete (Classes)</td>
+                        <td style="padding: 10px; border: 1px solid var(--border-color);">Continuous / Numerical Values</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid var(--border-color);"><strong>Goal</strong></td>
+                        <td style="padding: 10px; border: 1px solid var(--border-color);">Predict class labels</td>
+                        <td style="padding: 10px; border: 1px solid var(--border-color);">Predict a numerical quantity</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid var(--border-color);"><strong>Example</strong></td>
+                        <td style="padding: 10px; border: 1px solid var(--border-color);">Predicting if an email is <em>Spam</em> or <em>Not Spam</em>.</td>
+                        <td style="padding: 10px; border: 1px solid var(--border-color);">Predicting the <em>price of a house</em> in dollars based on its size.</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">4) Types of Data: Qualitative, Quantitative, Categorical, Continuous</div>
+            <div class="answer-text">
+                <ul>
+                    <li><strong>Quantitative:</strong> Numerical data that can be measured objectively (e.g., Age, Height, Weight).</li>
+                    <li><strong>Qualitative:</strong> Non-numerical data that describes attributes or characteristics (e.g., Texture, Taste).</li>
+                    <li><strong>Categorical:</strong> A subset of qualitative data grouped into categories without a logical order (e.g., Blood Type: A, B, AB, O; Eye Color: Blue, Brown).</li>
+                    <li><strong>Continuous:</strong> A subset of quantitative data that can take any infinite value within a range (e.g., Temperature: 98.6°F, Exact distance: 5.432 miles).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">5) What is NLP, Tokenization, Lemmatization</div>
+            <div class="answer-text">
+                <p><strong>NLP (Natural Language Processing):</strong> A branch of AI enabling computers to comprehend, interpret, and manipulate human language.</p>
+                <div class="highlight-box">
+                    <p><strong>Tokenization:</strong> Breaking text into smaller pieces called tokens (words, subwords, or sentences). <br><em>Ex: "AI is great" &rarr; <code>["AI", "is", "great"]</code></em></p>
+                    <p><strong>Lemmatization:</strong> Reducing a word to its base dictionary form (lemma) based on contextual meaning. <br><em>Ex: "Running", "Ran", "Runs" &rarr; <code>"Run"</code></em></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">6) What is an LLM model?</div>
+            <div class="answer-text">
+                <p><strong>LLM (Large Language Model):</strong> A type of foundational AI model trained on massive amounts of text data using Deep Learning (specifically Transformer architectures). They are capable of understanding context and generating human-like text, translating languages, and writing code. <em>Examples include OpenAI's GPT-4, Google's Gemini, and Meta's LLaMA.</em></p>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">7) Best Fit, Overfit, and Underfit</div>
+            <div class="answer-text">
+                <p>These terms describe how well a machine learning model generalizes to new data.</p>
+                
+                <div class="svg-container">
+                    <h3 style="text-align: center; margin-bottom: 10px;">Model Fitting Visualized</h3>
+                    <svg width="650" height="200" viewBox="0 0 650 200" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="#bdc3c7" />
+                            </marker>
+                        </defs>
+
+                        <!-- UNDERFIT -->
+                        <g transform="translate(30, 20)">
+                            <text x="75" y="-5" font-family="Segoe UI" font-weight="bold" font-size="14" text-anchor="middle" fill="#2c3e50">Underfitting (High Bias)</text>
+                            <!-- Axes -->
+                            <line x1="0" y1="150" x2="160" y2="150" stroke="#bdc3c7" stroke-width="2" marker-end="url(#arrow)"/>
+                            <line x1="0" y1="150" x2="0" y2="0" stroke="#bdc3c7" stroke-width="2" marker-end="url(#arrow)"/>
+                            <!-- Data Points (Parabolic curve shape) -->
+                            <circle cx="20" cy="110" r="4" fill="#3498db" />
+                            <circle cx="50" cy="60" r="4" fill="#3498db" />
+                            <circle cx="80" cy="40" r="4" fill="#3498db" />
+                            <circle cx="110" cy="50" r="4" fill="#3498db" />
+                            <circle cx="140" cy="90" r="4" fill="#3498db" />
+                            <!-- Line (Straight, failing to capture curve) -->
+                            <line x1="10" y1="100" x2="150" y2="60" stroke="#e74c3c" stroke-width="3" class="draw-line"/>
+                        </g>
+
+                        <!-- BEST FIT -->
+                        <g transform="translate(250, 20)">
+                            <text x="75" y="-5" font-family="Segoe UI" font-weight="bold" font-size="14" text-anchor="middle" fill="#27ae60">Best Fit (Optimal)</text>
+                            <!-- Axes -->
+                            <line x1="0" y1="150" x2="160" y2="150" stroke="#bdc3c7" stroke-width="2" marker-end="url(#arrow)"/>
+                            <line x1="0" y1="150" x2="0" y2="0" stroke="#bdc3c7" stroke-width="2" marker-end="url(#arrow)"/>
+                            <!-- Data Points -->
+                            <circle cx="20" cy="110" r="4" fill="#3498db" />
+                            <circle cx="50" cy="60" r="4" fill="#3498db" />
+                            <circle cx="80" cy="40" r="4" fill="#3498db" />
+                            <circle cx="110" cy="50" r="4" fill="#3498db" />
+                            <circle cx="140" cy="90" r="4" fill="#3498db" />
+                            <!-- Line (Smooth Curve) -->
+                            <path d="M 10 130 Q 80 -10 150 110" fill="transparent" stroke="#27ae60" stroke-width="3" class="draw-line"/>
+                        </g>
+
+                        <!-- OVERFIT -->
+                        <g transform="translate(470, 20)">
+                            <text x="75" y="-5" font-family="Segoe UI" font-weight="bold" font-size="14" text-anchor="middle" fill="#2c3e50">Overfitting (High Variance)</text>
+                            <!-- Axes -->
+                            <line x1="0" y1="150" x2="160" y2="150" stroke="#bdc3c7" stroke-width="2" marker-end="url(#arrow)"/>
+                            <line x1="0" y1="150" x2="0" y2="0" stroke="#bdc3c7" stroke-width="2" marker-end="url(#arrow)"/>
+                            <!-- Data Points -->
+                            <circle cx="20" cy="110" r="4" fill="#3498db" />
+                            <circle cx="50" cy="60" r="4" fill="#3498db" />
+                            <circle cx="80" cy="40" r="4" fill="#3498db" />
+                            <circle cx="110" cy="50" r="4" fill="#3498db" />
+                            <circle cx="140" cy="90" r="4" fill="#3498db" />
+                            <!-- Line (Squiggly, hitting every point) -->
+                            <path d="M 10 140 C 20 110, 35 110, 50 60 C 65 10, 70 40, 80 40 C 90 40, 100 50, 110 50 C 120 50, 130 90, 140 90 C 145 90, 150 100, 150 100" fill="transparent" stroke="#e74c3c" stroke-width="3" class="draw-line"/>
+                        </g>
+                    </svg>
+                </div>
+                <ul>
+                    <li><strong>Underfit:</strong> The model is too simple (e.g., linear line for non-linear data). Performs poorly on both training and testing data.</li>
+                    <li><strong>Best Fit:</strong> The model captures the underlying trend without memorizing the noise. Generalizes well to unseen test data.</li>
+                    <li><strong>Overfit:</strong> The model is too complex. It memorizes the training data (including noise and outliers) perfectly but fails drastically on unseen test data.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="question-block">
+            <div class="question-text">8) Role of Data in Healthcare, Agriculture, and Education Industries</div>
+            <div class="answer-text">
+                <ul>
+                    <li><strong>Healthcare:</strong> Data powers predictive diagnostics (forecasting patient readmissions), medical imaging (AI detecting tumors in X-Rays), drug discovery, and personalized medicine based on genetic profiles.</li>
+                    <li><strong>Agriculture:</strong> Through IoT sensors and satellite imagery, data enables precision farming. It tracks soil moisture, predicts weather patterns for optimal planting, automates crop disease detection, and maximizes yield.</li>
+                    <li><strong>Education:</strong> Data analytics fuels Adaptive Learning Systems that tailor curriculum to individual student pacing. It is also used to flag students at risk of dropping out and to automate administrative tasks like grading.</li>
+                </ul>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+<script>
+    // Simple JS to re-trigger the animation on scroll (optional interactivity)
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const paths = entry.target.querySelectorAll('.draw-line');
+                paths.forEach(p => {
+                    p.style.animation = 'none';
+                    p.offsetHeight; /* trigger reflow */
+                    p.style.animation = null; 
+                });
+            }
+        });
+    });
+
+    document.querySelectorAll('.svg-container').forEach(container => {
+        observer.observe(container);
+    });
+</script>
+</body>
+</html>

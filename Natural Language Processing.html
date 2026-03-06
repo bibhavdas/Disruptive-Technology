@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natural Language Processing (NLP) - Tech Encyclopedia</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Playfair+Display:wght@700&display=swap');
+
+        :root {
+            --bg-color: #fcfaf5; /* Classic parchment/encyclopedia background */
+            --text-color: #2c2825;
+            --heading-color: #1a365d; /* Deep academic blue */
+            --accent-color: #8b0000; /* Deep red */
+            --border-color: #d8d0c0;
+            --box-bg: #f5f0e6;
+        }
+
+        body {
+            font-family: 'Merriweather', serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .book-container {
+            max-width: 1000px;
+            margin: 40px 20px;
+            background: #fffdf8;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08), inset 0 0 40px rgba(216,208,192,0.15);
+            padding: 60px;
+            position: relative;
+        }
+
+        /* Decorative Encyclopedia Border */
+        .book-container::before {
+            content: '';
+            position: absolute;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 2px solid var(--border-color);
+            pointer-events: none;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 3px double var(--heading-color);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        .category-tag {
+            font-family: sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8em;
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            color: var(--heading-color);
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--heading-color);
+            font-size: 1.8em;
+            margin-top: 50px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-color);
+            font-size: 1.4em;
+        }
+
+        p {
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        /* Drop Cap for Introduction */
+        .drop-cap:first-letter {
+            float: left;
+            font-family: 'Playfair Display', serif;
+            font-size: 4em;
+            line-height: 0.8;
+            padding-right: 8px;
+            padding-top: 4px;
+            color: var(--heading-color);
+        }
+
+        .applications-box {
+            float: right;
+            width: 300px;
+            background: var(--box-bg);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            margin: 0 0 20px 30px;
+            box-shadow: 4px 4px 0 rgba(216,208,192,0.5);
+            font-family: sans-serif;
+            font-size: 0.95em;
+        }
+
+        .applications-box h4 {
+            margin-top: 0;
+            color: var(--heading-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 5px;
+        }
+
+        .applications-box ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+
+        .applications-box li {
+            margin-bottom: 10px;
+        }
+
+        /* Standard Definition vs Simplified Structure */
+        .definition-card {
+            background: var(--box-bg);
+            border-left: 5px solid var(--heading-color);
+            padding: 15px 20px;
+            margin: 25px 0;
+        }
+
+        .std-def {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 10px;
+            font-family: sans-serif;
+            font-size: 0.95em;
+        }
+
+        .std-def::before {
+            content: "Standard Definition: ";
+            font-weight: bold;
+            color: var(--heading-color);
+            font-style: normal;
+        }
+
+        .simple-def {
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .example-text {
+            display: inline-block;
+            background: #fff;
+            padding: 2px 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--accent-color);
+        }
+
+        /* Interactive Quiz Section */
+        .quiz-section {
+            background: #fff;
+            border: 2px dashed var(--border-color);
+            padding: 30px;
+            margin-top: 60px;
+        }
+
+        .quiz-section h2 {
+            margin-top: 0;
+            border: none;
+            text-align: center;
+        }
+
+        details {
+            margin-bottom: 15px;
+            background: var(--box-bg);
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        summary {
+            font-weight: bold;
+            font-family: sans-serif;
+            color: var(--heading-color);
+            outline: none;
+        }
+
+        .answer {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-color);
+            font-style: italic;
+        }
+
+        /* SVG Animations & Containers */
+        .figure {
+            display: block;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .figure figcaption {
+            font-family: sans-serif;
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid var(--border-color);
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        /* Animation Keyframes */
+        @keyframes floatItem {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            20% { opacity: 1; }
+            80% { transform: translateY(80px) scale(0.8); opacity: 1; }
+            100% { transform: translateY(100px) scale(0); opacity: 0; }
+        }
+        .falling-item1 { animation: floatItem 3s infinite linear; }
+        .falling-item2 { animation: floatItem 3s infinite linear 1.5s; }
+
+        @keyframes scissorCut {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(-20deg); }
+        }
+        .scissors { transform-origin: center; animation: scissorCut 1s infinite; }
+
+        @keyframes popUpTag {
+            0%, 50% { opacity: 0; transform: translateY(10px); }
+            60%, 90% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; }
+        }
+        .ner-tag-1 { animation: popUpTag 4s infinite 0s; }
+        .ner-tag-2 { animation: popUpTag 4s infinite 1.3s; }
+        .ner-tag-3 { animation: popUpTag 4s infinite 2.6s; }
+
+        /* Clearfix */
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="book-container">
+        <header>
+            <span class="category-tag">Artificial Intelligence</span>
+            <h1>Natural Language Processing</h1>
+        </header>
+
+        <article class="clearfix">
+            <p class="drop-cap">Imagine trying to speak to a computer in plain English, and instead of giving you an error code, it actually understands you and replies thoughtfully. That is the magic of <strong>Natural Language Processing (NLP)</strong>. It bridges the critical gap between human communication and computational understanding.</p>
+
+            <div class="definition-card">
+                <div class="std-def">A subfield of linguistics, computer science, and artificial intelligence concerned with the interactions between computers and human language, specifically how to program computers to process and analyze large amounts of natural language data.</div>
+                <div class="simple-def">In simple words: NLP enables computers to understand, interpret, analyze, and generate human languages in a meaningful way.</div>
+            </div>
+
+            <aside class="applications-box">
+                <h4>Real-World Applications</h4>
+                <ul>
+                    <li><strong>Machine Translation:</strong> Converting text from one language to another (e.g., Google Translate, ElevenLabs).</li>
+                    <li><strong>Virtual Assistants:</strong> Voice-activated helpers bridging spoken word and digital action.</li>
+                    <li><strong>Chatbots:</strong> Automated agents for customer service and inquiry.</li>
+                    <li><strong>Spam Detection:</strong> Scanning semantics to filter malicious or junk correspondence.</li>
+                    <li><strong>Sentiment Analysis:</strong> Determining if a writer's mood is positive, negative, or neutral.</li>
+                </ul>
+            </aside>
+
+            <h2>Unstructured vs. Structured Data</h2>
+            <p>Human language is inherently messy and chaotic—this is known as <strong>Unstructured Data</strong>. Consider the sentence: <em>"Bring A4 sheet & Marker to class."</em> To a computer, this is merely a random string of characters.</p>
+            <p>NLP's fundamental job is to extract the meaning from that chaos and turn it into <strong>Structured Data</strong>. It identifies the entities and intent, effectively creating a neatly organized list containing "A4 sheet" and "Marker" so the system knows exactly what items are required.</p>
+
+            <!-- Visualization 1: Unstructured to Structured -->
+            <figure class="figure">
+                <svg width="500" height="200" viewBox="0 0 500 200">
+                    <!-- Unstructured Text -->
+                    <text x="20" y="40" font-family="monospace" font-size="14" fill="#666" font-style="italic">"Bring A4 sheet & Marker to class"</text>
+                    <path d="M 20 50 Q 150 100 280 50" fill="none" stroke="#ccc" stroke-dasharray="5"/>
+                    
+                    <!-- Funnel/Process -->
+                    <rect x="200" y="80" width="100" height="40" rx="5" fill="#1a365d"/>
+                    <text x="250" y="105" font-family="sans-serif" font-size="14" fill="white" text-anchor="middle">NLP Processing</text>
+                    
+                    <!-- Falling items animation -->
+                    <g class="falling-item1">
+                        <text x="250" y="80" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#8b0000">A4 Sheet</text>
+                    </g>
+                    <g class="falling-item2">
+                        <text x="250" y="80" font-family="sans-serif" font-size="12" text-anchor="middle" fill="#8b0000">Marker</text>
+                    </g>
+
+                    <!-- Structured Data -->
+                    <rect x="350" y="110" width="120" height="70" fill="#f5f0e6" stroke="#d8d0c0"/>
+                    <text x="410" y="130" font-family="sans-serif" font-weight="bold" font-size="12" text-anchor="middle">Structured List</text>
+                    <text x="360" y="150" font-family="monospace" font-size="12">- A4 Sheet</text>
+                    <text x="360" y="170" font-family="monospace" font-size="12">- Marker</text>
+                </svg>
+                <figcaption>Figure 1: NLP transforming conversational (unstructured) text into organized (structured) data.</figcaption>
+            </figure>
+
+            <h2>The Two Branches of NLP</h2>
+            <p>Just as human conversation requires both listening and speaking, NLP is split into two foundational branches:</p>
+            <ul>
+                <li><strong>NLU (Natural Language Understanding):</strong> The computer's ability to "listen", comprehend, and derive meaning from what we are saying or typing.</li>
+                <li><strong>NLG (Natural Language Generation):</strong> The computer's ability to "speak", write, or formulate responses back to us in standard, coherent human language.</li>
+            </ul>
+
+            <div style="clear:both;"></div>
+
+            <h2>Text Processing Techniques</h2>
+            <p>To make a computer comprehend a full paragraph, we must first break the text down into bite-sized, mathematical pieces. Computer scientists utilize several vital processing techniques to achieve this.</p>
+
+            <h3>A. Tokenization</h3>
+            <div class="definition-card">
+                <div class="std-def">The process of demarcating and possibly classifying sections of a string of input characters into individual, atomic components called tokens.</div>
+                <div class="simple-def">In simple words: Splitting raw text into smaller, meaningful units so the computer can process and analyze the language piece by piece.</div>
+            </div>
+            <p>For example, the sentence <span class="example-text">"Bring A4 sheets & Markers to class."</span> is chopped up into individual tokens: <code>"Bring", "A4", "sheets", "&", "Markers", "to", "class", "."</code>.</p>
+
+            <!-- Visualization 2: Tokenization -->
+            <figure class="figure">
+                <svg width="600" height="150" viewBox="0 0 600 150">
+                    <rect x="50" y="50" width="500" height="50" fill="#fcfaf5" stroke="#d8d0c0" stroke-width="2"/>
+                    <text x="300" y="80" font-family="monospace" font-size="16" text-anchor="middle">"Bring A4 sheets & Markers to class."</text>
+                    
+                    <!-- Scissors Animation -->
+                    <g class="scissors" transform="translate(140, 50)">
+                        <path d="M0,0 L10,20 L20,0 M10,20 L10,40" stroke="#8b0000" stroke-width="3" fill="none"/>
+                        <circle cx="5" cy="-5" r="4" stroke="#8b0000" stroke-width="2" fill="none"/>
+                        <circle cx="15" cy="-5" r="4" stroke="#8b0000" stroke-width="2" fill="none"/>
+                    </g>
+                    <g class="scissors" transform="translate(350, 50)">
+                        <path d="M0,0 L10,20 L20,0 M10,20 L10,40" stroke="#8b0000" stroke-width="3" fill="none"/>
+                        <circle cx="5" cy="-5" r="4" stroke="#8b0000" stroke-width="2" fill="none"/>
+                        <circle cx="15" cy="-5" r="4" stroke="#8b0000" stroke-width="2" fill="none"/>
+                    </g>
+
+                    <!-- Dashed cut lines -->
+                    <line x1="150" y1="50" x2="150" y2="100" stroke="#8b0000" stroke-dasharray="4"/>
+                    <line x1="360" y1="50" x2="360" y2="100" stroke="#8b0000" stroke-dasharray="4"/>
+                </svg>
+                <figcaption>Figure 2: Tokenization visually "cutting" a continuous string into discrete tokens.</figcaption>
+            </figure>
+
+            <h3>B. Stemming</h3>
+            <div class="definition-card">
+                <div class="std-def">A heuristic process that chops off the ends of words in the hope of achieving the goal of reducing inflectional forms to a common base form.</div>
+                <div class="simple-def">In simple words: A quick-and-dirty technique that reduces a word to its root or base form by simply removing the suffix (end) or prefix (beginning) of the word.</div>
+            </div>
+            <p>Example: The word <span class="example-text">going</span> gets mechanically chopped down to its root word: <span class="example-text">go</span>.</p>
+
+            <h3>C. Lemmatization</h3>
+            <div class="definition-card">
+                <div class="std-def">The algorithmic process of determining the lemma of a word based on its intended meaning, involving morphological analysis and vocabulary.</div>
+                <div class="simple-def">In simple words: A smarter, more advanced version of stemming. Instead of blindly chopping letters, it considers grammar and meaningful context to reduce a word to its true, base dictionary form.</div>
+            </div>
+            <p>This base dictionary form is called a <strong>LEMMA</strong>. It ensures the resulting word is an actual, valid word you could look up in a standard dictionary.</p>
+
+            <h3>D. POS Tagging (Parts of Speech Tagging)</h3>
+            <div class="definition-card">
+                <div class="std-def">The process of marking up a word in a text as corresponding to a particular part of speech, based on both its definition and its context.</div>
+                <div class="simple-def">In simple words: A tagging technique that assigns a grammatical label to each word in a sentence based on its role (e.g., identifying nouns, verbs, adjectives).</div>
+            </div>
+
+            <h3>E. NER (Named/Natural Entity Recognition)</h3>
+            <div class="definition-card">
+                <div class="std-def">Information extraction that seeks to locate and classify named entities mentioned in unstructured text into pre-defined categories.</div>
+                <div class="simple-def">In simple words: A technique that scans text, identifies real-world entities, and classifies them into predefined categories like persons, locations, and organizations.</div>
+            </div>
+            <p><em>*Note: While widely known as "Named Entity Recognition" in the broader tech industry, the core function remains the identification of natural, real-world entities.</em></p>
+
+            <!-- Visualization 3: NER -->
+            <figure class="figure">
+                <svg width="600" height="200" viewBox="0 0 600 200">
+                    <text x="50" y="100" font-family="sans-serif" font-size="18" fill="#333">
+                        <tspan fill="#1a365d" font-weight="bold">Elon Musk</tspan> flew to 
+                        <tspan fill="#8b0000" font-weight="bold">London</tspan> to visit 
+                        <tspan fill="#228b22" font-weight="bold">Tesla</tspan>.
+                    </text>
+
+                    <!-- Tags -->
+                    <g class="ner-tag-1">
+                        <rect x="50" y="120" width="80" height="25" rx="12" fill="#1a365d" opacity="0.1"/>
+                        <text x="90" y="137" font-family="sans-serif" font-size="12" fill="#1a365d" font-weight="bold" text-anchor="middle">[PERSON]</text>
+                        <line x1="90" y1="105" x2="90" y2="120" stroke="#1a365d" stroke-dasharray="2"/>
+                    </g>
+
+                    <g class="ner-tag-2">
+                        <rect x="220" y="45" width="90" height="25" rx="12" fill="#8b0000" opacity="0.1"/>
+                        <text x="265" y="62" font-family="sans-serif" font-size="12" fill="#8b0000" font-weight="bold" text-anchor="middle">[LOCATION]</text>
+                        <line x1="265" y1="80" x2="265" y2="70" stroke="#8b0000" stroke-dasharray="2"/>
+                    </g>
+
+                    <g class="ner-tag-3">
+                        <rect x="400" y="120" width="120" height="25" rx="12" fill="#228b22" opacity="0.1"/>
+                        <text x="460" y="137" font-family="sans-serif" font-size="12" fill="#228b22" font-weight="bold" text-anchor="middle">[ORGANIZATION]</text>
+                        <line x1="430" y1="105" x2="460" y2="120" stroke="#228b22" stroke-dasharray="2"/>
+                    </g>
+                </svg>
+                <figcaption>Figure 3: Natural Entity Recognition categorizing specific nouns into predefined classes.</figcaption>
+            </figure>
+
+        </article>
+
+        <!-- Interactive Quiz Section -->
+        <section class="quiz-section">
+            <h2>Test Your Knowledge</h2>
+            <p style="text-align: center; font-size: 0.9em; color: #666; margin-bottom: 30px;">Click on the questions below to reveal the answers and review your mastery of NLP.</p>
+
+            <details>
+                <summary>1. What does NLP stand for, and what is its primary goal?</summary>
+                <div class="answer">NLP stands for Natural Language Processing. Its primary goal is to act as a branch of AI that enables computers to understand, interpret, analyze, and generate human languages meaningfully.</div>
+            </details>
+
+            <details>
+                <summary>2. What are the two main sub-branches of NLP?</summary>
+                <div class="answer">NLU (Natural Language Understanding) and NLG (Natural Language Generation).</div>
+            </details>
+
+            <details>
+                <summary>3. How does NLP treat a normal human sentence vs. a specific list of items?</summary>
+                <div class="answer">A normal human sentence is considered <strong>Unstructured</strong> data. NLP processes this and converts it into <strong>Structured</strong> data (like extracting a distinct list of items).</div>
+            </details>
+
+            <details>
+                <summary>4. Name three real-world applications of NLP.</summary>
+                <div class="answer">Any three of the following: Machine Translation, Virtual Assistants, Chatbots, Spam detection, or Sentiment Analysis.</div>
+            </details>
+
+            <details>
+                <summary>5. What is Tokenization?</summary>
+                <div class="answer">It is the process of splitting raw text into smaller, meaningful units (tokens) so the computer can process and analyze the language.</div>
+            </details>
+
+            <details>
+                <summary>6. What is Stemming, and how does it alter a word?</summary>
+                <div class="answer">Stemming is a text processing technique that reduces a word to its root or base form by removing its prefix or suffix (for example, reducing "going" to "go").</div>
+            </details>
+
+            <details>
+                <summary>7. How is Lemmatization different from Stemming?</summary>
+                <div class="answer">While stemming just cuts off the ends of words, Lemmatization uses grammar and context to reduce a word to its actual, valid dictionary meaning/form.</div>
+            </details>
+
+            <details>
+                <summary>8. What do we call the base dictionary form of a word found during Lemmatization?</summary>
+                <div class="answer">A LEMMA.</div>
+            </details>
+
+            <details>
+                <summary>9. What does POS Tagging do?</summary>
+                <div class="answer">It assigns a grammatical label (Part of Speech tag) to each word in a sentence based on its role and context (e.g., noun, verb).</div>
+            </details>
+
+            <details>
+                <summary>10. What does NER stand for, and what is its function?</summary>
+                <div class="answer">NER stands for Natural (or Named) Entity Recognition. Its function is to identify and classify real-world entities in text into predefined categories, such as persons, locations, and organizations.</div>
+            </details>
+        </section>
+
+    </main>
+
+</body>
+</html>

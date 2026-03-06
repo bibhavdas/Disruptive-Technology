@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disruptive Technology - Data Analytics Notes</title>
+    <style>
+        /* STANDARD ACADEMIC THEME CSS */
+        :root {
+            --bg-color: #f3f4f6;
+            --surface-color: #ffffff;
+            --primary-blue: #1d4ed8;
+            --secondary-blue: #eff6ff;
+            --text-dark: #1f2937;
+            --text-muted: #4b5563;
+            --border-color: #e5e7eb;
+            --accent-green: #059669;
+            --accent-red: #dc2626;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --font-serif: 'Georgia', serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .document-container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: var(--surface-color);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+
+        /* HEADER DESIGN */
+        header {
+            background-color: var(--surface-color);
+            border-bottom: 2px solid var(--primary-blue);
+            padding: 40px 50px 20px 50px;
+        }
+
+        h1 {
+            margin: 0 0 5px 0;
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* CONTENT SECTION */
+        .content {
+            padding: 40px 50px;
+        }
+
+        .q-block {
+            margin-bottom: 40px;
+        }
+
+        .question {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: baseline;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .q-num {
+            font-size: 1.1rem;
+            margin-right: 10px;
+            color: var(--text-muted);
+        }
+
+        .answer {
+            font-family: var(--font-serif);
+            font-size: 1.05rem;
+            color: var(--text-dark);
+            padding-left: 15px;
+        }
+
+        .highlight-box {
+            background: var(--secondary-blue);
+            border-left: 4px solid var(--primary-blue);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+            font-family: var(--font-main);
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+
+        ul { 
+            margin-top: 8px; 
+            padding-left: 20px; 
+        }
+        
+        li { 
+            margin-bottom: 8px; 
+        }
+
+        strong {
+            color: #111827;
+        }
+
+        /* SVG ANIMATION CONTAINER */
+        .svg-wrapper {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            margin: 25px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .svg-title {
+            font-family: var(--font-main);
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+
+        /* SVG Element Animations */
+        .flow-line {
+            stroke-dasharray: 8;
+            animation: flow 1s linear infinite;
+        }
+        @keyframes flow { to { stroke-dashoffset: -16; } }
+        
+        .gear {
+            transform-origin: center;
+            animation: spin-gear 4s linear infinite;
+        }
+        @keyframes spin-gear { 100% { transform: rotate(360deg); } }
+
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            .document-container { margin: 0; border-radius: 0; }
+            header { padding: 30px 20px 20px 20px; }
+            .content { padding: 25px 20px; }
+            h1 { font-size: 1.8rem; }
+            .question { font-size: 1.15rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="document-container">
+    <header>
+        <h1>Data Analytics</h1>
+        <p class="subtitle">Disruptive Technology Class Notes</p>
+    </header>
+
+    <div class="content">
+        
+        <!-- Q1 -->
+        <div class="q-block">
+            <div class="question"><span class="q-num">1.</span> What is Data Analytics and Data Analysis?</div>
+            <div class="answer">
+                <p>While often used interchangeably, they represent different scopes of work within data science:</p>
+                <ul>
+                    <li><strong>Data Analysis:</strong> The highly specific, retroactive process of examining, cleaning, transforming, and modeling data to extract actionable information and answer specific questions about what happened in the past.</li>
+                    <li><strong>Data Analytics:</strong> The broader, overarching science that encompasses data analysis, machine learning, and statistical algorithms to find patterns, predict future trends, and drive overarching business strategy.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="q-block">
+            <div class="question"><span class="q-num">2.</span> Role of data in Data Analytics.</div>
+            <div class="answer">
+                <p>Data acts as the foundational raw material for analytics. Without data, there is no historical context to analyze. Data provides the factual variables and evidence required to train machine learning models, validate hypotheses, and uncover hidden patterns that humans cannot see manually.</p>
+            </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="q-block">
+            <div class="question"><span class="q-num">3.</span> Why do we need to analyze data?</div>
+            <div class="answer">
+                <p>Data analysis shifts organizational operations from <strong>intuition-based</strong> decision-making to <strong>evidence-based</strong> decision-making. The primary reasons include:</p>
+                <ul>
+                    <li>Identifying operational bottlenecks and inefficiencies to reduce costs.</li>
+                    <li>Predicting market trends and shifting consumer behavior.</li>
+                    <li>Personalizing user experiences and targeted marketing.</li>
+                    <li>Mitigating financial risks and detecting fraudulent activity.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="q-block">
+            <div class="question"><span class="q-num">4.</span> Data analytics tools and their specific uses.</div>
+            <div class="answer">
+                <div class="highlight-box">
+                    <strong>1. SQL (Structured Query Language):</strong> Used for extracting, querying, and managing data stored in relational databases.<br><br>
+                    <strong>2. Python & R:</strong> Programming languages used to write custom scripts for statistical analysis, machine learning, and complex data manipulation.<br><br>
+                    <strong>3. Tableau & Power BI:</strong> Business Intelligence tools strictly for data visualization. Used to build interactive dashboards for stakeholders.<br><br>
+                    <strong>4. Microsoft Excel:</strong> Best for basic data manipulation, ad-hoc calculations, and simple spreadsheet analysis.<br><br>
+                    <strong>5. Apache Spark / Hadoop:</strong> Distributed computing frameworks designed specifically for processing "Big Data" that standard machines cannot handle.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="q-block">
+            <div class="question"><span class="q-num">5.</span> What is a Feature?</div>
+            <div class="answer">
+                <p>In machine learning, a <strong>Feature</strong> is an individual, independent, measurable property or characteristic of a phenomenon being observed. In a structured dataset (like a spreadsheet), features are represented by the columns.</p>
+                <p><em>Example:</em> If an algorithm is designed to predict a car's top speed, the features might include "Horsepower," "Weight," and "Aerodynamic Drag."</p>
+            </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="q-block">
+            <div class="question"><span class="q-num">6.</span> What is Data Transformation?</div>
+            <div class="answer">
+                <p>Data Transformation is the process of converting data from one format, structure, or scale to another. This is done so the data can be integrated into a single destination database (like a data warehouse) or fed into an algorithm successfully.</p>
+            </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="q-block">
+            <div class="question"><span class="q-num">7.</span> Need of Data Transformation.</div>
+            <div class="answer">
+                <p>Raw data is rarely collected in a state that algorithms can immediately process. We transform data to:</p>
+                <ul>
+                    <li>Ensure compatibility across different systems and schemas.</li>
+                    <li>Normalize numerical values (e.g., scaling all prices between 0 and 1) so algorithms are not mathematically biased by larger numbers.</li>
+                    <li>Standardize formats (e.g., converting all text to lowercase, formatting dates uniformly).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="q-block">
+            <div class="question"><span class="q-num">8.</span> What is Feature Engineering?</div>
+            <div class="answer">
+                <p>Feature Engineering is the process of applying domain knowledge to create, extract, or select new variables (features) from raw data that help machine learning algorithms perform more accurately.</p>
+                <p><em>Example:</em> If a dataset contains the raw feature "Transaction Timestamp", feature engineering could extract a new feature called "Is_Weekend", which might be highly relevant for predicting retail sales spikes.</p>
+            </div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="q-block">
+            <div class="question"><span class="q-num">9.</span> Data Analytics in various industries (Healthcare, Agriculture, FMCG).</div>
+            <div class="answer">
+                <ul>
+                    <li><strong>Healthcare:</strong> Forecasting patient readmission rates, utilizing computer vision to detect anomalies in MRI scans, and analyzing genetic data to accelerate personalized drug discovery.</li>
+                    <li><strong>Agriculture:</strong> Deploying IoT soil sensors for precision irrigation, analyzing historical weather data to optimize planting schedules, and predicting crop yields.</li>
+                    <li><strong>FMCG (Fast-Moving Consumer Goods):</strong> Optimizing global supply chains, forecasting inventory demand to prevent stock-outs, and conducting "Market Basket Analysis" to see which products are frequently purchased together.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="q-block">
+            <div class="question"><span class="q-num">10.</span> What is Data Pre-processing and its need?</div>
+            <div class="answer">
+                <p>Data pre-processing is the critical initial phase where raw data is cleaned, filtered, and organized before being modeled. It involves handling missing values, removing duplicate entries, and identifying extreme outliers.</p>
+                <p><strong>The Need:</strong> Machine learning strictly adheres to the rule of "Garbage In, Garbage Out" (GIGO). If a model is trained on flawed, incomplete, or noisy data, its outputs will be fundamentally incorrect. Pre-processing is required to establish data integrity.</p>
+                
+                <!-- Custom SVG Animation for Pipeline -->
+                <div class="svg-wrapper">
+                    <div class="svg-title">The Data Pre-Processing Pipeline</div>
+                    <svg viewBox="0 0 600 150" width="100%" height="150" xmlns="http://www.w3.org/2000/svg">
+                        
+                        <!-- Raw Data Node -->
+                        <g transform="translate(50, 50)">
+                            <rect x="0" y="0" width="80" height="60" rx="6" fill="#dc2626" />
+                            <text x="40" y="35" fill="white" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Raw Data</text>
+                        </g>
+
+                        <!-- Flow Line 1 -->
+                        <path d="M 130 80 L 220 80" stroke="#94a3b8" stroke-width="3" fill="none" class="flow-line"/>
+                        <polygon points="215,76 225,80 215,84" fill="#94a3b8" />
+
+                        <!-- Cleaning/Processing Node (With Gear) -->
+                        <g transform="translate(230, 40)">
+                            <circle cx="40" cy="40" r="35" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+                            <!-- Gear SVG inside circle -->
+                            <g class="gear" transform="translate(40, 40)">
+                                <path d="M -10 -15 L 10 -15 L 15 -10 L 15 10 L 10 15 L -10 15 L -15 10 L -15 -10 Z" fill="#2563eb" />
+                                <circle cx="0" cy="0" r="5" fill="#eff6ff" />
+                            </g>
+                            <text x="40" y="95" fill="#1e293b" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Cleaning</text>
+                        </g>
+
+                        <!-- Flow Line 2 -->
+                        <path d="M 310 80 L 400 80" stroke="#94a3b8" stroke-width="3" fill="none" class="flow-line"/>
+                        <polygon points="395,76 405,80 395,84" fill="#94a3b8" />
+
+                        <!-- Clean Data Node -->
+                        <g transform="translate(410, 50)">
+                            <rect x="0" y="0" width="90" height="60" rx="6" fill="#059669" />
+                            <text x="45" y="35" fill="white" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Model Ready</text>
+                        </g>
+                    </svg>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generative AI | Disruptive Tech Wiki</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap');
+
+        :root {
+            --wiki-global-nav: #0e191a;
+            --wiki-header-bg: #1e0c2b;
+            --wiki-bg: #f4f6f8; 
+            --wiki-text: #3a3a3a;
+            --wiki-link: #d81159;
+            --wiki-link-hover: #8f0839;
+            --wiki-border: #cccccc;
+            --infobox-bg: #f5f5f5;
+            --infobox-header: #2b193d;
+        }
+
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-color: var(--wiki-bg);
+            background-image: linear-gradient(to bottom, #f2f2f2 0%, #e5e5e5 100%);
+            color: var(--wiki-text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Global Wiki Nav */
+        .global-nav {
+            background-color: var(--wiki-global-nav);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 14px;
+            font-weight: 500;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .global-nav-logo {
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: #00d6d6;
+            text-transform: uppercase;
+        }
+
+        .global-nav-search input {
+            padding: 6px 15px;
+            border-radius: 15px;
+            border: none;
+            outline: none;
+            width: 250px;
+            background: #2a3536;
+            color: white;
+        }
+
+        /* Wiki Header */
+        .wiki-header {
+            background-color: var(--wiki-header-bg);
+            background-image: url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+            border-bottom: 4px solid var(--wiki-link);
+        }
+
+        .wiki-header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(30, 12, 43, 0.7);
+        }
+
+        .wiki-title {
+            position: relative;
+            font-size: 36px;
+            font-weight: 700;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Page Layout */
+        .page-container {
+            max-width: 1060px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 20px;
+        }
+
+        /* Left Sidebar Nav (Page Topics) */
+        .sidebar {
+            background: white;
+            border: 1px solid var(--wiki-border);
+            border-radius: 4px;
+            padding: 15px;
+            align-self: start;
+            position: sticky;
+            top: 70px; /* Sticks to the top below the global nav */
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .sidebar li.sub-item {
+            padding-left: 15px;
+            font-size: 13px;
+            border-bottom: none;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .sidebar a {
+            color: var(--wiki-text);
+            text-decoration: none;
+            display: block;
+        }
+
+        .sidebar a:hover {
+            color: var(--wiki-link);
+            padding-left: 2px;
+            transition: all 0.2s ease;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            border: 1px solid var(--wiki-border);
+            border-radius: 4px;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        h1.article-title {
+            font-size: 32px;
+            border-bottom: 1px solid var(--wiki-border);
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            border-bottom: 1px solid var(--wiki-border);
+            padding-bottom: 5px;
+            margin-top: 30px;
+            font-size: 22px;
+            color: #1a1a1a;
+        }
+
+        h3 {
+            font-size: 18px;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        a {
+            color: var(--wiki-link);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+            color: var(--wiki-link-hover);
+        }
+
+        /* Infobox */
+        .infobox {
+            float: right;
+            width: 300px;
+            background: var(--infobox-bg);
+            border: 1px solid #c8ccd1;
+            margin: 0 0 20px 20px;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .infobox-title {
+            background: var(--infobox-header);
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+
+        .infobox img {
+            width: 100%;
+            height: auto;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+
+        .infobox table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .infobox th, .infobox td {
+            padding: 8px 6px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .infobox th {
+            text-align: left;
+            width: 40%;
+            color: #555;
+        }
+
+        /* Content Images */
+        .article-image {
+            float: left;
+            margin: 10px 20px 10px 0;
+            border: 1px solid #ccc;
+            padding: 3px;
+            background: white;
+            width: 300px;
+        }
+
+        .article-image img {
+            width: 100%;
+            display: block;
+        }
+
+        .image-caption {
+            font-size: 12px;
+            text-align: center;
+            padding: 8px 0;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Q&A / Trivia Section */
+        .trivia-box {
+            background: #fef6f9;
+            border-left: 4px solid var(--wiki-link);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .trivia-q {
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            border-bottom: 1px dashed #e2c0ce;
+            padding-bottom: 8px;
+        }
+
+        .trivia-a {
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .trivia-a p {
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+        
+        .trivia-a p:last-child {
+            margin-bottom: 0;
+        }
+
+        .label-short {
+            color: var(--wiki-link);
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+            margin-right: 5px;
+        }
+        
+        .label-long {
+            color: #2b193d;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+            margin-right: 5px;
+        }
+
+        /* Clearfix */
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Global Wiki Nav -->
+    <div class="global-nav">
+        <div class="global-nav-logo">Disruptive Technology</div>
+        <div class="global-nav-search">
+            <input type="text" placeholder="Search Disruptive Tech Notes...">
+        </div>
+        <!-- Removed SIGN IN -->
+    </div>
+
+    <!-- Wiki Header -->
+    <div class="wiki-header">
+        <h2 class="wiki-title">Disruptive Tech Wiki</h2>
+    </div>
+
+    <div class="page-container">
+        <!-- Sidebar Navigation (Table of Contents) -->
+        <aside class="sidebar">
+            <ul>
+                <li style="color: #999; text-transform: uppercase; font-size: 12px; font-weight: bold; letter-spacing: 1px; padding-bottom: 5px;">On This Page</li>
+                <li><a href="#examples">1. Popular Examples</a></li>
+                <li><a href="#phases">2. Three Phases of Generative AI</a></li>
+                <li><a href="#llm">3. Large Language Models (LLM)</a></li>
+                <li class="sub-item"><a href="#pipeline">3.1 LLM Pipeline</a></li>
+                <li><a href="#agents">4. AI Agents vs. Agentic AI</a></li>
+                <li><a href="#trivia">5. Trivia & Study Questions</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content Article -->
+        <main class="main-content clearfix">
+            
+            <h1 class="article-title">Generative AI</h1>
+
+            <!-- Infobox -->
+            <aside class="infobox">
+                <div class="infobox-title">Generative AI</div>
+                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=600&q=80" alt="Generative AI concept art">
+                <table>
+                    <tr>
+                        <th>Type</th>
+                        <td>Artificial Intelligence Branch</td>
+                    </tr>
+                    <tr>
+                        <th>Core Function</th>
+                        <td>Content Creation (Text, Image, Code)</td>
+                    </tr>
+                    <tr>
+                        <th>Input Method</th>
+                        <td>Prompt (English Language)</td>
+                    </tr>
+                    <tr>
+                        <th>Key Models</th>
+                        <td>LLMs, GANs</td>
+                    </tr>
+                    <tr>
+                        <th>Popular Examples</th>
+                        <td>ChatGPT, Google Gemini</td>
+                    </tr>
+                </table>
+            </aside>
+
+            <p><strong>Generative AI</strong> is a highly advanced branch of Artificial Intelligence that focuses on creating entirely new content based on past data it has learned from. Unlike traditional analytical AI that only categorizes or sorts existing data, Generative AI uses a user-provided <strong>prompt</strong> (typically in the standard English language) to generate original texts, images, audio, video, or complex programming code from scratch.</p>
+
+            <h2 id="examples">Popular Examples</h2>
+            <p>The consumer market has seen a massive surge in accessible generative tools over recent years. Two of the most notable examples include:</p>
+            <ul>
+                <li><strong>Chat GPT:</strong> Highly optimized for text-based tasks. It is best utilized for code generation, conversational text generation, and practical daily applications such as email writing and formatting.</li>
+                <li><strong>Google Gemini:</strong> Distinguished heavily by its native "multi-model" (multimodal) understanding. This means the architecture was built from the ground up to simultaneously process, understand, and generate outputs using both Text and Images seamlessly.</li>
+            </ul>
+
+            <h2 id="phases">Three Phases of Generative AI</h2>
+            <div class="article-image">
+                <img src="https://raw.githubusercontent.com/bibhavdas/Venture-Ideation/refs/heads/main/chatgpt%20interface.png" alt="ChatGPT Interface">
+                <div class="image-caption">The Generation Phase in action: The interface where users provide text prompts to initiate output generation.</div>
+            </div>
+            <p>Generative AI operates through a distinct, three-phase technical lifecycle to turn raw data into conversational output:</p>
+            <ol>
+                <li><strong>Training Phase:</strong> In this foundational phase, the AI is fed massive datasets—encompassing millions of books, images, websites, and articles. During this time, it mathematically learns the deep patterns, context, grammar, and structures of these datasets.</li>
+                <li><strong>Model Type:</strong> This dictates the specific neural architecture of the AI based on its goal. Most text-based generative AI relies on Large Language Models (LLMs), while image-based models commonly use GANs. <br><em>(Wiki Note: Classroom notes often mistakenly refer to this as a Generative Adverbial Network, but the correct computer science term is Generative <strong>Adversarial</strong> Network!)</em></li>
+                <li><strong>Generation Phase:</strong> This is the user-facing phase. When you provide a prompt, the model analyzes the context, understands your needs, and generates words, pixels, or sound patterns step-by-step based on mathematical probabilities.</li>
+            </ol>
+
+            <h2 id="llm">Large Language Models (LLM)</h2>
+            <p>An LLM is a specific, highly scaled type of generative AI model trained on a massive amount of text data. It uses deep learning techniques to understand the nuances of human language and generate coherent, contextually relevant responses.</p>
+
+            <h3 id="pipeline">Pipeline of an LLM</h3>
+            <p>Building a functional LLM from scratch requires a strict, sequential 9-step engineering pipeline:</p>
+            <p style="background: #f8f9fa; padding: 15px; border-left: 4px solid var(--wiki-link); font-family: monospace; font-size: 14px;">
+                Data Collection &rarr; Data Cleaning &rarr; Tokenization &rarr; Embedding Layer &rarr; Transformer &rarr; Training &rarr; Tuning &rarr; Evaluation &rarr; Deployment
+            </p>
+
+            <h2 id="agents">AI Agents vs. Agentic AI</h2>
+            <p>As artificial intelligence evolves, it is moving beyond simply answering questions in a chatbox to actively taking actions in the real digital world.</p>
+            <ul>
+                <li><strong>AI Agents:</strong> An Artificial Intelligent system that observes its environment through any third-party digital media, sensors, or other inputs. It processes this information, makes decisions, and takes immediate actions to achieve a specific goal (e.g., an automated trading bot or a smart home thermostat).</li>
+                <li><strong>Agentic AI:</strong> A much more advanced, futuristic concept. Agentic AI refers to a system that can independently <em>plan, decide, and take multiple, sequential actions over a long period of time</em> to achieve a complex goal with minimal human intervention. It behaves like a true, self-correcting autonomous entity rather than just a reactive script.</li>
+            </ul>
+
+            <h2 id="trivia">Trivia & Study Questions</h2>
+            <p>Test your knowledge on Generative AI concepts with these in-depth study questions. Both quick review answers and detailed explanations are provided:</p>
+
+            <div class="trivia-box">
+                <div class="trivia-q">Q: What is the primary function of Generative AI, and how does it differ from traditional AI?</div>
+                <div class="trivia-a">
+                    <p><span class="label-short">Short Answer:</span> To create new content (texts, images, video, code) based on past data, triggered by a prompt.</p>
+                    <p><span class="label-long">Detailed Explanation:</span> The primary function of Generative AI is to create entirely new, original content (such as texts, images, video, or code) based on patterns it learned from past data. It differs from traditional (or discriminative) AI, which is typically only used to analyze, categorize, or sort existing data. Generative AI is triggered into action by a user-provided prompt, usually written in standard English.</p>
+                </div>
+            </div>
+
+            <div class="trivia-box">
+                <div class="trivia-q">Q: What makes Google Gemini distinctively different from standard text-based models?</div>
+                <div class="trivia-a">
+                    <p><span class="label-short">Short Answer:</span> It features "multi-model" understanding, allowing it to process both text and images simultaneously.</p>
+                    <p><span class="label-long">Detailed Explanation:</span> Google Gemini is distinguished by its native "multimodal" understanding. Instead of relying on separate models stitched together to handle different types of media, Gemini was built from the ground up to seamlessly process, understand, and generate both text and images simultaneously, allowing for much more complex reasoning.</p>
+                </div>
+            </div>
+
+            <div class="trivia-box">
+                <div class="trivia-q">Q: What exactly happens during the "Generation Phase"?</div>
+                <div class="trivia-a">
+                    <p><span class="label-short">Short Answer:</span> After receiving a prompt, the model predicts and generates words, pixels, or sound patterns step-by-step.</p>
+                    <p><span class="label-long">Detailed Explanation:</span> During the Generation Phase, the AI receives the user's prompt and begins an auto-regressive process. It analyzes the context of your request against its vast training data, and mathematically predicts the next most logical word, pixel, or sound pattern, generating the final output step-by-step.</p>
+                </div>
+            </div>
+
+            <div class="trivia-box">
+                <div class="trivia-q">Q: What is the defining difference between a standard AI Agent and Agentic AI?</div>
+                <div class="trivia-a">
+                    <p><span class="label-short">Short Answer:</span> Agentic AI can independently plan, decide, and take multiple actions over time with minimal human intervention, acting fully autonomously.</p>
+                    <p><span class="label-long">Detailed Explanation:</span> The defining difference is autonomy and long-term planning. While a standard AI Agent observes its environment to make a single decision or reaction, <strong>Agentic AI</strong> is capable of breaking down a massive, complex goal into smaller steps. It can independently plan, execute multiple actions over an extended period of time, evaluate its own success, and adjust its strategy with virtually no human intervention.</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>
