@@ -3,302 +3,398 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Disruptive Technology - Study Hub</title>
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@500;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
-
+    <title>Disruptive Tech | Study Hub</title>
     <style>
-        /* --- CSS VARIABLES & THEMES --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
         :root {
-            /* Default (Plain) */
-            --bg-color: #f8f9fa;
-            --container-bg: #ffffff;
-            --text-primary: #2c3e50;
-            --text-secondary: #5a6268;
-            --accent: #007bff;
-            --border-radius: 12px;
-            --font-main: 'Inter', sans-serif;
-            --card-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            --border: 1px solid #e9ecef;
-            --list-hover: #f1f3f5;
+            --bg-color: #141414;
+            --text-main: #ffffff;
+            --text-muted: #e5e5e5;
+            --brand-color: #e50914; /* Streaming standard red */
+            --nav-bg: linear-gradient(to bottom, rgba(0,0,0,0.9) 10%, rgba(0,0,0,0));
+            --nav-bg-solid: #141414;
         }
 
-        /* RGB Theme */
-        body.theme-rgb {
-            --bg-color: #0f0f0f;
-            --container-bg: #1a1a1a;
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0b0;
-            --accent: #ff0055;
-            --border-radius: 0px;
-            --font-main: 'Orbitron', sans-serif;
-            --card-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
-            --border: 2px solid transparent; 
-            --list-hover: #333;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        /* AI Theme */
-        body.theme-ai {
-            --bg-color: #000000;
-            --container-bg: #001100;
-            --text-primary: #00ff00;
-            --text-secondary: #00cc00;
-            --accent: #00ff00;
-            --border-radius: 0;
-            --font-main: 'Fira Code', monospace;
-            --card-shadow: none;
-            --border: 1px solid #00ff00;
-            --list-hover: #003300;
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- GLOBAL --- */
-        * { box-sizing: border-box; transition: background 0.3s, color 0.3s; }
-        body { margin: 0; background: var(--bg-color); color: var(--text-primary); font-family: var(--font-main); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        /* --- NAVIGATION --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: var(--nav-bg);
+            transition: background-color 0.4s ease;
+        }
 
-        /* --- EFFECTS --- */
-        .scanlines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 2px, 3px 100%; pointer-events: none; z-index: 9999; display: none; }
-        body.theme-ai .scanlines { display: block; }
+        .navbar.scrolled {
+            background-color: var(--nav-bg-solid);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
 
-        /* --- NAV --- */
-        nav { padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; background: var(--container-bg); border-bottom: var(--border); }
-        .back-btn { text-decoration: none; color: var(--text-primary); font-weight: bold; }
-        .back-btn:hover { color: var(--accent); }
-        
-        select#theme-switcher { padding: 8px; border-radius: var(--border-radius); border: 1px solid #ccc; background: var(--bg-color); color: var(--text-primary); cursor: pointer; }
-        body.theme-ai select#theme-switcher { background: black; border: 1px solid #00ff00; color: #00ff00; }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
 
-        /* --- HEADER --- */
-        header { text-align: center; padding: 60px 20px; }
-        h1 { font-size: 3rem; margin: 0; text-transform: uppercase; letter-spacing: 2px; }
-        body.theme-rgb h1 { background: linear-gradient(90deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000); background-size: 400%; -webkit-background-clip: text; color: transparent; animation: rainbow 10s linear infinite; }
-        @keyframes rainbow { 0% { background-position: 0%; } 100% { background-position: 400%; } }
-        body.theme-ai h1::after { content: '_'; animation: blink 1s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .brand-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--brand-color);
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
 
-        /* --- CARDS --- */
-        .container { max-width: 1000px; margin: 0 auto; padding: 20px; flex-grow: 1; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .card { background: var(--container-bg); padding: 40px 30px; border-radius: var(--border-radius); box-shadow: var(--card-shadow); border: var(--border); text-align: center; cursor: pointer; position: relative; }
-        .card p { color: var(--text-secondary); }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
 
-        body.theme-rgb .card { border: 2px solid transparent; box-shadow: 0 0 15px rgba(0, 200, 255, 0.2); }
-        body.theme-rgb .card::before { content: ''; position: absolute; top: -2px; bottom: -2px; left: -2px; right: -2px; background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff); z-index: -1; }
-        body.theme-rgb .card:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 255, 255, 0.6); }
-        body.theme-ai .card:hover { background: #002200; box-shadow: inset 0 0 20px #00ff00; }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
 
-        /* --- MODAL --- */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 100; backdrop-filter: blur(5px); }
-        .modal-overlay.active { display: flex; }
-        .modal-box { background: var(--container-bg); padding: 30px; border-radius: var(--border-radius); border: var(--border); width: 90%; max-width: 500px; min-height: 300px; display: flex; flex-direction: column; }
-        body.theme-rgb .modal-box { border: 2px solid cyan; box-shadow: 0 0 30px cyan; }
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
 
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--text-secondary); padding-bottom: 10px; }
-        .modal-close { cursor: pointer; font-size: 1.5rem; }
-        .modal-back { cursor: pointer; color: var(--accent); visibility: hidden; }
+        /* --- HERO SECTION (HOT TOPIC) --- */
+        .hero {
+            position: relative;
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            padding: 0 4%;
+            background-image: url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
 
-        #view-format, #view-list { flex-grow: 1; display: flex; flex-direction: column; gap: 15px; }
-        #view-list { display: none; }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to right, rgba(20,20,20,0.9) 0%, rgba(20,20,20,0.4) 50%, rgba(20,20,20,0) 100%),
+                        linear-gradient(to top, var(--bg-color) 0%, transparent 20%);
+        }
 
-        .btn { padding: 20px; border: none; border-radius: var(--border-radius); background: var(--accent); color: white; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.1rem; }
-        body.theme-rgb .btn { background: transparent; border: 2px solid #fff; box-shadow: 0 0 10px #fff; }
-        body.theme-rgb .btn:hover { background: white; color: black; box-shadow: 0 0 20px white; }
-        body.theme-ai .btn { background: black; border: 1px solid #00ff00; color: #00ff00; }
-        body.theme-ai .btn:hover { background: #00ff00; color: black; }
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 650px;
+        }
 
-        .note-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid var(--text-secondary); cursor: pointer; }
-        .note-item:hover { background: var(--list-hover); }
-        .note-title { font-weight: bold; }
-        .note-date { font-size: 0.8rem; opacity: 0.7; }
-        body.theme-rgb .note-item { border-bottom: 1px solid rgba(255,255,255,0.2); }
-        body.theme-ai .note-item { border-bottom: 1px dashed #00ff00; }
+        .hero-tag {
+            display: inline-block;
+            background-color: var(--brand-color);
+            color: white;
+            padding: 4px 8px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            border-radius: 3px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: var(--text-main);
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            line-height: 1.5;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: white;
+            color: black;
+        }
+
+        .btn-primary:hover {
+            background-color: rgba(255, 255, 255, 0.75);
+        }
+
+        .btn-secondary {
+            background-color: rgba(109, 109, 110, 0.7);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(109, 109, 110, 0.4);
+        }
+
+        /* --- SLIDER ROWS --- */
+        .content-rows {
+            margin-top: -80px;
+            position: relative;
+            z-index: 20;
+            padding-bottom: 50px;
+        }
+
+        .row {
+            margin-bottom: 3vw;
+        }
+
+        .row-header {
+            font-size: 1.4vw;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin: 0 4% 10px 4%;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            .row-header { font-size: 1.2rem; }
+            .hero-title { font-size: 2.5rem; }
+        }
+
+        .row-posters {
+            display: flex;
+            overflow-y: hidden;
+            overflow-x: scroll;
+            padding: 20px 4%;
+            gap: 10px;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        .row-posters::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        .poster-container {
+            flex: 0 0 auto;
+            position: relative;
+            width: 300px;
+            aspect-ratio: 16 / 9;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+        }
+
+        .poster-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+            z-index: 5;
+        }
+
+        .poster-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .poster-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+            padding: 20px 15px 10px 15px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #737373;
+            font-size: 0.9rem;
+        }
+
+        .muted-row .poster-container {
+            filter: grayscale(100%) opacity(0.5);
+            cursor: not-allowed;
+        }
+        .muted-row .poster-container:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
     </style>
 </head>
-<body class="theme-plain">
+<body>
 
-    <div class="scanlines"></div>
-
-    <nav>
-        <!-- BACK TO HUB -->
-        <a href="https://bibhavdas.github.io/BTBT-SECTION-D-HUB/study.html" class="back-btn">⬅ Back to Hub</a>
-        <select id="theme-switcher" onchange="setTheme(this.value)">
-            <option value="theme-plain">Plain (Default)</option>
-            <option value="theme-rgb">RGB (Gamer)</option>
-            <option value="theme-ai">AI (Terminal)</option>
-        </select>
+    <!-- NAVIGATION -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-left">
+            <a href="#" class="brand-logo">Disruptive Tech</a>
+            <div class="nav-links">
+                <!-- Links back to original hub -->
+                <a href="https://bibhavdas.github.io/BTBT-SECTION-D-HUB/study.html">⬅ Back to Main Hub</a>
+                <a href="#digital-notes">Digital Notes</a>
+                <a href="#resources">Teacher Resources</a>
+            </div>
+        </div>
     </nav>
 
-    <header>
-        <h1 id="page-title">Disruptive Technology</h1>
-        <p style="margin-top: 10px; opacity: 0.8;">Section D Resources</p>
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <div class="hero-content">
+            <span class="hero-tag">HOT TOPIC</span>
+            <h1 class="hero-title">RECOMMENDED QUESTIONS BY SIR</h1>
+            <p class="hero-desc">The ultimate, high-priority exam preparation materials. Review these curated conceptual and numerical problems to ensure you are ready for the upcoming tests.</p>
+            <div class="hero-buttons">
+                <a href="recommended questions 1.html" class="btn btn-primary">► Read Part 1</a>
+                <a href="recommended questions 2.html" class="btn btn-secondary">► Read Part 2</a>
+            </div>
+        </div>
     </header>
 
-    <div class="container">
-        <div class="grid">
-            <!-- 1. TEACHER RESOURCES (UPDATED ONCLICK) -->
-            <div class="card" onclick="openResources()">
-                <div style="font-size: 3rem; margin-bottom: 10px;">👨‍🏫</div>
-                <h2>Teacher Resources</h2>
-                <p>Slides & Syllabus</p>
-            </div>
+    <!-- SLIDER CONTENT -->
+    <main class="content-rows">
 
-            <!-- 2. CLASS NOTES -->
-            <div class="card" onclick="openNotes()">
-                <div style="font-size: 3rem; margin-bottom: 10px;">📝</div>
-                <h2>Class Notes</h2>
-                <p>Raw & Digitalized</p>
-            </div>
-
-            <!-- 3. QUESTIONS -->
-            <div class="card" onclick="alert('Question bank coming soon.')">
-                <div style="font-size: 3rem; margin-bottom: 10px;">❓</div>
-                <h2>Questions</h2>
-                <p>Previous Years & Practice</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL -->
-    <div class="modal-overlay" id="genericModal" onclick="closeModalOutside(event)">
-        <div class="modal-box">
-            <div class="modal-header">
-                <span class="modal-back" id="modalBackBtn" onclick="showFormatView()">⬅ Back</span>
-                <span class="modal-title" id="modalTitle">Title</span>
-                <span class="modal-close" onclick="closeModal()">×</span>
-            </div>
-
-            <!-- VIEW 1: SELECT FORMAT (Only for Notes) -->
-            <div id="view-format">
-                <button class="btn" onclick="showNoteTopics('raw')">📄 Raw (PDF Scans)</button>
-                <button class="btn" onclick="showNoteTopics('digital')">💻 Digitalized</button>
-            </div>
-
-            <!-- VIEW 2: LIST OF ITEMS (For Notes & Resources) -->
-            <div id="view-list"></div>
-        </div>
-    </div>
-
-    <script>
-        // --- DATA RESOURCES ---
-        
-        // 1. Teacher Resources (PPTs, Docs)
-        const resourceDB = [
-            { 
-                title: "Introduction to AI Disruptive System", 
-                type: "PDF/Doc",
-                url: "https://drive.usercontent.google.com/download?id=1YXOosS1oJh9WIw10aIQZJwtRoIXSaYxI&export=download" 
-            },
-            { 
-                title: "Machine Learning (PPTX)", 
-                type: "Presentation",
-                url: "https://docs.google.com/presentation/d/1284TSoLmoqB1Q49ra22FdurfC1knBkT2/edit?usp=sharing&ouid=111235267144580638220&rtpof=true&sd=true" 
-            },
-            { 
-                title: "Use of AI in Various Industries", 
-                type: "Document",
-                url: "https://docs.google.com/document/d/1M_M_4ZbiF5yX3Q6ga84Db-nSh3Dj9sT-/edit?usp=drive_link&ouid=111235267144580638220&rtpof=true&sd=true" 
-            }
-        ];
-
-        // 2. Class Notes (Raw & Digital)
-        const notesDB = {
-            'digital': [
-                { 
-                    title: "Unit 1: Model Fitting & Supervised Learning", 
-                    date: "22/01/2025", 
-                    url: "disruptive-notes.html" 
-                }
-            ],
-            'raw': [
-                { 
-                    title: "Unit 1: Handwritten Scan", 
-                    date: "22/01/2025", 
-                    url: "https://drive.usercontent.google.com/download?id=1JnfUNUzx44Vw6VWkfIOD-SJkgVLOE05H&export=download" 
-                }
-            ]
-        };
-
-        // --- THEME LOGIC ---
-        function setTheme(themeName) {
-            document.body.className = themeName;
-            localStorage.setItem('disruptive-theme', themeName);
-        }
-        (function() {
-            const savedTheme = localStorage.getItem('disruptive-theme') || 'theme-plain';
-            document.body.className = savedTheme;
-            document.getElementById('theme-switcher').value = savedTheme;
-        })();
-
-        // --- MODAL CONTROLLER ---
-        const modal = document.getElementById('genericModal');
-        const viewFormat = document.getElementById('view-format');
-        const viewList = document.getElementById('view-list');
-        const modalTitle = document.getElementById('modalTitle');
-        const backBtn = document.getElementById('modalBackBtn');
-
-        // Helper: Close Modal
-        function closeModal() { modal.classList.remove('active'); }
-        function closeModalOutside(e) { if(e.target === modal) closeModal(); }
-
-        // 1. OPEN CLASS NOTES (Shows Format Selection First)
-        function openNotes() {
-            modal.classList.add('active');
-            showFormatView();
-        }
-
-        function showFormatView() {
-            viewFormat.style.display = 'flex';
-            viewList.style.display = 'none';
-            modalTitle.innerText = "Select Note Format";
-            backBtn.style.visibility = 'hidden';
-        }
-
-        function showNoteTopics(type) {
-            const data = notesDB[type];
-            viewFormat.style.display = 'none';
-            viewList.style.display = 'flex';
-            backBtn.style.visibility = 'visible';
-            modalTitle.innerText = type === 'digital' ? "Digital Notes" : "Raw PDFs";
-            renderList(data, 'date');
-        }
-
-        // 2. OPEN TEACHER RESOURCES (Shows List Directly)
-        function openResources() {
-            modal.classList.add('active');
-            viewFormat.style.display = 'none';
-            viewList.style.display = 'flex';
-            // No back button needed as there is no previous step for resources
-            backBtn.style.visibility = 'hidden'; 
-            modalTitle.innerText = "Teacher Resources";
-            renderList(resourceDB, 'type');
-        }
-
-        // Generic List Renderer
-        function renderList(data, subtextKey) {
-            viewList.innerHTML = '';
-            if(!data || data.length === 0) {
-                viewList.innerHTML = '<p style="opacity:0.6;">No items found.</p>';
-                return;
-            }
-
-            data.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'note-item';
-                div.onclick = () => window.open(item.url, '_blank');
+        <!-- ROW 1: DIGITAL NOTES -->
+        <section class="row" id="digital-notes">
+            <h2 class="row-header">Digital Notes (Topics)</h2>
+            <div class="row-posters">
                 
-                // Determine what to show in the subtitle (Date or Type)
-                const subtitle = item[subtextKey] || '';
+                <!-- Topic 1 -->
+                <a href="Generative AI.html" class="poster-container">
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=600&q=80" alt="Generative AI" class="poster-img">
+                    <div class="poster-overlay">Generative AI</div>
+                </a>
 
-                div.innerHTML = `
-                    <div>
-                        <div class="note-title">${item.title}</div>
-                        <div class="note-date">${subtitle}</div>
-                    </div>
-                    <div>➤</div>
-                `;
-                viewList.appendChild(div);
-            });
-        }
+                <!-- Topic 2 -->
+                <a href="Natural Language Processing.html" class="poster-container">
+                    <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=600&q=80" alt="NLP" class="poster-img">
+                    <div class="poster-overlay">Natural Language Processing</div>
+                </a>
+
+                <!-- Topic 3 -->
+                <a href="Data Analysis.html" class="poster-container">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Data Analysis" class="poster-img">
+                    <div class="poster-overlay">Data Analysis</div>
+                </a>
+
+                <!-- Topic 4 -->
+                <a href="Unsupervised Machine Learning.html" class="poster-container">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80" alt="Unsupervised ML" class="poster-img">
+                    <div class="poster-overlay">Unsupervised Machine Learning</div>
+                </a>
+
+                <!-- Topic 5 -->
+                <a href="AI Performance Matrix.html" class="poster-container">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="AI Performance Matrix" class="poster-img">
+                    <div class="poster-overlay">AI Performance Matrix</div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- ROW 2: TEACHER RESOURCES -->
+        <section class="row" id="resources">
+            <h2 class="row-header">Teacher Resources</h2>
+            <div class="row-posters">
+                
+                <a href="https://drive.usercontent.google.com/download?id=1YXOosS1oJh9WIw10aIQZJwtRoIXSaYxI&export=download" target="_blank" class="poster-container">
+                    <img src="https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?auto=format&fit=crop&w=600&q=80" alt="Intro to AI" class="poster-img">
+                    <div class="poster-overlay">Intro to AI Disruptive System (PDF)</div>
+                </a>
+
+                <a href="https://docs.google.com/presentation/d/1284TSoLmoqB1Q49ra22FdurfC1knBkT2/edit?usp=sharing&ouid=111235267144580638220&rtpof=true&sd=true" target="_blank" class="poster-container">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=600&q=80" alt="Machine Learning PPT" class="poster-img">
+                    <div class="poster-overlay">Machine Learning (Presentation)</div>
+                </a>
+
+                <a href="https://docs.google.com/document/d/1M_M_4ZbiF5yX3Q6ga84Db-nSh3Dj9sT-/edit?usp=drive_link&ouid=111235267144580638220&rtpof=true&sd=true" target="_blank" class="poster-container">
+                    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80" alt="AI in Industries" class="poster-img">
+                    <div class="poster-overlay">Use of AI in Various Industries (Doc)</div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- ROW 3: RAW SCANS (PLACEHOLDER) -->
+        <section class="row muted-row" id="raw-notes">
+            <h2 class="row-header">Raw Scans & PDFs (Coming Soon)</h2>
+            <div class="row-posters">
+                
+                <div class="poster-container">
+                    <img src="https://images.unsplash.com/photo-1621504450181-5d356f61d307?auto=format&fit=crop&w=600&q=80" alt="Pending" class="poster-img">
+                    <div class="poster-overlay">Raw Notes - Pending Upload</div>
+                </div>
+
+                <div class="poster-container">
+                    <img src="https://images.unsplash.com/photo-1621504450181-5d356f61d307?auto=format&fit=crop&w=600&q=80" alt="Pending" class="poster-img">
+                    <div class="poster-overlay">Raw Notes - Pending Upload</div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Section D Resources • Disruptive Technology Study Hub</p>
+    </footer>
+
+    <!-- Script for Navbar scroll effect -->
+    <script>
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
     </script>
 </body>
 </html>
