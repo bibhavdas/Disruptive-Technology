@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disruptive Technology: The Hardware Layer</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ---------------------------------------------------
+           GLOBAL RESETS
+        --------------------------------------------------- */
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; padding: 0;
+            background-color: #0f172a; 
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ---------------------------------------------------
+           LAYER 1: THEORY (Technical Blueprint Style)
+        --------------------------------------------------- */
+        .theory-layer {
+            position: relative;
+            z-index: 10;
+            background: #ffffff;
+            margin-bottom: 100vh; 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        }
+
+        /* Dark Blueprint Header Box with Background Image */
+        .dark-header {
+            padding: 100px 5vw;
+            text-align: center;
+            border-bottom: 4px solid #d97706; /* Circuit Copper */
+            color: #ffffff; 
+            
+            /* The image stack: Dark overlay gradient FIRST, then your image */
+            background-image: 
+                linear-gradient(rgba(15, 23, 42, 0.85), rgba(30, 58, 138, 0.85)), 
+                url('iot.jpg'); /* REPLACE THIS WITH YOUR IMAGE NAME */
+            
+            background-size: cover;
+            background-position: center;
+        }
+        .dark-header h1 {
+            font-family: 'Roboto Mono', monospace;
+            font-size: clamp(2.5rem, 5vw, 5.5rem);
+            letter-spacing: 2px;
+            margin: 0 0 10px 0;
+            text-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+        }
+        .dark-header .subtitle {
+            font-family: 'Roboto Mono', monospace;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: #94a3b8;
+        }
+
+        /* 3-Column Content Layout */
+        .content-container {
+            padding: 60px 4vw;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+        .three-column-layout {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+            text-align: justify;
+        }
+
+        /* Theory Typography */
+        .theory-layer h2 {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 20px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 0;
+            text-transform: uppercase;
+        }
+        .theory-layer p, .theory-layer li {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            line-height: 1.7;
+            color: #334155;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .theory-layer ul, .theory-layer ol { padding-left: 20px; margin-bottom: 25px; }
+
+        .drop-cap {
+            float: left;
+            font-size: 70px;
+            line-height: 55px;
+            padding: 10px 12px 0 0;
+            color: #d97706; 
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+        }
+
+        /* ---------------------------------------------------
+           CUSTOM IMAGE TEXT BOX (Royal Style)
+        --------------------------------------------------- */
+        .pull-quote-container {
+            grid-column: 1 / -1; 
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .pull-quote {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 280px;
+            background-image: url('textbox holder.png'); 
+            background-size: 100% 100%; 
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            /* Pushes the text tightly into the middle red area */
+            padding: 60px 180px; 
+            box-sizing: border-box; 
+            
+            /* Overrides to ensure no old borders appear */
+            border: none;
+            box-shadow: none;
+            background-color: transparent;
+        }
+
+        .pull-quote p {
+            /* Royal font, Goldish-white color, and centered text */
+            font-family: 'Cinzel', serif; 
+            font-size: 24px;
+            color: #fef3c7; 
+            text-align: center;
+            font-weight: 700;
+            line-height: 1.6;
+            margin: 0;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8); 
+        }
+		
+        /* Premium Seamless Image Boxes */
+        .figure { 
+            margin-bottom: 30px; 
+            break-inside: avoid; 
+            background: #ffffff;
+            border-radius: 6px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06); /* Soft, classy shadow */
+            overflow: hidden; /* Keeps borders and buttons completely contained */
+            border: 1px solid #e2e8f0;
+        }
+        
+        /* Thematic Top Borders */
+        .figure.blue { border-top: 4px solid #3b82f6; }
+        .figure.amber { border-top: 4px solid #f59e0b; }
+        .figure.cyan { border-top: 4px solid #06b6d4; }
+
+        .img-box {
+            width: 100%;
+            height: 220px;
+            position: relative;
+            background: #f8fafc;
+        }
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+        }
+        /* Subtle inner shadow on the image for depth */
+        .img-box::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.15);
+            pointer-events: none;
+        }
+        
+        /* Seamless Button */
+		.enlarge-btn {
+            display: block;
+            width: 100%;
+            background: #0f172a;
+            color: #ffffff; 
+            border: none;
+            padding: 12px;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+			text-decoration: none;
+        }
+        /* Dynamic hover colors based on the theme */
+        .figure.blue .enlarge-btn:hover { background: #3b82f6; }
+        .figure.amber .enlarge-btn:hover { background: #f59e0b; }
+        .figure.cyan .enlarge-btn:hover { background: #06b6d4; }
+
+        .caption {
+            background: #f8fafc;
+            padding: 15px;
+            font-family: 'Inter', sans-serif;
+            font-style: italic;
+            font-size: 13px;
+            color: #475569;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        /* ---------------------------------------------------
+           TECHNICAL CURTAIN ANIMATION 
+        --------------------------------------------------- */
+        .curtain-wrapper {
+            position: absolute;
+            bottom: -100vh; 
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            z-index: 15; 
+            pointer-events: none; 
+        }
+        .curtain-door {
+            width: 50%;
+            height: 100%;
+            background: #ffffff;
+            position: relative;
+            background-image: 
+                linear-gradient(#f1f5f9 1px, transparent 1px),
+                linear-gradient(90deg, #f1f5f9 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .curtain-left { 
+            border-right: 8px solid #d97706;
+            box-shadow: inset -10px 0 20px rgba(0,0,0,0.05);
+        }
+        .curtain-right { 
+            border-left: 8px solid #d97706;
+            box-shadow: inset 10px 0 20px rgba(0,0,0,0.05);
+        }
+
+        /* ---------------------------------------------------
+           LAYER 2: Q&A (Graphite, Neon Cyan, Amber)
+        --------------------------------------------------- */
+        .qna-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1; 
+            overflow-y: auto;
+            background-color: #0f172a; 
+        }
+
+        .qna-layer::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80'),
+                url('https://images.unsplash.com/photo-1555664424-778a1e5e1b48?auto=format&fit=crop&w=1200&q=80');
+            background-position: left center, right center;
+            background-repeat: no-repeat;
+            background-size: 50% 100%, 50% 100%;
+            opacity: 0.05; 
+            z-index: 0;
+        }
+
+        .qna-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12vh 5vw;
+            position: relative;
+            z-index: 2; 
+        }
+
+        .qna-layer .encyclopedia-header {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 32px;
+            color: #22d3ee; 
+            border-bottom: 2px solid #f59e0b; 
+            padding-bottom: 15px;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
+        
+        .qna-layer .q-box {
+            background: rgba(30, 41, 59, 0.85); 
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            border-left: 6px solid #22d3ee; 
+            padding: 35px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .qna-layer .q-box h4 {
+            margin: 0 0 15px 0;
+            color: #f59e0b; 
+            font-family: 'Roboto Mono', monospace;
+            font-size: 20px;
+        }
+        .qna-layer .q-box p, .qna-layer .q-box ol, .qna-layer .q-box li {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #cbd5e1; 
+        }
+        .qna-layer .q-box ol { padding-left: 25px; margin-top: 15px; }
+        .qna-layer .q-box li { margin-bottom: 10px; }
+
+
+       /* ---------------------------------------------------
+           UI ELEMENTS 
+        --------------------------------------------------- */
+        .download-btn {
+            position: fixed;
+            top: 30px; 
+            right: 30px;
+            background: linear-gradient(135deg, #b45309 0%, #d97706 100%); 
+            color: #ffffff;
+            border: none;
+            padding: 15px 40px;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            z-index: 100;
+            clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 50%, 100% 100%, 0 100%, 18px 50%);
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.03);
+            filter: brightness(1.2);
+        }
+
+        .download-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%; 
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 4s infinite; 
+            pointer-events: none;
+        }
+
+        @keyframes shine {
+            0% { left: -150%; }
+            15% { left: 200%; } 
+            100% { left: 200%; } 
+        }
+
+        @media (max-width: 1100px) { .three-column-layout { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .three-column-layout { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div id="pdf-content">
+
+    <div class="theory-layer" id="theoryLayer">
+        
+        <div class="dark-header">
+            <h1>The Hardware Layer</h1>
+            <div class="subtitle">IoT & Microcontrollers • 17/03/2026 - 26/03/2026</div>
+        </div>
+
+        <div class="content-container">
+            <div class="three-column-layout">
+                
+                <div class="column">
+                    <p><span class="drop-cap">I</span>OT refers to a system of interconnected physical devices that collect and exchange data over internet without any human intervention. Devices connected throughout the internet are inherently dependent upon hardware to function and execute logic in the physical world.</p>
+                    
+                    <h2>Components of IoT</h2>
+                    <p>To build a functional IoT architecture, four distinct components must operate seamlessly together:</p>
+                    <ol>
+                        <li><strong>Sensors:</strong> Senses physical parameters and calamities from the environment.</li>
+                        <li><strong>Connectivity:</strong> The transmission layer (Wi-Fi, Bluetooth) that sends data to processing hubs.</li>
+                        <li><strong>Data Processing:</strong> Microcontrollers and cloud systems that compute decisions based on input data.</li>
+                        <li><strong>User Interface:</strong> The dashboard (UI) allowing users to monitor systems and input manual overrides.</li>
+                    </ol>
+
+                    <div class="figure blue">
+                        <div class="img-box">
+                            <img src="iota.png" alt="IoT Architecture">
+                        </div>
+                        <button class="enlarge-btn" onclick="window.open('iota.png', '_blank')">View enlarged image</button>
+                        <div class="caption">Figure 2.1: The primary flow of data from physical sensors to cloud processing.</div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <h2>Sensors vs Actuators</h2>
+                    <p>In simple words, a sensor detects things and an actuator actually does the mechanical work.</p>
+                    <p><strong>Sensor:</strong> An electronic device that detects, measures or responds to physical, chemical or environmental changes (temperature, light, pressure, motion) and converts these changes into measurable electric signals interpreted by machines.</p>
+                    <p><strong>Actuator:</strong> Converts digital signals back into mechanical signals. It enables automated control of a system (Eg: Moving a motor, opening/closing valves).</p>
+                    <ul>
+                        <li><em>Hydraulic:</em> Uses Rotary motor (Used in automatic gates).</li>
+                        <li><em>Pneumatic:</em> Operates using compressed air.</li>
+                        <li><em>Mechanical:</em> Screw, Auto tap mechanisms.</li>
+                        <li><em>Electrical:</em> DC Motor, AC Motor, Stepper Motor.</li>
+                    </ul>
+
+                    <div class="figure amber">
+                        <div class="img-box">
+                            <img src="actu.jpg" alt="Actuator Diagram">
+                        </div>
+                        <button class="enlarge-btn" onclick="window.open('actu.jpg', '_blank')">View enlarged image</button>
+                        <div class="caption">Figure 2.2: Electrical actuators translate logic into physical motion.</div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <h2>The Microcontroller Brain</h2>
+                    <p>The Microcontroller controls the entire IOT Mechanism. It is a compact integrated circuit designed to perform specific tasks in embedded systems.</p>
+                    <ul>
+                        <li><strong>CPU:</strong> Executes all instructions and controls operations. Performs arithmetic and logical problems.</li>
+                        <li><strong>Memory Unit:</strong> RAM and ROM for live operations and storage.</li>
+                        <li><strong>I/O Ports:</strong> Connects external devices (input sensors, output actuators).</li>
+                    </ul>
+
+                    <h2>System Workflow</h2>
+                    <p>Physical Quantity &rarr; Sensor &rarr; Electrical signal &rarr; Microcontroller &rarr; Output.</p>
+                    
+                    <div class="figure cyan">
+                        <div class="img-box">
+                            <img src="ac.jpg" alt="Smart AC Logic">
+                        </div>
+                        <a href="ac.jpg" target="_blank" class="enlarge-btn">View enlarged image</a>
+                        <div class="caption">Figure 2.3: Logic flow of an automated AC regulating a 16°C threshold.</div>
+                    </div>
+                </div>
+
+                <div class="pull-quote-container">
+                    <div class="pull-quote">
+                        <p>Temperature is sensed &rarr; data is transmitted &rarr;<br> processed &rarr; decision is made &rarr; actuator operates automatically.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="animation-trigger" style="height: 10px; width: 100%;"></div>
+
+        <div class="curtain-wrapper" id="curtainWrapper">
+            <div class="curtain-door curtain-left" id="curtainLeft"></div>
+            <div class="curtain-door curtain-right" id="curtainRight"></div>
+        </div>
+
+    </div>
+
+    <div class="qna-layer" id="qnaLayer">
+        <div class="qna-content">
+            <div class="encyclopedia-header">Hardware Fundamentals: Index of Questions</div>
+            
+            <div class="q-box">
+                <h4>Q.1) What is a microcontroller?</h4>
+                <p><strong>Ans:</strong> A microcontroller is a compact integrated circuit designed to perform a specific task in an embedded system. It acts as the brain of an IoT system, controlling the entire mechanism. It contains a processor (CPU), memory unit (RAM and ROM), and input-output peripherals all on a single chip. The CPU executes instructions and performs logical operations, while the I/O ports are used to connect external devices such as input sensors and actuators.</p>
+            </div>
+
+            <div class="q-box">
+                <h4>Q.2) What are the fundamental components required to build an IoT architecture?</h4>
+                <p><strong>Ans:</strong> An IoT architecture relies on four main components: 1. Sensors (to detect physical parameters), 2. Connectivity (to transmit data via Wi-Fi/Bluetooth), 3. Data Processing (microcontrollers and cloud systems to compute decisions based on input), and 4. User Interface (a dashboard allowing users to monitor systems and input manual overrides).</p>
+            </div>
+
+            <div class="q-box">
+                <h4>Q.3) Explain the difference between a Sensor and an Actuator with examples.</h4>
+                <p><strong>Ans:</strong> A sensor detects and measures physical, chemical, or environmental changes (e.g., temperature, light, pressure) and converts them into electrical signals that machines can interpret. An actuator does the reverse; it converts digital or electrical signals into physical, mechanical action to enable automated control. For example, a temperature sensor detects heat in a room, while an electrical actuator like an AC motor actually turns on the fan to cool it down.</p>
+            </div>
+
+            <div class="q-box">
+                <h4>Q.4) What are the four main stages in the working principle of a sensor?</h4>
+                <p><strong>Ans:</strong> The working principle of a sensor involves four key stages: 1) Sensing Element: This component detects the actual physical parameters like heat or humidity. 2) Transduction: The process that converts the detected physical quantity into electrical signals. 3) Signal Processing: This step amplifies or modifies the raw electrical signal so it is clean and readable. 4) Final Output: The processed signal is finally sent to the microcontroller for decision-making.</p>
+            </div>
+
+            <div class="q-box">
+                <h4>Q.5) Design a smart agriculture system using IOT to improve farming efficiency and productivity. (10 Marks)</h4>
+                <p><strong>Ans:</strong> A Smart Agriculture System leverages the Internet of Things (IoT) to create a network of interconnected physical devices that collect and exchange field data over the internet without human intervention. This enables precise, automated farming to maximize yield and minimize resource wastage.</p>
+                
+                <p><strong>I. System Architecture & Components</strong></p>
+                <ol>
+                    <li><strong>Sensors (Data Acquisition):</strong> A sensor is an electronic device that detects physical or environmental changes and converts them into measurable electrical signals. For this system, we deploy:
+                        <ul>
+                            <li><em>Soil Moisture Sensor:</em> Detects the exact water content in the earth.</li>
+                            <li><em>Temperature Sensor:</em> Monitors ambient climate to prevent heat stress on crops.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Microcontroller (The Brain):</strong> A compact integrated circuit designed to perform specific tasks in an embedded system. It controls the entire IoT mechanism and consists of:
+                        <ul>
+                            <li><em>CPU:</em> Executes all instructions and logical decisions.</li>
+                            <li><em>Memory Unit:</em> RAM and ROM for processing and storing operations.</li>
+                            <li><em>I/O Ports:</em> Connects the external input sensors and output actuators.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Connectivity & Cloud Processing:</strong> Through Wi-Fi or Bluetooth, the microcontroller sends the sensor data to a Cloud system. The cloud acts as the decision-maker. It continuously compares the received soil moisture value with a pre-set condition (e.g., threshold set at 30% moisture).</li>
+                    <li><strong>Actuators & User Interface (Execution):</strong>
+                        <ul>
+                            <li><em>Actuators:</em> An actuator converts electrical signals into physical, mechanical actions. In this system, we use an <strong>Electrical Actuator</strong> (like an AC/DC motor) attached to a water pump or irrigation valve.</li>
+                            <li><em>User Interface (UI):</em> A mobile or web dashboard allows the farmer to monitor real-time crop health, adjust moisture thresholds, and manually override the pumps if needed.</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <p><strong>II. Complete Workflow (Automatic Irrigation Example)</strong></p>
+                <ul>
+                    <li><strong>Step 1 (Sense):</strong> The physical quantity (dry soil) is detected by the moisture sensor.</li>
+                    <li><strong>Step 2 (Transmit):</strong> The sensor converts this physical state into an electrical signal and sends it to the microcontroller.</li>
+                    <li><strong>Step 3 (Process):</strong> The data is sent to the cloud. The system determines the moisture is below the 30% threshold and decides the field needs water.</li>
+                    <li><strong>Step 4 (Actuate):</strong> A digital signal is sent to the actuator (the water pump motor), turning it ON automatically.</li>
+                    <li><strong>Step 5 (Feedback):</strong> Once the sensor detects the moisture has reached the optimal level, the system processes this new data and turns the actuator OFF, ensuring zero water wastage and highly efficient productivity.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<button class="download-btn" onclick="generatePDF()">Download as PDF</button>
+
+<script>
+    // 1. Anime.js Curtain Reveal Logic
+    let curtainOpened = false;
+    
+    const trigger = document.getElementById('animation-trigger');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !curtainOpened) {
+                curtainOpened = true;
+                anime({ targets: '#curtainLeft', translateX: '-100%', duration: 1200, easing: 'easeInOutCubic' });
+                anime({ targets: '#curtainRight', translateX: '100%', duration: 1200, easing: 'easeInOutCubic' });
+            } 
+            else if (!entry.isIntersecting && entry.boundingClientRect.top > 0 && curtainOpened) {
+                curtainOpened = false;
+                anime({ targets: '#curtainLeft', translateX: '0%', duration: 800, easing: 'easeOutQuad' });
+                anime({ targets: '#curtainRight', translateX: '0%', duration: 800, easing: 'easeOutQuad' });
+            }
+        });
+    }, { threshold: 0.1 });
+
+    if(trigger) observer.observe(trigger);
+
+    // 2. Stabilized PDF Generation Logic
+    function generatePDF() {
+        const btn = document.querySelector('.download-btn');
+        const theoryLayer = document.getElementById('theoryLayer');
+        const qnaLayer = document.getElementById('qnaLayer');
+        const curtains = document.getElementById('curtainWrapper');
+        
+        btn.style.display = 'none';
+
+        theoryLayer.style.marginBottom = '0';
+        theoryLayer.style.boxShadow = 'none';
+        if(curtains) curtains.style.display = 'none'; 
+        
+        qnaLayer.style.position = 'relative'; 
+        qnaLayer.style.height = 'max-content'; 
+        qnaLayer.style.overflow = 'visible'; 
+        qnaLayer.style.zIndex = 'auto';
+
+        const element = document.getElementById('pdf-content');
+        
+        const opt = {
+            margin:       [0.2, 0, 0.2, 0], 
+            filename:     'Hardware_Layer_Interactive.pdf',
+            image:        { type: 'jpeg', quality: 1.0 },
+            html2canvas:  { 
+                scale: 2, 
+                useCORS: true, 
+                scrollY: 0, 
+                windowWidth: 1400 
+            }, 
+            jsPDF:        { unit: 'in', format: 'a3', orientation: 'landscape' } 
+        };
+
+        html2pdf().set(opt).from(element).save()
+        .then(() => {
+            restoreUI();
+        })
+        .catch((error) => {
+            console.error("PDF Generation Failed:", error);
+            alert("PDF generation failed! If using local images, run via a local server (like VS Code Live Server) or use Base64 image encoding.");
+            restoreUI();
+        });
+
+        function restoreUI() {
+            theoryLayer.style.marginBottom = '100vh';
+            theoryLayer.style.boxShadow = '0 30px 60px rgba(0,0,0,0.8)';
+            if(curtains) curtains.style.display = 'flex';
+            
+            qnaLayer.style.position = 'fixed';
+            qnaLayer.style.height = '100vh';
+            qnaLayer.style.overflowY = 'auto';
+            qnaLayer.style.zIndex = '1';
+            
+            btn.style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>

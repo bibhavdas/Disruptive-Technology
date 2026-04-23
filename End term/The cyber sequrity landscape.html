@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disruptive Technology: Cybersecurity</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ---------------------------------------------------
+           GLOBAL RESETS
+        --------------------------------------------------- */
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; padding: 0;
+            background-color: #000000; /* No grey anywhere */
+            font-family: 'Source Sans Pro', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* ---------------------------------------------------
+           LAYER 1: THEORY (Magazine / Editorial Style)
+        --------------------------------------------------- */
+        .theory-layer {
+            position: relative;
+            z-index: 10;
+            background: #ffffff;
+            /* Creates the space for the fixed QnA layer underneath */
+            margin-bottom: 100vh; 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        }
+
+        /* Dark Bold Header Box */
+        .dark-header {
+            background: #0a0a0a;
+            color: #ffffff;
+            padding: 100px 5vw;
+            text-align: center;
+            border-bottom: 4px solid #d4af37; /* Premium Gold */
+        }
+        .dark-header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(3rem, 6vw, 6rem);
+            letter-spacing: 4px;
+            margin: 0 0 10px 0;
+            text-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+        }
+        .dark-header .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.4rem;
+            color: #b0b0b0;
+        }
+
+        /* 3-Column Content Layout */
+        .content-container {
+            padding: 60px 4vw;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+        .three-column-layout {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+            text-align: justify;
+        }
+
+        /* Theory Typography */
+        .theory-layer h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 22px;
+            color: #111;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 0;
+        }
+        .theory-layer p, .theory-layer li {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #222;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .theory-layer ul { padding-left: 20px; margin-bottom: 25px; }
+
+        /* Drop Cap */
+        .drop-cap {
+            float: left;
+            font-size: 80px;
+            line-height: 60px;
+            padding: 10px 12px 0 0;
+            color: #d4af37; 
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+        }
+
+        /* Framed Blue Pull Quote (Based on user image request) */
+        .pull-quote-container {
+            grid-column: 1 / -1; /* Spans all 3 columns */
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        .pull-quote {
+            border: 5px solid #000000; /* Heavy black frame */
+            padding: 40px;
+            max-width: 900px;
+        }
+        .pull-quote p {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 26px;
+            color: #0056b3; /* Distinct blue text */
+            text-align: center;
+            font-weight: 600;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        /* Colored Image Boxes with Captions */
+        .figure { margin-bottom: 30px; break-inside: avoid; }
+        .img-box {
+            width: 100%;
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 4px 4px 0 0; /* Flat bottom for caption */
+        }
+        .img-box.blue { background: #e0f2fe; color: #0369a1; border: 2px dashed #7dd3fc; border-bottom: none; }
+        .img-box.red { background: #fee2e2; color: #b91c1c; border: 2px dashed #fca5a5; border-bottom: none; }
+        .img-box.green { background: #dcfce7; color: #15803d; border: 2px dashed #86efac; border-bottom: none; }
+		.img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Keeps the image from stretching weirdly */
+            border-radius: inherit; /* Keeps the top corners rounded */
+        }
+        
+        .caption {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-top: none;
+            padding: 12px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 14px;
+            color: #475569;
+            text-align: center;
+            border-radius: 0 0 4px 4px;
+        }
+		
+		.enlarge-btn {
+            display: block;
+            width: 100%;
+            background: #0a0a0a;
+            color: #d4af37;
+            border: 1px solid #e2e8f0;
+            border-top: none;
+            border-bottom: none;
+            padding: 10px;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .enlarge-btn:hover {
+            background: #d4af37;
+            color: #000;
+        }
+
+        /* ---------------------------------------------------
+           WHITE & GOLD CURTAIN ANIMATION (Anime.js target)
+        --------------------------------------------------- */
+        /* Placed physically at the bottom edge of the theory layer, covering the void */
+        .curtain-wrapper {
+            position: absolute;
+            bottom: -100vh; /* Hangs exactly over the 100vh margin void */
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            z-index: 15; /* Sits above the QnA layer below */
+            pointer-events: none; /* Let clicks pass through when open */
+        }
+        .curtain-door {
+            width: 50%;
+            height: 100%;
+            background: #ffffff;
+            position: relative;
+        }
+        /* Gold trimmings on the curtains */
+        .curtain-left { 
+            border-right: 12px solid #d4af37;
+            box-shadow: inset -10px 0 20px rgba(0,0,0,0.05);
+        }
+        .curtain-right { 
+            border-left: 12px solid #d4af37;
+            box-shadow: inset 10px 0 20px rgba(0,0,0,0.05);
+        }
+        /* Inner gold line for extra premium feel */
+        .curtain-left::after { content: ''; position: absolute; right: 10px; top: 0; bottom: 0; width: 2px; background: #b8860b; }
+        .curtain-right::after { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: #b8860b; }
+
+
+        /* ---------------------------------------------------
+           LAYER 2: Q&A (Premium Black, Gold, Purple)
+        --------------------------------------------------- */
+        .qna-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1; /* Underneath theory and curtains */
+            overflow-y: auto;
+            background-color: #0a0a0a; /* Premium Black */
+        }
+
+        /* Dual Transparent Background Images */
+        .qna-layer::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80'),
+                url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80');
+            background-position: left center, right center;
+            background-repeat: no-repeat;
+            background-size: 50% 100%, 50% 100%;
+            opacity: 0.08; /* Low visibility */
+            z-index: 0;
+        }
+
+        .qna-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12vh 5vw;
+            position: relative;
+            z-index: 2; /* Above background images */
+        }
+
+        .qna-layer .encyclopedia-header {
+            font-family: 'Cinzel', serif;
+            font-size: 38px;
+            color: #d4af37; /* Gold */
+            border-bottom: 2px solid #4b0082; /* Deep Purple */
+            padding-bottom: 15px;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        .qna-layer .q-box {
+            background: linear-gradient(135deg, rgba(25,0,40,0.9) 0%, rgba(50,0,80,0.8) 100%); /* Rich Purple */
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-left: 6px solid #d4af37; /* Gold Accent */
+            padding: 35px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .qna-layer .q-box h4 {
+            margin: 0 0 15px 0;
+            color: #d4af37;
+            font-family: 'Cinzel', serif;
+            font-size: 22px;
+            letter-spacing: 1px;
+        }
+        .qna-layer .q-box p, .qna-layer .q-box ol, .qna-layer .q-box li {
+            margin: 0;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 17px;
+            line-height: 1.8;
+            color: #e2e8f0; /* Crisp white-grey for readability */
+        }
+        .qna-layer .q-box ol { padding-left: 25px; margin-top: 15px; }
+        .qna-layer .q-box li { margin-bottom: 10px; }
+
+
+       /* ---------------------------------------------------
+           UI ELEMENTS & PRINT RESPONSIVENESS
+        --------------------------------------------------- */
+        .download-btn {
+            position: fixed;
+            top: 30px; /* Moved to the top */
+            right: 30px;
+            background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+            color: #000;
+            border: none;
+            padding: 15px 40px;
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            font-size: 15px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            z-index: 100;
+            /* Inward curve shape (Concave Ribbon) */
+            clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 50%, 100% 100%, 0 100%, 18px 50%);
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.03);
+            filter: brightness(1.1);
+        }
+
+        /* Shining light animation */
+        .download-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%; /* Start outside the button */
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 4s infinite; /* Sweeps every 4 seconds */
+            pointer-events: none;
+        }
+
+        @keyframes shine {
+            0% { left: -150%; }
+            15% { left: 200%; } /* Fast sweep */
+            100% { left: 200%; } /* Long pause */
+        }
+
+        @media (max-width: 1100px) { .three-column-layout { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .three-column-layout { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div id="pdf-content">
+
+    <div class="theory-layer" id="theoryLayer">
+        
+        <div class="dark-header">
+            <h1>The Cybersecurity Landscape</h1>
+            <div class="subtitle">02/04/2026 - 07/04/2026</div>
+        </div>
+
+        <div class="content-container">
+            <div class="three-column-layout">
+                
+                <div class="column">
+                    <p><span class="drop-cap">W</span>hy do we need to secure our AI servers? Ram need login credential to access ADAMAS Data. When we type a password, it shows "..." so that others cannot see it. Now suppose Madhu saw the password and accessed ADAMAS data and he deleted some data's which could be very important.</p>
+                    <p>Thus, Madhu did a data breach. He can change our Passwords, and other essentials data. He can then sell the data by encrypting it. To make sure this doesn't happen, we need to secure the network. Login credentials thus must be protected.</p>
+                    <p>We can do it by Two factor authentication (By sending OTP to your phone). We can also use VPN to hide our specific networks which we want to protect. We only allow familiars to access a network using a VPN.</p>
+
+                    <div class="figure">
+                        <div class="img-box blue">
+    <img src="vpndg.png" alt="Secured Network">
+</div>
+<button class="enlarge-btn" onclick="window.open('vpndg.png', '_blank')">View enlarged image</button>
+                        <div class="caption">Figure 1.1: Visualizing a secure VPN tunnel routing traffic to authorized AI databases.</div>
+                    </div>
+
+                    <h2>The CIA Triad</h2>
+                    <ul>
+                        <li><strong>Confidentiality:</strong> We must make sure the data intended for a certain person/group should be accessed by them and nobody else.</li>
+                        <li><strong>Integrity:</strong> We took the data for a specific data. Now someone modified the data and they specific work cannot be done. Now then we cannot have data of some information. This means the data didn't maintain integrity.</li>
+                        <li><strong>Availability:</strong> We store our data on Google cloud because we trust it. But we cannot trust ADAMAS cloud because we see 504 page a lot. Thus, not much trust. This is availability.</li>
+                    </ul>
+                </div>
+
+                <div class="column">
+                    <h2>Types of Hackers</h2>
+                    <ul>
+                        <li><strong>Black Hat:</strong> Individuals with extraordinary computer skills restoring to malicious or destructive activities.</li>
+                        <li><strong>Grey Hat:</strong> An individual which works both, offensive and defensive at various times.</li>
+                        <li><strong>White Hat:</strong> An individual hacking skill and using them for defensive purposes. Also known as security analyst.</li>
+                        <li><strong>Suicide hackers:</strong> Individual who aims to bring down critical infrastructure for a cause and are not worried. To face any circumstances.</li>
+                        <li><strong>Script Kiddie:</strong> An unskilled hacker who compromises system by running scripts from the tools and software's developed by real hackers.</li>
+                        <li><strong>Cyber Terrorist:</strong> Individuals with wide range of skills motivated by religious or political beliefs to create fear by large scare disruption of computer networks.</li>
+                        <li><strong>State Sponsored Hackers:</strong> An individual employed by the government to penetrate and gain top secret information to damage information system to other governments.</li>
+                        <li><strong>Activists:</strong> Individuals who promote political agenda by hacking specially defacing or disabling websites.</li>
+                    </ul>
+
+                    <div class="figure">
+                        <div class="img-box red">
+    <img src="pshg.webp" alt="Secured Network">
+</div>
+                        <div class="caption">Figure 1.2: Phishing emails often spoof trusted institutions to steal credentials.</div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <h2>Attack Vectors</h2>
+                    <p><strong>Phishing Attack:</strong> It's a trick user revealing sensitive information like password or any confidential data. Usually done through fake email and messages, appear to be from trusted sources like repeated company, banks, etc. Eg: Fake login pages asking for credentials.</p>
+                    <p><strong>Malware Attack:</strong> Malicious software is designed to harm the system. It includes:
+                    <ul>
+                        <li><strong>Virus:</strong> Multiple types of viruses. A virus in pen drive can make a short cut in C drive damaging the original files breaking the security and the antivirus may fail to work.</li>
+                        <li><strong>Worms:</strong> Spreads through network. Unlike virus, it can spread to all the machines in a network.</li>
+                        <li><strong>Spy Ware:</strong> Secretly monitors and collects information.</li>
+                    </ul></p>
+
+                    <p><strong>Password attack:</strong> Subscribing on cookies from untrustable website, it can steal all of your data and password and it will not need extra permission to access them next time. 
+                    <ul>
+                        <li><strong>Brute force attack:</strong> The hackers gather data and run an algorithm with the collected data and try all possible combinations of the password.</li>
+                        <li><strong>Dictionary attack:</strong> Uses common password.</li>
+                    </ul></p>
+                    
+                    <p><strong>DOS Attack:</strong> Denial of services. A DOS attack floods a system or network with high traffic making it unavailable to user.</p>
+                    <p><strong>Man in the middle:</strong> Attackers secretly interpret communication between two parties. Getting password by some way. Getting password by calling you or your trustable party.</p>
+                    
+                    <div class="figure">
+                        <div class="img-box green">
+    <img src="sql.png" alt="Secured Network">
+</div>
+<button class="enlarge-btn" onclick="window.open('sql.png', '_blank')">View enlarged image</button>
+                        <div class="caption">Figure 1.3: Malicious inputs tricking the backend database into unintended execution.</div>
+                    </div>
+
+                    <p><strong>SQL (Structure Query Language) Injection:</strong> Attackers insert malicious SQL statements into input fields (like search boxes or login forms) to manipulate the backend database. It tricks the system into executing unintended commands.
+                    <ul>
+                        <li><strong>Unauthorized Access:</strong> Attackers can view hidden data, bypass logins, or steal sensitive information directly from the database.</li>
+                        <li><strong>Data Manipulation:</strong> They can modify, add, delete, or even wipe out entire database tables.</li>
+                    </ul></p>
+                </div>
+
+                <div class="pull-quote-container">
+                    <div class="pull-quote">
+                        <p>"Without securing our cyberspace our personal data might be compromised. We are heavily dependent on digital technology."</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="animation-trigger" style="height: 10px; width: 100%;"></div>
+
+        <div class="curtain-wrapper" id="curtainWrapper">
+            <div class="curtain-door curtain-left" id="curtainLeft"></div>
+            <div class="curtain-door curtain-right" id="curtainRight"></div>
+        </div>
+
+    </div>
+
+
+    <div class="qna-layer" id="qnaLayer">
+        <div class="qna-content">
+            <div class="encyclopedia-header">Cybersecurity Fundamentals: Index of Questions</div>
+            
+            <div class="q-box">
+                <h4>Q.1) What is cyber security?</h4>
+                <p><strong>Ans:</strong> It is a practice of protecting digital devices, networks, applications and data from unauthorized access, digital attacks or damage. It's combinations of technology processes and user education to ensure confidentiality, integrity and availability of information. These are the three pillars of cyber security is known as CIA Triad (confidentiality, Integrity and Availability).</p>
+            </div>
+
+            <div class="q-box">
+                <h4>Q.2) Why we need to secure our network?</h4>
+                <p><strong>Ans:</strong> We need to secure our cyber space because we are heavily dependent on digital technology. Without securing our cyberspace our personal data might be compromised.</p>
+                <ol>
+                    <li>To protect personal information's.</li>
+                    <li>Prevent financial loss.</li>
+                    <li>Ensure privacy.</li>
+                    <li>Maintain business continuity.</li>
+                    <li>Protect against cybercrimes.</li>
+                    <li>Safeguard national security.</li>
+                    <li>Prevent data loss and damage.</li>
+                </ol>
+            </div>
+			
+			<div class="q-box">
+                <h4>Q.3) Design a smart agriculture system using IOT to improve farming efficiency and productivity. (10 Marks)</h4>
+                <p><strong>Ans:</strong> A Smart Agriculture System leverages the Internet of Things (IoT) to create a network of interconnected physical devices that collect and exchange field data over the internet without human intervention. This enables precise, automated farming to maximize yield and minimize resource wastage.</p>
+                
+                <p><strong>I. System Architecture & Components</strong></p>
+                <ol>
+                    <li><strong>Sensors (Data Acquisition):</strong> A sensor is an electronic device that detects physical or environmental changes and converts them into measurable electrical signals. For this system, we deploy:
+                        <ul>
+                            <li><em>Soil Moisture Sensor:</em> Detects the exact water content in the earth.</li>
+                            <li><em>Temperature Sensor:</em> Monitors ambient climate to prevent heat stress on crops.</li>
+                            <li><em>Working Principle:</em> Sensing element detects physical parameter &rarr; Transduction converts it to an electrical signal &rarr; Signal processing amplifies it &rarr; Sent to the controller.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Microcontroller (The Brain):</strong> A compact integrated circuit designed to perform specific tasks in an embedded system. It controls the entire IoT mechanism and consists of:
+                        <ul>
+                            <li><em>CPU:</em> Executes all instructions and logical decisions.</li>
+                            <li><em>Memory Unit:</em> RAM and ROM for processing and storing operations.</li>
+                            <li><em>I/O Ports:</em> Connects the external input sensors and output actuators.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Connectivity & Cloud Processing:</strong> Through Wi-Fi or Bluetooth, the microcontroller sends the sensor data to a Cloud system. The cloud acts as the decision-maker. It continuously compares the received soil moisture value with a pre-set condition (e.g., threshold set at 30% moisture).</li>
+                    <li><strong>Actuators & User Interface (Execution):</strong>
+                        <ul>
+                            <li><em>Actuators:</em> An actuator converts electrical signals into physical, mechanical actions. In this system, we use an <strong>Electrical Actuator</strong> (like an AC/DC motor) attached to a water pump or irrigation valve.</li>
+                            <li><em>User Interface (UI):</em> A mobile or web dashboard allows the farmer to monitor real-time crop health, adjust moisture thresholds, and manually override the pumps if needed.</li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <p><strong>II. Complete Workflow (Automatic Irrigation Example)</strong></p>
+                <ul>
+                    <li><strong>Step 1 (Sense):</strong> The physical quantity (dry soil) is detected by the moisture sensor.</li>
+                    <li><strong>Step 2 (Transmit):</strong> The sensor converts this physical state into an electrical signal and sends it to the microcontroller.</li>
+                    <li><strong>Step 3 (Process):</strong> The data is sent to the cloud. The system determines the moisture is below the 30% threshold and decides the field needs water.</li>
+                    <li><strong>Step 4 (Actuate):</strong> A digital signal is sent to the actuator (the water pump motor), turning it ON automatically.</li>
+                    <li><strong>Step 5 (Feedback):</strong> Once the sensor detects the moisture has reached the optimal level, the system processes this new data and turns the actuator OFF, ensuring zero water wastage and highly efficient productivity.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<button class="download-btn" onclick="generatePDF()">Download as PDF</button>
+
+<script>
+    // 1. Anime.js Curtain Reveal Logic
+    let curtainOpened = false;
+    
+    const trigger = document.getElementById('animation-trigger');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !curtainOpened) {
+                curtainOpened = true;
+                anime({ targets: '#curtainLeft', translateX: '-100%', duration: 1200, easing: 'easeInOutCubic' });
+                anime({ targets: '#curtainRight', translateX: '100%', duration: 1200, easing: 'easeInOutCubic' });
+            } 
+            else if (!entry.isIntersecting && entry.boundingClientRect.top > 0 && curtainOpened) {
+                curtainOpened = false;
+                anime({ targets: '#curtainLeft', translateX: '0%', duration: 800, easing: 'easeOutQuad' });
+                anime({ targets: '#curtainRight', translateX: '0%', duration: 800, easing: 'easeOutQuad' });
+            }
+        });
+    }, { threshold: 0.1 });
+
+    if(trigger) observer.observe(trigger);
+
+    // 2. PDF Generation Logic with Error Handling
+    function generatePDF() {
+        const btn = document.querySelector('.download-btn');
+        const theoryLayer = document.getElementById('theoryLayer');
+        const qnaLayer = document.getElementById('qnaLayer');
+        const curtains = document.getElementById('curtainWrapper');
+        
+        // Hide button during render
+        btn.style.display = 'none';
+
+        // Flatten layout mechanics for clean PDF rendering
+        theoryLayer.style.marginBottom = '0';
+        theoryLayer.style.boxShadow = 'none';
+        if(curtains) curtains.style.display = 'none'; 
+        
+        qnaLayer.style.position = 'relative'; 
+        qnaLayer.style.height = 'max-content'; 
+        qnaLayer.style.overflow = 'visible'; 
+        qnaLayer.style.zIndex = 'auto';
+
+        const element = document.getElementById('pdf-content');
+        
+        const opt = {
+            margin:       [0.2, 0, 0.2, 0], 
+            filename:     'Disruptive_Technology_Interactive.pdf',
+            image:        { type: 'jpeg', quality: 1.0 },
+            html2canvas:  { 
+                scale: 2, 
+                useCORS: true, // Attempts to bypass simple CORS blocks
+                scrollY: 0, 
+                windowWidth: 1400 
+            }, 
+            jsPDF:        { unit: 'in', format: 'a3', orientation: 'landscape' } 
+        };
+
+        // Render PDF then restore the site's interactive state
+        html2pdf().set(opt).from(element).save()
+        .then(() => {
+            restoreUI();
+        })
+        .catch((error) => {
+            console.error("PDF Generation Failed:", error);
+            alert("PDF generation failed! If you are using local PC images, your browser's security rules are blocking the PDF engine. Please run the file via a local server (like VS Code Live Server) or convert your images to Base64.");
+            restoreUI();
+        });
+
+        // Helper function to snap the page back to normal
+        function restoreUI() {
+            theoryLayer.style.marginBottom = '100vh';
+            theoryLayer.style.boxShadow = '0 30px 60px rgba(0,0,0,0.8)';
+            if(curtains) curtains.style.display = 'flex';
+            
+            qnaLayer.style.position = 'fixed';
+            qnaLayer.style.height = '100vh';
+            qnaLayer.style.overflowY = 'auto';
+            qnaLayer.style.zIndex = '1';
+            
+            btn.style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>
