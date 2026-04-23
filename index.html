@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Disruptive Tech | Study Hub</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+        /* Imported Bebas Neue for the Netflix-style logo, and Inter for the rest of the text */
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;800&display=swap');
 
         :root {
             --bg-color: #141414;
@@ -55,13 +56,19 @@
             gap: 30px;
         }
 
+        /* Netflix-style Bold Logo */
         .brand-logo {
-            font-size: 1.5rem;
-            font-weight: 800;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2rem;
             color: var(--brand-color);
             text-decoration: none;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .brand-logo:hover {
+            transform: scale(1.05);
         }
 
         .nav-links {
@@ -279,6 +286,7 @@
                 <!-- Links back to original hub -->
                 <a href="https://bibhavdas.github.io/BTBT-SECTION-D-HUB/study.html">⬅ Back to Main Hub</a>
                 <a href="#digital-notes">Digital Notes</a>
+                <a href="#end-term-topics">End Term Topics</a>
                 <a href="#resources">Teacher Resources</a>
             </div>
         </div>
@@ -338,7 +346,33 @@
             </div>
         </section>
 
-        <!-- ROW 2: TEACHER RESOURCES -->
+        <!-- ROW 2: END TERM TOPICS (FIXED LINKS) -->
+        <section class="row" id="end-term-topics">
+            <h2 class="row-header">End Term Topics</h2>
+            <div class="row-posters">
+                
+                <!-- Changed to GitHub Pages URL -->
+                <a href="https://bibhavdas.github.io/Disruptive-Technology/End%20term/IoT.html" class="poster-container">
+                    <img src="https://images.unsplash.com/photo-1518314916381-77a37c2a49ae?auto=format&fit=crop&w=600&q=80" alt="IoT and microcontroller" class="poster-img">
+                    <div class="poster-overlay">IoT and Microcontroller</div>
+                </a>
+
+                <!-- Changed to GitHub Pages URL -->
+                <a href="https://bibhavdas.github.io/Disruptive-Technology/End%20term/The%20cyber%20sequrity%20landscape.html" class="poster-container">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80" alt="The Cybersecurity Landscape" class="poster-img">
+                    <div class="poster-overlay">The Cybersecurity Landscape</div>
+                </a>
+
+                <!-- Changed to GitHub Pages URL -->
+                <a href="https://bibhavdas.github.io/Disruptive-Technology/End%20term/smart%20agriculture%20challange.html" class="poster-container">
+                    <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=600&q=80" alt="Smart Agriculture Challenge" class="poster-img">
+                    <div class="poster-overlay">Interactive Activity: Smart Agriculture Challenge</div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- ROW 3: TEACHER RESOURCES -->
         <section class="row" id="resources">
             <h2 class="row-header">Teacher Resources</h2>
             <div class="row-posters">
@@ -361,7 +395,7 @@
             </div>
         </section>
 
-        <!-- ROW 3: RAW SCANS (PLACEHOLDER) -->
+        <!-- ROW 4: RAW SCANS (PLACEHOLDER) -->
         <section class="row muted-row" id="raw-notes">
             <h2 class="row-header">Raw Scans & PDFs (Coming Soon)</h2>
             <div class="row-posters">
