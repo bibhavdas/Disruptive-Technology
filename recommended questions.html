@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>End Sem Recommended Questions — Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #14171f;
+    --surface2: #1b1f2a;
+    --border: #252936;
+    --text: #e8eaf0;
+    --muted: #7a7f94;
+    --ai-accent: #6c8ef5;
+    --iot-accent: #3ecf8e;
+    --arvr-accent: #f5a623;
+    --cyber-accent: #e05cae;
+    --robotics-accent: #f06060;
+    --short-bg: #131720;
+    --long-bg: #0f1419;
+    --tag-radius: 4px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0d0f14 0%, #12162a 60%, #0d0f14 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(108,142,245,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--ai-accent);
+    border: 1px solid rgba(108,142,245,0.35);
+    border-radius: 20px;
+    padding: 5px 16px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 900;
+    line-height: 1.15;
+    color: #fff;
+    max-width: 700px;
+    margin: 0 auto 12px;
+  }
+  .hero h1 span { color: var(--ai-accent); }
+  .hero-sub {
+    color: var(--muted);
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    margin-bottom: 36px;
+  }
+
+  /* ── TOPIC PILLS ── */
+  .topic-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 0;
+  }
+  .pill {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .pill:hover { opacity: 0.8; transform: translateY(-1px); }
+  .pill[data-topic="ai"]        { color: var(--ai-accent); border-color: var(--ai-accent); }
+  .pill[data-topic="iot"]       { color: var(--iot-accent); border-color: var(--iot-accent); }
+  .pill[data-topic="arvr"]      { color: var(--arvr-accent); border-color: var(--arvr-accent); }
+  .pill[data-topic="cyber"]     { color: var(--cyber-accent); border-color: var(--cyber-accent); }
+  .pill[data-topic="robotics"]  { color: var(--robotics-accent); border-color: var(--robotics-accent); }
+  .pill.active { color: #fff; }
+  .pill[data-topic="ai"].active        { background: var(--ai-accent); }
+  .pill[data-topic="iot"].active       { background: var(--iot-accent); }
+  .pill[data-topic="arvr"].active      { background: var(--arvr-accent); }
+  .pill[data-topic="cyber"].active     { background: var(--cyber-accent); }
+  .pill[data-topic="robotics"].active  { background: var(--robotics-accent); }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 48px 0 24px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .section-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-count {
+    margin-left: auto;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ── QUESTION CARD ── */
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .q-card:hover { border-color: #333747; }
+
+  .q-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 20px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .q-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: var(--tag-radius);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .q-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #dde0ea;
+    flex: 1;
+    line-height: 1.45;
+  }
+  .q-chevron {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--muted);
+    transition: transform 0.25s ease;
+    margin-top: 2px;
+  }
+  .q-card.open .q-chevron { transform: rotate(180deg); }
+
+  /* ── ANSWER BODY ── */
+  .q-body {
+    display: none;
+    border-top: 1px solid var(--border);
+  }
+  .q-card.open .q-body { display: block; }
+
+  .answer-section {
+    padding: 18px 20px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .answer-section:last-child { border-bottom: none; }
+
+  .answer-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .answer-label::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+  .short-label { color: #6c8ef5; }
+  .short-label::before { background: #6c8ef5; }
+  .long-label { color: var(--iot-accent); }
+  .long-label::before { background: var(--iot-accent); }
+
+  .short-answer {
+    background: var(--short-bg);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #c8ccdb;
+    line-height: 1.75;
+    border-left: 3px solid var(--ai-accent);
+  }
+  .long-answer {
+    font-size: 14px;
+    color: #b8bccc;
+    line-height: 1.85;
+  }
+  .long-answer p { margin-bottom: 12px; }
+  .long-answer p:last-child { margin-bottom: 0; }
+
+  /* Highlighted sub-headings within long answers */
+  .long-answer strong {
+    color: #dde0ea;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+  }
+  .long-answer ul {
+    padding-left: 20px;
+    margin: 8px 0 12px;
+  }
+  .long-answer li { margin-bottom: 4px; }
+
+  /* ── COLOR ACCENTS PER TOPIC ── */
+  [data-topic="ai"] .q-num    { background: rgba(108,142,245,0.12); color: var(--ai-accent); }
+  [data-topic="iot"] .q-num   { background: rgba(62,207,142,0.12); color: var(--iot-accent); }
+  [data-topic="arvr"] .q-num  { background: rgba(245,166,35,0.12); color: var(--arvr-accent); }
+  [data-topic="cyber"] .q-num { background: rgba(224,92,174,0.12); color: var(--cyber-accent); }
+  [data-topic="robotics"] .q-num { background: rgba(240,96,96,0.12); color: var(--robotics-accent); }
+
+  [data-topic="ai"] .short-answer         { border-left-color: var(--ai-accent); }
+  [data-topic="iot"] .short-answer        { border-left-color: var(--iot-accent); }
+  [data-topic="arvr"] .short-answer       { border-left-color: var(--arvr-accent); }
+  [data-topic="cyber"] .short-answer      { border-left-color: var(--cyber-accent); }
+  [data-topic="robotics"] .short-answer   { border-left-color: var(--robotics-accent); }
+
+  [data-topic="ai"] .section-dot        { background: var(--ai-accent); }
+  [data-topic="iot"] .section-dot       { background: var(--iot-accent); }
+  [data-topic="arvr"] .section-dot      { background: var(--arvr-accent); }
+  [data-topic="cyber"] .section-dot     { background: var(--cyber-accent); }
+  [data-topic="robotics"] .section-dot  { background: var(--robotics-accent); }
+
+  /* Section separator */
+  .section-group[data-topic="ai"] .section-header h2       { color: var(--ai-accent); }
+  .section-group[data-topic="iot"] .section-header h2      { color: var(--iot-accent); }
+  .section-group[data-topic="arvr"] .section-header h2     { color: var(--arvr-accent); }
+  .section-group[data-topic="cyber"] .section-header h2    { color: var(--cyber-accent); }
+  .section-group[data-topic="robotics"] .section-header h2 { color: var(--robotics-accent); }
+
+  /* ── SEARCH ── */
+  .search-wrap {
+    max-width: 480px;
+    margin: 32px auto 0;
+    position: relative;
+  }
+  .search-wrap input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 16px 11px 42px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-wrap input:focus { border-color: var(--ai-accent); }
+  .search-wrap input::placeholder { color: var(--muted); }
+  .search-icon {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    width: 16px;
+    height: 16px;
+  }
+
+  /* ── UTILITY ── */
+  .hidden { display: none !important; }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 24px 0 40px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.5px;
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 40px 20px 36px; }
+    .container { padding: 20px 14px 60px; }
+    .q-header { padding: 14px 14px; gap: 10px; }
+    .answer-section { padding: 14px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">End Semester · Study Guide</div>
+  <h1>Recommended <span>Questions</span> &amp; Answers</h1>
+  <p class="hero-sub">AI/ML · IoT · AR/VR · Cybersecurity · Robotics — Short &amp; Long Answers</p>
+
+  <div class="topic-pills">
+    <span class="pill active" data-topic="all">All Topics</span>
+    <span class="pill" data-topic="ai">🤖 AI / ML</span>
+    <span class="pill" data-topic="iot">📡 IoT</span>
+    <span class="pill" data-topic="arvr">🥽 AR / VR</span>
+    <span class="pill" data-topic="cyber">🔐 Cybersecurity</span>
+    <span class="pill" data-topic="robotics">⚙️ Robotics</span>
+  </div>
+
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input type="text" id="searchInput" placeholder="Search questions…">
+  </div>
+</div>
+
+<div class="container" id="main">
+
+  <!-- ===== AI / ML ===== -->
+  <div class="section-group" data-topic="ai">
+    <div class="section-header">
+      <div class="section-dot" style="background:var(--ai-accent)"></div>
+      <h2>Artificial Intelligence &amp; Machine Learning</h2>
+      <span class="section-count">Q1 – Q19</span>
+    </div>
+
+    <!-- Q1 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q1</span>
+        <span class="q-title">Supervised, Unsupervised and Semi-Supervised Learning</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Supervised learning uses labeled data (input-output pairs) to train models. Unsupervised learning finds patterns in unlabeled data. Semi-supervised learning uses a small amount of labeled data combined with large amounts of unlabeled data. Examples: Supervised – spam detection; Unsupervised – customer segmentation; Semi-supervised – image classification with few labeled images.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>SUPERVISED LEARNING:</strong> Imagine a teacher giving you questions AND the correct answers. You study those pairs and learn to answer similar questions on your own. In ML, you give the model thousands of examples like (email text → spam/not spam) and it learns the pattern. Used in: email filtering, loan approval, disease diagnosis.</p>
+            <p><strong>UNSUPERVISED LEARNING:</strong> The teacher throws a pile of random articles on your desk with no labels. You must group similar ones yourself. The model discovers hidden patterns without being told what to look for. Used in: customer grouping, anomaly detection, recommendation systems.</p>
+            <p><strong>SEMI-SUPERVISED LEARNING:</strong> Only a few articles are labeled, the rest aren't. You use the labeled ones as hints to understand the unlabeled ones. Very practical because labeling data is expensive and time-consuming. Used in: medical imaging (few labeled scans, many unlabeled ones), web content classification.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q2</span>
+        <span class="q-title">Machine Learning vs Deep Learning</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Machine Learning (ML) is a subset of AI where algorithms learn from data using statistical methods and require manual feature extraction. Deep Learning (DL) is a subset of ML that uses multi-layered artificial neural networks to automatically learn features from raw data. DL performs better on large datasets and complex tasks like image recognition and NLP.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>MACHINE LEARNING:</strong> You give the computer data AND manually tell it which features to look at. For example, to detect spam, you might tell it to look at words like 'free', 'winner', 'click here'. ML works great with structured data and smaller datasets. Algorithms include: Decision Trees, SVM, Linear Regression.</p>
+            <p><strong>DEEP LEARNING:</strong> You just give raw data (like images or text) and the neural network figures out features on its own through many layers of processing. It mimics how our brain works — many neurons connected in layers. DL needs huge amounts of data and powerful computers (GPUs) but achieves superhuman accuracy on tasks like face recognition, speech-to-text, and self-driving cars.</p>
+            <p><strong>Simple analogy:</strong> ML is like hiring an analyst who needs a detailed checklist. Deep Learning is like hiring a genius who figures everything out from scratch given enough examples.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q3</span>
+        <span class="q-title">ML Models in Various Industries (Healthcare, Agriculture, Logistics, Transportation, Research, Drug Discovery)</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">ML is applied widely: Healthcare – disease diagnosis (CNN for X-rays), patient risk prediction. Agriculture – crop yield prediction, pest detection. Logistics – route optimization, demand forecasting. Transportation – self-driving vehicles, traffic prediction. Research – pattern discovery in scientific data. Drug Discovery – protein structure prediction (AlphaFold), molecular screening for new drugs.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>HEALTHCARE:</strong> Doctors use ML to analyze X-rays and MRI scans to detect cancer, predict patient deterioration, and personalize treatment plans.</p>
+            <p><strong>AGRICULTURE:</strong> Farmers use ML-powered drones and sensors to monitor crop health, predict rainfall needs, detect pest infestations early, and optimize harvest schedules.</p>
+            <p><strong>LOGISTICS:</strong> Companies like Amazon use ML to predict what you'll order next, manage warehouses, and plan the most efficient delivery routes.</p>
+            <p><strong>TRANSPORTATION:</strong> Uber uses ML to calculate surge pricing and ETAs. Tesla uses it for self-driving. Cities use it to predict traffic jams.</p>
+            <p><strong>RESEARCH:</strong> Scientists feed massive datasets to ML models to find patterns that humans would miss — like discovering new galaxies or materials.</p>
+            <p><strong>DRUG DISCOVERY:</strong> Developing a drug normally takes 10+ years. ML can analyze millions of molecular combinations in days to find promising drug candidates. Google's AlphaFold solved protein folding — a 50-year-old biology problem — using deep learning.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q4</span>
+        <span class="q-title">Role of Data in AI/ML</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Data is the foundation of all AI/ML systems. ML models learn patterns from data; the quality, quantity, and diversity of data directly determines model accuracy. Data goes through collection, preprocessing, feature engineering, and training stages. Without quality data, even the best algorithms fail — hence the phrase 'garbage in, garbage out'.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>WHY DATA MATTERS:</strong> A model learns by seeing thousands or millions of examples. The more examples it sees, the better it becomes. If data is wrong, biased, or incomplete, the model will make wrong predictions.</p>
+            <p><strong>QUALITY vs QUANTITY:</strong> More data is good, but clean, accurate, well-labeled data is even better. A small clean dataset can outperform a large messy one.</p>
+            <p><strong>DATA PIPELINE:</strong> Raw data → Collection → Cleaning (removing errors) → Preprocessing (formatting) → Feature Engineering (selecting the right information) → Training the model → Evaluating results.</p>
+            <p><strong>BIAS IN DATA:</strong> If you only train a face recognition model on one demographic, it will fail on others. This is why diverse, representative data is critical for fair AI.</p>
+            <p><strong>Real example:</strong> Netflix recommends shows by learning from millions of users' viewing history. The more data it has, the better the recommendations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q5</span>
+        <span class="q-title">CNN (Convolutional Neural Network) and ANN (Artificial Neural Network)</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">ANN (Artificial Neural Network) is a general neural network inspired by the human brain, consisting of input, hidden, and output layers. Used for tabular data, regression, and classification. CNN (Convolutional Neural Network) is a specialized ANN for grid-like data (images/video). It uses convolutional layers to automatically extract spatial features like edges, textures, and shapes. CNNs are used in image classification, object detection, and medical imaging.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>ANN:</strong> Think of it like a series of decisions. You put in some numbers (inputs), they pass through 'neurons' in hidden layers, each neuron does a calculation, and out comes a prediction. It's great for structured data — like predicting house prices from square footage, location, and age.</p>
+            <p><strong>CNN:</strong> Specially built to understand images. When you look at a photo of a cat, your brain first detects edges, then fur texture, then shape, then recognizes it's a cat. CNN does the same thing — each convolutional layer detects progressively more complex features. The magic is that it learns these features automatically.</p>
+            <p><strong>KEY DIFFERENCE:</strong> ANN treats all inputs equally. CNN understands that nearby pixels in an image are related to each other (spatial relationships).</p>
+            <p><strong>Applications of CNN:</strong> Face recognition (Instagram/Facebook), Medical scans (detecting tumors), Self-driving cars (recognizing pedestrians and signs), Quality control in factories.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q6</span>
+        <span class="q-title">Evaluation Metrics in ML</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Common ML evaluation metrics: Accuracy = (TP+TN)/(TP+TN+FP+FN). Precision = TP/(TP+FP). Recall = TP/(TP+FN). F1-Score = 2×(Precision×Recall)/(Precision+Recall). For regression: MAE, MSE, RMSE, R² Score. Confusion matrix is used to visualize classification performance.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>ACCURACY:</strong> Out of all predictions, how many were correct? But it can be misleading — if 99% of emails aren't spam, a model that always says 'not spam' gets 99% accuracy but is useless.</p>
+            <p><strong>PRECISION:</strong> Of all the cases the model predicted as positive (e.g., spam), how many were actually positive? High precision = few false alarms.</p>
+            <p><strong>RECALL:</strong> Of all the actual positive cases, how many did the model catch? High recall = catches most real cases. Important in medical diagnoses — you don't want to miss a real cancer.</p>
+            <p><strong>F1-SCORE:</strong> A balance between precision and recall. Use this when both false alarms and missing cases are costly.</p>
+            <p><strong>CONFUSION MATRIX:</strong> A table showing TP (correctly predicted positive), TN (correctly predicted negative), FP (false alarm), FN (missed case). Visualizes exactly where the model is making mistakes.</p>
+            <p><strong>FOR REGRESSION:</strong> MAE tells you the average error in prediction. RMSE penalizes large errors more. R² tells you how well the model fits the data (1 = perfect, 0 = useless).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q7</span>
+        <span class="q-title">Benefits of LLM in Real-World Scenarios</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Large Language Models (LLMs) offer benefits like: automating content generation, powering intelligent chatbots (customer support), code generation (GitHub Copilot), language translation, document summarization, medical report analysis, legal document review, and personalized education. LLMs reduce operational costs, improve efficiency, and enable 24/7 availability.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>CUSTOMER SUPPORT:</strong> Companies use LLMs as chatbots that can answer thousands of customer queries simultaneously, 24/7, without hiring more staff. They understand context, not just keywords.</p>
+            <p><strong>CODING ASSISTANCE:</strong> Tools like GitHub Copilot help developers write code faster by suggesting completions, finding bugs, and explaining code in plain English.</p>
+            <p><strong>CONTENT CREATION:</strong> Marketing teams use LLMs to draft emails, social media posts, product descriptions, and articles — saving hours of work.</p>
+            <p><strong>HEALTHCARE:</strong> LLMs can summarize patient histories, help doctors draft clinical notes, or answer medical questions for patients.</p>
+            <p><strong>EDUCATION:</strong> Personalized tutors that can explain any concept at any level, answer questions, give practice problems, and adapt to the student's pace.</p>
+            <p><strong>LEGAL:</strong> Lawyers use LLMs to review hundreds of pages of contracts in minutes, flagging risky clauses.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q8</span>
+        <span class="q-title">Tokenization and Lemmatization</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Tokenization is the process of splitting text into smaller units called tokens (words, subwords, or characters). It is the first step in NLP preprocessing. Lemmatization reduces words to their base/root dictionary form (lemma) considering grammatical context. E.g., 'running', 'ran', 'runs' → 'run'. Unlike stemming, lemmatization produces valid words.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>TOKENIZATION:</strong> Before a computer can understand language, it needs to break it into pieces it can process. 'I love machine learning' → ['I', 'love', 'machine', 'learning']. More advanced systems break words into subwords ('running' → 'run' + '##ing') to handle rare words better. Every LLM starts with tokenization. After tokenization, each token is converted to a number, then processed mathematically.</p>
+            <p><strong>LEMMATIZATION:</strong> Consider these words: 'running', 'ran', 'runs', 'runner'. They all relate to the same action. Lemmatization converts them all to the base form: 'run'. This helps the AI understand that these words carry the same meaning.</p>
+            <p><strong>Lemmatization vs Stemming:</strong> Stemming is cruder — it just chops off endings ('studies' → 'studi'). Lemmatization is smarter — it uses grammar rules to find the true root ('studies' → 'study').</p>
+            <p><strong>Real use:</strong> Search engines use lemmatization so that searching 'best running shoes' also returns results for 'best runner shoes' or 'run shoes'.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q9</span>
+        <span class="q-title">Sentiment Analysis and Its Applications</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Sentiment analysis (opinion mining) is an NLP technique to identify and classify emotional tone in text as positive, negative, or neutral. It uses ML/deep learning models trained on labeled text data. Applications include: social media monitoring, customer feedback analysis, product review mining, stock market prediction from news sentiment, and brand reputation management.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>HOW IT WORKS:</strong> A model is trained on thousands of labeled examples: 'I love this product!' → Positive; 'Worst experience ever.' → Negative; 'It was okay.' → Neutral. Advanced systems use deep learning to understand context ('This movie is not bad' = positive, even though 'bad' is negative).</p>
+            <p><strong>Social Media Monitoring:</strong> Brands track what people say about them on Twitter/Instagram to catch PR crises early.</p>
+            <p><strong>Customer Reviews:</strong> Amazon analyzes millions of product reviews to automatically identify quality issues.</p>
+            <p><strong>Stock Market:</strong> Analyzing news headlines and social media to predict if a stock will go up or down.</p>
+            <p><strong>Healthcare:</strong> Monitoring patient forums to understand how people feel about medications.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q10</span>
+        <span class="q-title">What is an LLM? Describe in Brief.</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">A Large Language Model (LLM) is a deep learning model trained on massive text datasets using transformer architecture. It learns statistical patterns in language to generate, complete, translate, summarize, and reason about text. LLMs use self-attention mechanisms to understand context across long passages. Examples: GPT-4, Claude, Gemini, LLaMA. They are pre-trained on general data and can be fine-tuned for specific tasks.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>WHAT MAKES IT 'LARGE':</strong> Training involves billions of parameters (adjustable numbers) learned from trillions of words of text — books, websites, articles, code, and more.</p>
+            <p><strong>HOW IT WORKS:</strong> At its core, an LLM predicts 'what word comes next'. But doing this billions of times across massive data teaches it grammar, facts, reasoning, and even common sense. The transformer architecture allows it to look back at the entire context of a conversation to generate relevant responses.</p>
+            <p><strong>WHAT IT CAN DO:</strong> Answer questions, write essays, generate code, translate languages, summarize documents, explain concepts, brainstorm ideas, and hold natural conversations.</p>
+            <p><strong>EXAMPLES:</strong> ChatGPT (OpenAI), Claude (Anthropic), Gemini (Google), Copilot (Microsoft).</p>
+            <p><strong>IMPORTANT LIMITATION:</strong> LLMs don't truly 'understand' — they're extremely good pattern matchers. They can sometimes confidently say wrong things (called 'hallucination'), which is why human oversight is still important.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q11 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q11</span>
+        <span class="q-title">Difference Between Generative AI and LLM</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Generative AI is a broad category of AI that can create new content (text, images, audio, video, code). LLM is a specific type of generative AI focused on language. All LLMs are generative AI, but not all generative AI are LLMs. Examples of non-LLM generative AI: GANs (image generation), DALL-E, Stable Diffusion (image synthesis), Suno (music generation).</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>GENERATIVE AI:</strong> Any AI that generates new content — whether that's text, images, music, video, or code. It's the umbrella term. Examples: DALL-E generates images from text descriptions. Suno generates music. Runway ML generates videos.</p>
+            <p><strong>LLM:</strong> A specific type of generative AI that specializes in language — reading and writing text. It is trained specifically on text data.</p>
+            <p><strong>THE RELATIONSHIP:</strong> Every LLM is a generative AI (it generates text). But Stable Diffusion (makes images) is generative AI but NOT an LLM.</p>
+            <p><strong>Simple analogy:</strong> All squares are rectangles, but not all rectangles are squares. All LLMs are generative AI, but not all generative AI are LLMs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q12 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q12</span>
+        <span class="q-title">AI Tools and Agentic AI</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">AI tools are software applications powered by AI to assist in specific tasks (e.g., ChatGPT for text, Midjourney for images, GitHub Copilot for code). Agentic AI refers to AI systems that can autonomously plan, reason, and take sequences of actions to complete complex goals — going beyond single-turn responses. Agentic AI uses tool-use, memory, and iterative reasoning (e.g., AutoGPT, LangChain agents).</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>AI TOOLS:</strong> These are AI-powered applications designed for specific jobs. Writing tools (ChatGPT, Claude), image tools (Midjourney, DALL-E), coding tools (Copilot), search tools (Perplexity), design tools (Canva AI). You ask → it responds. Simple back-and-forth.</p>
+            <p><strong>AGENTIC AI:</strong> Instead of just answering, the AI can take actions across multiple steps to achieve a goal. Imagine you say: 'Research the top 5 competitors, summarize their pricing, and put it in a spreadsheet.' An agentic AI would: 1) Search the web, 2) Read websites, 3) Extract pricing info, 4) Create and fill the spreadsheet — all on its own.</p>
+            <p><strong>HOW IT WORKS:</strong> Agentic AI uses a 'planning loop': Think → Act → Observe → Think again → Act again... It has access to tools (web search, calculators, APIs, file systems) and uses them intelligently.</p>
+            <p><strong>WHY IT MATTERS:</strong> Agentic AI can automate entire workflows that previously required human coordination across multiple steps and software.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q13 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q13</span>
+        <span class="q-title">Business Transformation in Various Industries through AI</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">AI is transforming industries: Retail – personalized recommendations, inventory management. Finance – fraud detection, algorithmic trading, credit scoring. Healthcare – diagnostics, drug discovery, robotic surgery. Manufacturing – predictive maintenance, quality control. Education – adaptive learning. Transportation – autonomous vehicles, route optimization. HR – automated resume screening. AI improves efficiency, reduces costs, enables data-driven decision-making.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>RETAIL &amp; E-COMMERCE:</strong> Amazon uses AI to recommend products (generating 35% of revenue), predict stock needs, and automate warehouses with robots.</p>
+            <p><strong>BANKING &amp; FINANCE:</strong> Banks use ML to detect fraudulent transactions in milliseconds, assess loan risk automatically, and algorithmic trading bots execute millions of trades per second.</p>
+            <p><strong>HEALTHCARE:</strong> AI reads X-rays as accurately as specialist doctors. Hospitals predict patient deterioration hours in advance. Robotic surgery systems increase precision.</p>
+            <p><strong>MANUFACTURING:</strong> Predictive maintenance — AI monitors machines and predicts breakdowns BEFORE they happen, saving millions in downtime. Computer vision detects product defects at 100% of production speed.</p>
+            <p><strong>EDUCATION:</strong> Platforms like Duolingo adapt lesson difficulty to each student. AI tutors provide 24/7 personalized help.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q14 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q14</span>
+        <span class="q-title">Ethical Considerations and Importance of Ethics in AI</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Key ethical considerations in AI include: Bias and Fairness, Privacy, Transparency (explainability), Accountability, Job Displacement, Misinformation (deepfakes), and Autonomous Weapons. Ethics in AI ensures that systems are fair, transparent, safe, and beneficial to humanity. Frameworks include EU AI Act, IEEE Ethics guidelines, and Responsible AI principles.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>BIAS:</strong> AI learns from historical data, which often contains human biases. Facial recognition systems have been shown to be less accurate for darker skin tones. Hiring algorithms have discriminated against women.</p>
+            <p><strong>PRIVACY:</strong> AI systems require massive amounts of data. Where does that data come from? Is it collected with consent? Can it be hacked?</p>
+            <p><strong>TRANSPARENCY:</strong> When an AI denies your loan or flags your medical scan, you deserve an explanation. 'Black box' AI models that can't explain their decisions are a major ethical concern.</p>
+            <p><strong>ACCOUNTABILITY:</strong> If a self-driving car causes an accident, who is responsible — the car manufacturer, the software developer, or the owner?</p>
+            <p><strong>DEEPFAKES &amp; MISINFORMATION:</strong> AI can generate fake videos of real people saying things they never said — threatening democracy, reputations, and trust.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q15 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q15</span>
+        <span class="q-title">Data Preprocessing and Importance of Data</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Data preprocessing transforms raw, messy data into a clean, structured format suitable for ML models. Steps include: data cleaning (handling missing values, removing duplicates, fixing errors), normalization/standardization, encoding categorical variables, feature selection, and splitting data into train/test sets. Quality data is essential — ML model performance directly depends on data quality (GIGO: Garbage In, Garbage Out).</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>DATA CLEANING:</strong> Find and fix missing values, remove duplicate entries, fix obvious errors.</p>
+            <p><strong>NORMALIZATION/STANDARDIZATION:</strong> If one column has values 0–1 and another has 0–1,000,000, the large column dominates. Scaling brings all columns to a similar range so the model treats them fairly.</p>
+            <p><strong>ENCODING:</strong> ML models understand numbers, not words. 'Male'/'Female' gets converted to 0/1. 'Red/Green/Blue' becomes separate columns.</p>
+            <p><strong>FEATURE SELECTION:</strong> Not every column helps. Removing irrelevant columns reduces noise and speeds up training.</p>
+            <p><strong>SPLITTING:</strong> Divide data into training (70–80%) to teach the model, and testing (20–30%) to evaluate it on unseen data.</p>
+            <p>Think of it like cooking: preprocessing is the prep work (washing, chopping, measuring) before cooking. Skip it, and the meal turns out terrible.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q16 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q16</span>
+        <span class="q-title">Structured vs Semi-Structured vs Unstructured Data</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Structured data is organized in rows/columns (tables), easy to query using SQL. Example: database records, spreadsheets. Semi-structured data has some organizational tags but no rigid schema. Example: JSON, XML, HTML, emails. Unstructured data has no predefined format. Example: images, videos, audio, social media text, PDFs. ~80% of real-world data is unstructured, which is why deep learning is essential for processing it.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>STRUCTURED DATA:</strong> Think of a perfectly organized Excel sheet. Every row is a record, every column has a clear label (Name, Age, Salary). You can easily search, sort, and filter it. Easy for traditional ML.</p>
+            <p><strong>SEMI-STRUCTURED DATA:</strong> This data has some organization, but it's flexible. JSON is the best example — it has labels (keys) and values, but the structure can vary between entries. Emails are semi-structured: they have a To/From/Subject structure, but the body is free text.</p>
+            <p><strong>UNSTRUCTURED DATA:</strong> This is the wild west of data — no rows, no columns, just raw information. Photos, videos, voice recordings, social media posts, PDF documents.</p>
+            <p><strong>WHY IT MATTERS:</strong> 80% of all data generated today is unstructured. Traditional databases can't process it. This is why we need deep learning (CNNs for images, transformers for text) to extract meaning from it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q17 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q17</span>
+        <span class="q-title">Various Data Collection Methods</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Data collection methods include: Surveys and Questionnaires (primary data), Interviews and Focus Groups, Observation (direct/indirect), Experiments, Web Scraping (automated data extraction from websites), APIs (structured data from services), Sensors and IoT devices, Crowdsourcing, Government/Open Datasets, and Transactional Data from business systems. Choosing the right method depends on the type of data needed, cost, and feasibility.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>SURVEYS &amp; QUESTIONNAIRES:</strong> You ask people questions. Google Forms, SurveyMonkey. Simple and controlled, but people may lie or not respond. Used for customer feedback, market research.</p>
+            <p><strong>WEB SCRAPING:</strong> Automated tools that browse websites and extract data — like automatically collecting all product prices from competitor websites. Tools: BeautifulSoup, Scrapy.</p>
+            <p><strong>APIs:</strong> Services like Twitter, Google Maps, and Weather services provide data through APIs. You request data in a structured format (JSON). Very clean and reliable.</p>
+            <p><strong>SENSORS &amp; IoT:</strong> Physical devices that continuously collect data — temperature sensors, heart rate monitors, GPS trackers, factory machines. Real-time, huge volumes.</p>
+            <p><strong>OPEN DATASETS:</strong> Governments and organizations publish free datasets (World Bank, Kaggle, UCI Repository). Great for researchers and students.</p>
+            <p><strong>CROWDSOURCING:</strong> Getting humans to label data at scale. Amazon Mechanical Turk pays people to label images, transcribe audio, etc. This creates training data for AI.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q18 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q18</span>
+        <span class="q-title">Data Transformation and Feature Engineering</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Data transformation converts raw data into a usable format for ML: includes normalization, standardization, log transformation, encoding categorical variables, binning, and aggregation. Feature engineering is the process of creating new, more informative features from existing data to improve model performance. Examples: extracting day-of-week from a timestamp, calculating BMI from height/weight, creating interaction features.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>NORMALIZATION:</strong> Scale all values between 0 and 1. Important when comparing age (0–100) with income (0–1,000,000).</p>
+            <p><strong>LOG TRANSFORMATION:</strong> When data is heavily skewed (most people earn low salaries, a few earn millions), a log transformation makes it more 'normal' and easier for models to learn from.</p>
+            <p><strong>FEATURE ENGINEERING:</strong> This is the creative part — inventing new columns that help the model learn better. Given a 'Date of Purchase' column, you might engineer: Day of Week (weekends might have higher sales), Month (seasonal patterns), Days Until Holiday (purchase rush effect).</p>
+            <p><strong>WHY IT MATTERS:</strong> The features you feed into the model are more important than the algorithm itself. A brilliant engineer can often beat a complex model just by crafting better features from simple data.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q19 -->
+    <div class="q-card" data-topic="ai">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q19</span>
+        <span class="q-title">Data Analytics Tools and Data Visualization Tools</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Data analytics tools: Python (Pandas, NumPy, Scikit-learn), R, SQL, Excel, Apache Spark (big data), Tableau, Power BI. Data visualization tools: Matplotlib, Seaborn, Plotly (Python), Tableau, Power BI, Google Data Studio, D3.js. Types of visualizations: bar charts, line graphs, heatmaps, scatter plots, histograms, and dashboards.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>Python (Pandas/NumPy):</strong> The industry standard for data analysis. Load millions of rows, clean, transform, and analyze with a few lines of code.</p>
+            <p><strong>SQL:</strong> For querying databases. 'Give me all customers who spent more than $500 in the last month' — SQL makes this instant.</p>
+            <p><strong>Power BI / Tableau:</strong> Business intelligence tools. Drag-and-drop dashboards. No coding needed. Used by business teams to monitor KPIs.</p>
+            <p><strong>Matplotlib/Seaborn:</strong> Create scientific charts — line plots, bar charts, scatter plots, heatmaps — with code.</p>
+            <p><strong>WHY VISUALIZATION MATTERS:</strong> A table of 10,000 numbers tells you nothing. A heatmap instantly shows you where the hotspots are. Humans are visual — we understand patterns much better when shown graphically.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== IoT ===== -->
+  <div class="section-group" data-topic="iot">
+    <div class="section-header">
+      <div class="section-dot" style="background:var(--iot-accent)"></div>
+      <h2>Internet of Things (IoT)</h2>
+      <span class="section-count">Q20 – Q31</span>
+    </div>
+
+    <!-- Q20 -->
+    <div class="q-card" data-topic="iot">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q20</span>
+        <span class="q-title">Significance of IoT</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">IoT (Internet of Things) refers to the network of physical devices embedded with sensors, software, and connectivity to collect and exchange data over the internet. Its significance lies in enabling automation, real-time monitoring, data-driven decisions, and smart environments. IoT improves efficiency, reduces costs, enhances safety, and transforms daily life through smart homes, smart cities, and industrial automation.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>WHAT IS IoT?</strong> Your smartwatch monitors your heart rate and syncs to your phone. A smart thermostat learns your schedule and adjusts temperature automatically. A factory machine sends an alert before it breaks down. These are all IoT.</p>
+            <p><strong>AUTOMATION:</strong> Devices can respond to conditions without human intervention — smart lights turn on when you enter a room.</p>
+            <p><strong>REAL-TIME MONITORING:</strong> Hospital IoT devices monitor patients' vitals 24/7 and alert doctors to dangerous changes instantly.</p>
+            <p><strong>DATA COLLECTION:</strong> IoT generates enormous amounts of real-world data, which feeds into AI/ML systems to make them smarter.</p>
+            <p><strong>SCALE:</strong> There are currently over 15 billion connected IoT devices worldwide. IoT is essentially the nervous system of the modern digital world — constantly sensing and communicating.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q21 -->
+    <div class="q-card" data-topic="iot">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q21</span>
+        <span class="q-title">Impact of IoT in Various Industries</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">IoT impacts multiple industries: Healthcare – remote patient monitoring, wearables, smart hospitals. Agriculture – precision farming, soil sensors, automated irrigation. Manufacturing – predictive maintenance, smart factories (Industry 4.0). Transportation – fleet tracking, autonomous vehicles, smart traffic. Retail – smart shelves, inventory tracking. Energy – smart grids, meters. Smart Cities – waste management, parking, lighting.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>HEALTHCARE:</strong> Wearables like smartwatches monitor heart rate, blood oxygen, and sleep. Smart ICUs monitor patients automatically. Remote monitoring lets patients stay home while doctors track their health digitally.</p>
+            <p><strong>AGRICULTURE:</strong> Soil sensors tell farmers exactly when and how much to water (saving up to 40% water). Drones scan fields for crop diseases. Livestock trackers monitor animal health.</p>
+            <p><strong>MANUFACTURING (Industry 4.0):</strong> Machines continuously report their health status. Predictive maintenance prevents costly breakdowns. Entire factories run almost autonomously.</p>
+            <p><strong>RETAIL:</strong> Amazon Go stores use IoT cameras and sensors to let you shop without a cashier — grab items and walk out, you're automatically billed.</p>
+            <p><strong>ENERGY:</strong> Smart meters give homeowners real-time usage data. Smart grids automatically balance electricity supply and demand across cities.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q22 -->
+    <div class="q-card" data-topic="iot">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q22</span>
+        <span class="q-title">Various Components in IoT</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">IoT system components include: Sensors/Actuators (collect data, perform actions), Microcontrollers/Microprocessors (process data locally), Connectivity Modules (Wi-Fi, Bluetooth, Zigbee, LoRa, 4G/5G), Edge Computing Devices, Cloud Platforms (AWS IoT, Azure IoT, Google Cloud IoT), Data Analytics/AI layer, and User Interface (mobile apps, dashboards). These form the IoT pipeline: sense → process → transmit → analyze → act.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>SENSORS:</strong> The eyes and ears of IoT. They detect physical conditions — temperature, humidity, light, pressure, motion, sound.</p>
+            <p><strong>ACTUATORS:</strong> If sensors INPUT data, actuators OUTPUT actions. A motor that opens a valve, a relay that switches a light on, a buzzer that sounds an alarm.</p>
+            <p><strong>MICROCONTROLLER:</strong> The brain on the device. It reads sensor data and decides what to do. Arduino is the classic example.</p>
+            <p><strong>CONNECTIVITY:</strong> Options include Wi-Fi (home), Bluetooth (short range), LoRa (long range, low power — for farms), 4G/5G (mobile), and Zigbee (smart home devices).</p>
+            <p><strong>CLOUD PLATFORM:</strong> Where all the data is stored and processed. AWS IoT, Azure IoT, Google Cloud IoT. Provides storage, analytics, and remote access.</p>
+            <p><strong>The full flow:</strong> Sensor detects → Microcontroller processes → Connectivity transmits → Cloud stores/analyzes → User acts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q23 -->
+    <div class="q-card" data-topic="iot">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q23</span>
+        <span class="q-title">Types and Working of Different Sensors</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Key IoT sensors: Temperature (thermistor, thermocouple, RTD). Humidity (capacitive, resistive). Proximity (IR, ultrasonic, capacitive). Motion (PIR – Passive Infrared). Pressure (piezoelectric, capacitive). Light (LDR, photodiode). Gas sensors (MQ series). GPS – location tracking. Accelerometer – measures acceleration/tilt.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>TEMPERATURE SENSORS:</strong> Thermistors change resistance with temperature. DHT11/DHT22 sensors give both temperature and humidity. Used in: weather stations, refrigerators, HVAC.</p>
+            <p><strong>MOTION SENSORS (PIR):</strong> Passive Infrared sensors detect the heat signature of moving bodies. Your security light turns on when you walk past — that's PIR. 'Passive' because they don't emit anything — they just detect.</p>
+            <p><strong>ULTRASONIC SENSORS:</strong> Emit a sound wave and measure how long it takes to bounce back. Used to measure distance — like parking sensors in cars.</p>
+            <p><strong>GAS SENSORS:</strong> The MQ-series sensors detect specific gases — MQ-2 for smoke and LPG, MQ-135 for air quality. Used in smoke detectors and industrial safety.</p>
+            <p><strong>LDR (Light Sensors):</strong> Light Dependent Resistors change resistance based on light intensity. Street lights use these to automatically turn on at dusk.</p>
+            <p><strong>ACCELEROMETERS:</strong> Measure acceleration and tilt. Your phone uses one to know when to rotate the screen. Fitness trackers use them to count steps.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q24 -->
+    <div class="q-card" data-topic="iot">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q24</span>
+        <span class="q-title">Types and Working of Different Actuators</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Actuators convert electrical signals into physical actions. Types: DC Motors (rotational motion, used in robots), Servo Motors (precise angular control, used in robot arms), Stepper Motors (precise step-based movement, used in 3D printers), Solenoids (linear push/pull motion, used in locks/valves), Relays (electrical switch for high-power loads), Buzzers/Speakers (sound output), LED/Display (visual output).</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>DC MOTORS:</strong> Spin continuously when power is applied. Speed is controlled by varying voltage. Used in fans, wheels of RC cars, conveyor belts.</p>
+            <p><strong>SERVO MOTORS:</strong> A motor with a built-in control circuit that can rotate to a precise angle (e.g., exactly 90°). Used in robot arms, camera gimbals, RC plane steering flaps.</p>
+            <p><strong>STEPPER MOTORS:</strong> Move in precise 'steps' — each pulse of electricity rotates the motor by a fixed angle (e.g., 1.8°). Perfect for precise positioning. Used in 3D printers, CNC machines.</p>
+            <p><strong>SOLENOIDS:</strong> An electromagnet that pushes or pulls a metal rod when powered. Used in electric door locks, valves in irrigation systems.</p>
+            <p><strong>RELAYS:</strong> An electrical switch controlled by a small signal. An Arduino (which uses 5V) can control a relay to switch on a 230V appliance safely.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q25 -->
+    <div class="q-card" data-topic="iot">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q25</span>
+        <span class="q-title">Microcontroller vs Microprocessor</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Microcontroller: A compact integrated circuit containing a CPU, memory (RAM + ROM), and I/O peripherals on a single chip. Designed for specific, embedded control tasks. Low power, low cost. Examples: Arduino (ATmega328), ESP32, PIC. Microprocessor: A CPU chip that requires external memory and peripherals. Designed for general-purpose computing with high processing power. Examples: Intel i7, AMD Ryzen, Raspberry Pi's BCM2835.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>MICROCONTROLLER (MCU):</strong> Everything is in one chip — CPU, RAM, Flash memory, GPIO pins, ADC, timers. It boots up instantly, runs a single program forever, uses very little power, and costs a few dollars. Perfect for embedded, dedicated tasks.</p>
+            <p><strong>MICROPROCESSOR (MPU):</strong> This is just the CPU. It needs separate RAM chips, storage, and I/O chips. Much more powerful — can run full operating systems like Linux or Windows. Used in laptops, smartphones, and the Raspberry Pi.</p>
+            <p><strong>PRACTICAL EXAMPLE:</strong> Arduino (microcontroller) controls your smart garden watering system — simple, cheap, always on. Raspberry Pi (uses a microprocessor) runs a home server that manages all your smart home devices — complex, powerful.</p>
+            <p>Cost: MCU is $2–10 | MPU requires full system, $30–100+. Power: MCU uses milliwatts | MPU uses watts.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q26 -->
+    <div class="q-card" data-topic="iot">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q26</span>
+        <span class="q-title">Role of Sensors, Actuators, Microcontroller, and Cloud in IoT</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">In an IoT system: Sensors collect real-world data and send it as electrical signals. Microcontroller processes sensor data, applies logic, and controls actuators. Actuators perform physical actions based on microcontroller decisions. Cloud receives, stores, and analyzes aggregated data; provides remote monitoring, dashboards, and AI processing; sends commands back. Together they form the IoT loop: Sense → Process → Act → Report → Analyze.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>SENSORS (The Senses):</strong> Constantly reading the environment. A temperature sensor reads 38°C. A motion sensor detects movement. These are converted to electrical signals the microcontroller can understand.</p>
+            <p><strong>MICROCONTROLLER (The Local Brain):</strong> Receives sensor readings, runs your programmed logic, and makes immediate decisions. 'If temperature > 35°C, turn on the fan.' This is called 'edge computing' — it acts instantly without needing the cloud.</p>
+            <p><strong>ACTUATORS (The Muscles):</strong> Execute the microcontroller's commands physically. Turn on the fan motor, open the irrigation valve, sound the alarm buzzer.</p>
+            <p><strong>CLOUD (The Global Brain):</strong> Receives data from potentially thousands of IoT devices simultaneously. Stores historical data. Runs complex AI/ML analysis to find patterns. Provides a user dashboard on your smartphone.</p>
+            <p><strong>COMPLETE EXAMPLE — Smart Greenhouse:</strong> Soil sensor detects dryness → Microcontroller opens irrigation valve (actuator) → Data sent to cloud → Cloud ML predicts tomorrow's irrigation needs → Dashboard alerts farmer → Farmer adjusts settings remotely.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q27 -->
+    <div class="q-card" data-topic="iot">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q27</span>
+        <span class="q-title">Case Study: Remote Patient Monitoring System</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Remote Patient Monitoring (RPM) uses IoT wearables and sensors to continuously monitor patients' vital signs (heart rate, blood pressure, SpO2, glucose) outside hospitals. Data is transmitted via Wi-Fi/4G to cloud platforms where AI algorithms detect anomalies and alert healthcare providers. Benefits: reduced hospital readmissions, continuous monitoring for chronic disease patients, early intervention, reduced healthcare costs.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>HOW IT WORKS:</strong> The patient wears a smartwatch or patch with sensors: ECG monitor (heart rhythm), pulse oximeter (blood oxygen), blood pressure cuff. These connect via Bluetooth to a smartphone, which sends data to a cloud server every few minutes. Doctors view dashboards showing all their remote patients' vitals.</p>
+            <p><strong>AI LAYER:</strong> Algorithms analyze the continuous data stream and detect dangerous patterns — irregular heartbeat, sudden drop in oxygen, abnormal blood pressure spikes. When detected, the system sends an immediate alert to the medical team and even calls the patient.</p>
+            <p><strong>REAL EXAMPLE:</strong> During COVID-19, hospitals deployed RPM at massive scale to monitor patients in home isolation, reserving hospital beds for critical cases.</p>
+            <p><strong>CHALLENGES:</strong> Data security and privacy (medical data is extremely sensitive), device reliability, internet connectivity in rural areas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q28 -->
+    <div class="q-card" data-topic="iot">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q28</span>
+        <span class="q-title">Case Study: Smart Traffic Control System</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Smart traffic control uses IoT sensors (cameras, inductive loops, radar), AI, and connected infrastructure to dynamically manage traffic flow. Systems detect vehicle density at intersections and adaptively change signal timing to reduce congestion. Can integrate with emergency vehicles (automatic green corridors), public transport priority signals, and city-wide traffic management centers. Reduces travel time, fuel consumption, and accidents.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>HOW IT WORKS:</strong> Cameras and sensors at intersections count vehicles in each lane in real-time. AI algorithms calculate optimal green light durations based on current traffic density. Signals communicate with each other to create 'green waves' — coordinating lights so vehicles can travel several blocks without stopping.</p>
+            <p><strong>ADDITIONAL FEATURES:</strong> Emergency Vehicle Priority — when an ambulance approaches, the system detects it and turns all lights green on its route. Public Transport: Bus lanes get green lights extended when a bus is running late.</p>
+            <p><strong>REAL EXAMPLE:</strong> Singapore's Intelligent Transport System monitors the entire city's traffic and adjusts signals dynamically, reducing average travel time by 20-30%.</p>
+            <p><strong>BENEFITS:</strong> Less congestion → lower fuel consumption → less air pollution. Faster emergency response. Safer roads. Smarter cities.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q29 -->
+    <div class="q-card" data-topic="iot">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q29</span>
+        <span class="q-title">Case Study: Smart Home Appliances</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Smart home systems use IoT-connected appliances to automate and remotely control home functions. Examples: smart thermostats (Nest – learn habits, optimize energy), smart lighting (adjust brightness/color, motion-triggered), smart locks (keyless entry, access logs), smart security cameras (AI motion detection, face recognition), smart appliances (refrigerator inventory tracking, smart washing machines). All controlled via smartphone apps or voice assistants (Alexa, Google Home).</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>SMART THERMOSTAT (Nest):</strong> Learns when you wake up and sleep. Automatically lowers temperature when you leave the house (detected via smartphone GPS). Saves 10–15% on heating/cooling bills.</p>
+            <p><strong>SMART LIGHTING:</strong> LED bulbs with Wi-Fi. Schedule them to turn on at sunset. Motion sensors in corridors turn lights on/off as you walk through. Change color and brightness by voice.</p>
+            <p><strong>SMART SECURITY:</strong> Doorbell cameras with motion detection alert your phone when someone approaches. AI distinguishes between a person and a passing car. Smart locks let you let in delivery people remotely with a temporary code.</p>
+            <p><strong>VOICE ASSISTANTS:</strong> Amazon Alexa and Google Home act as the central hub — connecting all devices so you can control everything by voice.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q30 -->
+    <div class="q-card" data-topic="iot">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q30</span>
+        <span class="q-title">Case Study: Agriculture and Environmental Monitoring Systems</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Smart agriculture IoT uses soil moisture sensors, weather stations, drones with multispectral cameras, and automated irrigation to optimize crop yields. Environmental monitoring systems deploy sensor networks to track air quality (CO2, PM2.5), water quality (pH, turbidity), temperature, and biodiversity in forests, rivers, and cities. Data is sent to cloud platforms for real-time analysis and alerts for pollution events or crop stress.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>SMART AGRICULTURE — Soil Sensors:</strong> Measure moisture content at multiple depths. Irrigation systems only activate when soil is actually dry — reducing water use by up to 40%.</p>
+            <p><strong>DRONE SURVEILLANCE:</strong> Drones with multispectral cameras capture images beyond visible light, revealing plant stress, disease, and nutrient deficiencies invisible to the human eye — weeks before visible damage occurs.</p>
+            <p><strong>ENVIRONMENTAL MONITORING — Air Quality:</strong> Sensor networks in cities measure PM2.5 particles, NO2 from traffic, ozone, and CO2. Data feeds into public dashboards so citizens can check pollution levels.</p>
+            <p><strong>WATER QUALITY:</strong> Sensors in rivers and reservoirs measure pH, dissolved oxygen, nitrates (from farming runoff). Early detection of pollution events before they reach drinking water systems.</p>
+            <p><strong>FOREST MONITORING:</strong> Acoustic sensors detect chainsaws (illegal logging). Cameras detect fires. Wildlife trackers monitor endangered species.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q31 -->
+    <div class="q-card" data-topic="iot">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q31</span>
+        <span class="q-title">Difference Between Arduino and Raspberry Pi</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Arduino is a microcontroller platform — runs a single program, no OS, ultra-low power, real-time hardware control, best for simple repetitive tasks (sensor reading, motor control). Raspberry Pi is a single-board computer with a microprocessor (runs Linux OS), supports multitasking, has GPIO pins, Wi-Fi, HDMI, and USB. Best for complex projects requiring an OS. Arduino: real-time control; Raspberry Pi: general computing.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>ARDUINO:</strong> A microcontroller development board. You write a single program, upload it, and it runs that one program forever. No operating system — it boots in milliseconds and immediately starts executing your code. Uses very little power. Perfect for: reading sensors, controlling motors, IoT edge devices.</p>
+            <p><strong>RASPBERRY PI:</strong> A full computer on a single board. Has an SD card with the Linux operating system, can run Python/JavaScript/any programming language, browse the internet, run AI models, and host web servers.</p>
+            <p><strong>CHOOSING BETWEEN THEM:</strong> Need real-time sensor control? → Arduino. Need to run complex software, AI, or web services? → Raspberry Pi.</p>
+            <p>Many professional IoT projects use BOTH: Arduino handles the hardware (sensors/actuators) and sends data to Raspberry Pi, which runs the intelligence.</p>
+            <p><strong>Cost:</strong> Arduino Uno ~$5–25; Raspberry Pi 4 ~$35–75.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== AR/VR ===== -->
+  <div class="section-group" data-topic="arvr">
+    <div class="section-header">
+      <div class="section-dot" style="background:var(--arvr-accent)"></div>
+      <h2>Augmented Reality &amp; Virtual Reality</h2>
+      <span class="section-count">Q32</span>
+    </div>
+
+    <!-- Q32 -->
+    <div class="q-card" data-topic="arvr">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q32</span>
+        <span class="q-title">Difference Between Augmented Reality (AR) and Virtual Reality (VR)</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">VR creates a fully immersive, computer-generated environment replacing the real world. Requires a VR headset (Oculus, PlayStation VR). Used in gaming, training simulations, virtual tours. AR overlays digital content onto the real world view. Can work on smartphones (Pokémon Go) or AR glasses (Microsoft HoloLens). Used in retail (try furniture at home), surgery guidance, navigation (Google Maps AR), and education.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>VIRTUAL REALITY (VR):</strong> You put on a headset and you're transported to a completely different world — a virtual environment that replaces everything you see. Your head movements are tracked, so as you look around, the virtual world moves with you. Applications: Gaming, Medical training (surgeons practice operations without real patients), Therapy (treating PTSD, phobias), Real estate virtual tours.</p>
+            <p><strong>AUGMENTED REALITY (AR):</strong> The real world remains visible, but digital objects are added on top. Your phone camera shows the room, and AR places a virtual sofa in it so you can see how it looks before buying. Applications: Pokémon Go, IKEA Place app, Snapchat filters, Surgery guidance (HoloLens shows 3D organ maps), Google Maps Live View.</p>
+            <p><strong>SIMPLE WAY TO REMEMBER:</strong> VR = Full fake world. AR = Real world + fake additions.</p>
+            <p>The future: Mixed Reality (MR) blurs the line further — virtual objects interact with real physical objects.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CYBERSECURITY ===== -->
+  <div class="section-group" data-topic="cyber">
+    <div class="section-header">
+      <div class="section-dot" style="background:var(--cyber-accent)"></div>
+      <h2>Cybersecurity</h2>
+      <span class="section-count">Q33 – Q41</span>
+    </div>
+
+    <!-- Q33 -->
+    <div class="q-card" data-topic="cyber">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q33</span>
+        <span class="q-title">Importance of Cybersecurity</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Cybersecurity protects digital systems, networks, and data from unauthorized access, theft, and damage. It is critical because: modern life depends on digital infrastructure (banking, healthcare, government), cyberattacks cause massive financial losses ($8 trillion globally in 2023), data breaches violate privacy and erode trust, ransomware attacks can shut down hospitals or power grids, and national security depends on protecting critical infrastructure from state-sponsored attacks.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>YOUR PERSONAL DATA:</strong> Your passwords, bank details, health records, private messages — all stored digitally. Without cybersecurity, hackers could steal your identity, drain your accounts, or blackmail you.</p>
+            <p><strong>BUSINESSES:</strong> A single data breach can cost companies millions in fines, legal fees, and lost customer trust. The average cost of a data breach in 2024 was $4.88 million.</p>
+            <p><strong>HOSPITALS:</strong> Ransomware attacks on hospitals have locked doctors out of patient records during emergencies, causing preventable deaths.</p>
+            <p><strong>CRITICAL INFRASTRUCTURE:</strong> Power grids, water treatment plants, and financial systems are all connected to the internet. A cyberattack on these could affect millions of people's lives.</p>
+            <p><strong>THE SCALE:</strong> In 2024, cyberattacks happen every 39 seconds globally. Ransomware, phishing, and data breaches are constant threats.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q34 -->
+    <div class="q-card" data-topic="cyber">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q34</span>
+        <span class="q-title">Types of Cyber Threats</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Major cyber threats: Malware – malicious software (viruses, worms, trojans, ransomware, spyware). Phishing – fraudulent emails/messages to steal credentials. DDoS (Distributed Denial of Service) – overwhelming servers with traffic. Man-in-the-Middle (MitM) – intercepting communications. SQL Injection – inserting malicious code into databases. Zero-Day Exploits – attacks on unknown vulnerabilities. Social Engineering – manipulating humans to reveal information. Insider Threats – malicious actions by trusted employees.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>MALWARE:</strong> Types include: Virus (attaches to files and spreads), Worm (spreads automatically across networks), Trojan (disguises itself as legitimate software), Ransomware (encrypts your files and demands payment to unlock them), Spyware (secretly monitors your activity).</p>
+            <p><strong>PHISHING:</strong> You receive an email that looks exactly like your bank's email, asking you to 'verify your account'. You click the link, enter your details on a fake website — and the hacker now has your login.</p>
+            <p><strong>DDoS ATTACK:</strong> Thousands of hijacked computers simultaneously send requests to one website, overwhelming it and making it unavailable. Used to take down corporate websites.</p>
+            <p><strong>MAN-IN-THE-MIDDLE:</strong> The attacker secretly positions themselves between you and a website — reading or modifying all communication. Especially dangerous on public Wi-Fi.</p>
+            <p><strong>SQL INJECTION:</strong> Hackers insert malicious code into website input forms, tricking the database into revealing or deleting all its data.</p>
+            <p><strong>SOCIAL ENGINEERING:</strong> The most effective attack targets humans, not technology. Pretending to be IT support and asking for your password. No firewall can stop a human making a mistake.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q35 -->
+    <div class="q-card" data-topic="cyber">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q35</span>
+        <span class="q-title">CIA Triad</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">The CIA Triad is the foundational model of information security: Confidentiality – ensuring only authorized users can access data (achieved through encryption, access controls). Integrity – ensuring data is accurate and unaltered (achieved through hashing, digital signatures). Availability – ensuring systems and data are accessible when needed (achieved through backups, redundancy, DDoS protection). All cybersecurity measures can be mapped to protecting one or more of these three properties.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>CONFIDENTIALITY:</strong> Keep secret things secret. Only the right people should be able to read sensitive data. If a hacker steals your encrypted database, the data is useless to them without the key. Achieved through: encryption, passwords, two-factor authentication, access control lists. <em>Example violation:</em> A company's HR database is exposed, revealing all employee salaries.</p>
+            <p><strong>INTEGRITY:</strong> Ensure data hasn't been tampered with. When you download software, there's often a 'checksum' — a hash value. If the file was modified, the hash changes and you know something is wrong. <em>Example violation:</em> A hacker intercepts a bank transfer and changes the recipient's account number.</p>
+            <p><strong>AVAILABILITY:</strong> Systems must work when you need them. DDoS attacks destroy availability. Hospital systems going down during an emergency is an availability failure. <em>Example violation:</em> A ransomware attack locks all hospital computers during surgery.</p>
+            <p><strong>BALANCING THE TRIAD:</strong> Sometimes goals conflict. Maximum security (confidentiality) might make systems harder to access (availability). The art of cybersecurity is finding the right balance.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q36 -->
+    <div class="q-card" data-topic="cyber">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q36</span>
+        <span class="q-title">Risk Assessment and Risk Management</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Risk Assessment identifies and evaluates potential cybersecurity threats and vulnerabilities. Process: Asset identification → Threat identification → Vulnerability assessment → Impact analysis → Probability assessment → Risk scoring (Risk = Likelihood × Impact). Risk Management involves making decisions on identified risks: Accept (low-risk), Mitigate (reduce risk with controls), Transfer (cyber insurance), or Avoid (eliminate the risky activity). Continuous monitoring is essential as new risks emerge.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>RISK ASSESSMENT — Step by Step:</strong> Identify assets (customer database, financial records). Identify threats (hackers, ransomware, disgruntled employees). Identify vulnerabilities (unpatched software, weak passwords). Analyze impact (financial loss? Regulatory fines? Reputation damage?). Calculate risk: Risk = Likelihood × Impact.</p>
+            <p><strong>RISK MANAGEMENT — Four Responses:</strong></p>
+            <ul>
+              <li><strong>MITIGATE:</strong> Reduce the risk. Install a firewall, train employees, encrypt data.</li>
+              <li><strong>TRANSFER:</strong> Buy cyber insurance. If attacked, the insurance covers financial losses.</li>
+              <li><strong>ACCEPT:</strong> Some low-impact, low-probability risks aren't worth the cost of mitigation.</li>
+              <li><strong>AVOID:</strong> Simply stop doing the risky activity if possible.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q37 -->
+    <div class="q-card" data-topic="cyber">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q37</span>
+        <span class="q-title">Encryption in Cybersecurity</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Encryption converts readable data (plaintext) into unreadable format (ciphertext) using cryptographic algorithms, which can only be reversed with the correct key. Types: Symmetric encryption – same key for encryption and decryption (AES, DES). Asymmetric encryption – public key encrypts, private key decrypts (RSA, ECC). Used in HTTPS, VPNs, email security, disk encryption, digital signatures. TLS/SSL protocols use a combination of both for secure internet communication.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>SYMMETRIC ENCRYPTION:</strong> Both sender and receiver use the same key. Like a padlock where both people have the same physical key. FAST — used for encrypting large amounts of data. AES (Advanced Encryption Standard) is the gold standard. Problem: How do you safely share the key in the first place?</p>
+            <p><strong>ASYMMETRIC ENCRYPTION:</strong> Solves the key-sharing problem with two different but mathematically linked keys. Public Key (shared openly): Encrypts the message. Private Key (kept secret — only you have): Decrypts the message. RSA is the classic algorithm. Used in HTTPS websites, email encryption.</p>
+            <p><strong>HOW HTTPS WORKS:</strong> Your browser gets the website's public key. Uses it to encrypt a session key. Only the website's private key can decrypt it. Now you both have a shared secret for symmetric encryption. Fast AND secure.</p>
+            <p><strong>END-TO-END ENCRYPTION (E2EE):</strong> WhatsApp and Signal encrypt messages so even the app company can't read them. Only the sender's and receiver's devices have the keys.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q38 -->
+    <div class="q-card" data-topic="cyber">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q38</span>
+        <span class="q-title">Encryption vs Decryption</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Encryption is the process of converting plaintext (readable data) into ciphertext (unreadable scrambled data) using an algorithm and encryption key. Decryption is the reverse process — converting ciphertext back to plaintext using the correct decryption key. In symmetric encryption, the same key is used for both. In asymmetric encryption, a public key encrypts and a private key decrypts.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>ENCRYPTION:</strong> Think of it as putting a message in a locked box. You take your message ('Transfer $1000 to Account 123'), apply a mathematical algorithm with a secret key, and the output is completely scrambled gibberish. Nobody reading this intercepted message can understand it.</p>
+            <p><strong>DECRYPTION:</strong> The recipient has the correct key, applies the reverse algorithm, and gets back the original message. The box is unlocked.</p>
+            <p><strong>WHAT MAKES ENCRYPTION STRONG?</strong> The algorithm (AES is currently unbreakable if implemented correctly) and key length (longer key = harder to crack by brute force). A 256-bit AES key has 2²⁵⁶ possible combinations — more than the number of atoms in the observable universe.</p>
+            <p><strong>COMMON MISCONCEPTION:</strong> Encryption doesn't hide who is communicating — only what they're saying. Metadata (who, when, how much) can sometimes still be analyzed even with encrypted content.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q39 -->
+    <div class="q-card" data-topic="cyber">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q39</span>
+        <span class="q-title">Cyber Threats, Their Impact on Businesses, and Protective Measures</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Major threats: Ransomware (encrypts data, demands payment – average ransom $1.5M), Phishing (credential theft, BEC fraud), DDoS (service disruption, revenue loss), Data Breaches (regulatory fines, reputational damage), Insider Threats. Business impacts include financial losses, operational downtime, legal liability, and customer trust erosion. Protective measures: employee security training, MFA, endpoint security, regular patches, network monitoring, data backups, incident response planning, and zero-trust architecture.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>RANSOMWARE:</strong> Hackers break in, encrypt all company data, and demand payment to restore it. Colonial Pipeline paid $4.4 million ransom in 2021. Hospitals have been forced to turn away patients.</p>
+            <p><strong>BEC (Business Email Compromise):</strong> A fake email from the 'CEO' asking the finance team to urgently wire money to a new vendor. In 2023, BEC caused $2.9 billion in losses in the US alone.</p>
+            <p><strong>PROTECTIVE MEASURES — TECHNICAL:</strong> Firewalls, antivirus, MFA (even with stolen password, hacker can't log in), encryption, regular patching (fix known vulnerabilities).</p>
+            <p><strong>PROTECTIVE MEASURES — HUMAN:</strong> Security awareness training (teach employees to spot phishing), clear security policies, background checks.</p>
+            <p><strong>ZERO-TRUST ARCHITECTURE:</strong> Never trust, always verify. Even users inside the network must continuously prove who they are — minimizing damage if an account is compromised.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q40 -->
+    <div class="q-card" data-topic="cyber">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q40</span>
+        <span class="q-title">Cybersecurity Applications in Various Industries</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Cybersecurity applications by industry: Healthcare – HIPAA compliance, EHR encryption, medical device security. Finance – PCI-DSS compliance, fraud detection systems, secure transactions. Government – national infrastructure protection, classified data security, e-governance security. Retail – payment security, supply chain protection. Education – student data protection, DDoS protection. Manufacturing – OT/ICS security (protecting industrial control systems).</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>HEALTHCARE:</strong> Medical records are the most valuable data on black markets (10× more valuable than credit cards). Medical devices (pacemakers, insulin pumps) can be network-connected — and hackable. A compromised medical device could literally harm patients.</p>
+            <p><strong>BANKING &amp; FINANCE:</strong> Banks use AI fraud detection (instantly flags unusual transactions), encrypted communications, and extremely strict access controls.</p>
+            <p><strong>RETAIL &amp; E-COMMERCE:</strong> Protecting payment card data (PCI-DSS compliance). Supply chain attacks — a single compromised vendor can provide a back door to thousands of retailers (the famous Target breach came through their HVAC vendor).</p>
+            <p><strong>MANUFACTURING:</strong> Industrial Control Systems (ICS) and SCADA systems control physical machinery. A cyberattack can cause physical damage — the Stuxnet worm destroyed Iranian nuclear centrifuges through software.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q41 -->
+    <div class="q-card" data-topic="cyber">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q41</span>
+        <span class="q-title">Antivirus and Firewalls</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Antivirus software detects, prevents, and removes malware by scanning files against known malware signatures and using heuristic/behavioral analysis for unknown threats. A Firewall is a network security system that monitors and controls incoming/outgoing network traffic based on predefined security rules. Types of firewalls: Packet filtering, Stateful inspection, Application-layer (proxy), Next-Generation Firewalls (NGFW). Together they form a basic defense layer.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p>Think of your computer system as a building: a firewall is the security guard at the door checking who enters, and antivirus is the security patrol inside catching threats that got in.</p>
+            <p><strong>ANTIVIRUS — How it works:</strong> Signature-based detection: Has a database of 'fingerprints' of known malware. Heuristic analysis: Looks for suspicious behavior patterns — even in new, unknown malware. Real-time protection: Monitors everything on your system constantly. Examples: Windows Defender, Norton, McAfee, Kaspersky.</p>
+            <p><strong>FIREWALL — Types:</strong> Packet Filtering: Checks source/destination IP addresses and ports. Stateful Inspection: Tracks the state of connections — allows responses to your requests but blocks unsolicited incoming connections. Next-Gen Firewall (NGFW): Combines traditional firewall with intrusion detection, deep packet inspection, and AI analysis.</p>
+            <p><strong>LIMITATION:</strong> Antivirus and firewalls are necessary but not sufficient. They can't stop zero-day exploits or sophisticated social engineering. They're the first line of defense, not the only line.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ROBOTICS ===== -->
+  <div class="section-group" data-topic="robotics">
+    <div class="section-header">
+      <div class="section-dot" style="background:var(--robotics-accent)"></div>
+      <h2>Robotics</h2>
+      <span class="section-count">Q42 – Q48</span>
+    </div>
+
+    <!-- Q42 -->
+    <div class="q-card" data-topic="robotics">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q42</span>
+        <span class="q-title">What is Robotics?</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Robotics is the interdisciplinary field involving the design, construction, programming, and operation of robots — machines capable of carrying out complex tasks automatically or semi-automatically. It combines mechanical engineering, electrical engineering, computer science, and AI. Robots can be autonomous, semi-autonomous, or teleoperated. Applications span manufacturing, surgery, exploration, defense, agriculture, and service sectors.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>WHAT IS A ROBOT?</strong> A robot is any machine that can: SENSE its environment (using cameras, sensors), PROCESS information (using a computer/microcontroller), and ACT on the world (using motors, arms, grippers).</p>
+            <p><strong>TYPES OF ROBOTS:</strong></p>
+            <ul>
+              <li><strong>Industrial robots:</strong> Fixed arms in factories that weld, paint, assemble with precision.</li>
+              <li><strong>Mobile robots:</strong> Can move around — delivery robots, warehouse robots (Amazon Kiva), autonomous vehicles.</li>
+              <li><strong>Humanoid robots:</strong> Have human-like form — Boston Dynamics Atlas, Honda ASIMO.</li>
+              <li><strong>Surgical robots:</strong> Da Vinci surgical system — surgeons operate with tremor-free precision.</li>
+              <li><strong>Exploration robots:</strong> NASA Mars rovers — operate in environments impossible for humans.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q43 -->
+    <div class="q-card" data-topic="robotics">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q43</span>
+        <span class="q-title">Manipulators and Robot Arms</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">A robotic manipulator (robot arm) is a mechanical system of links and joints that mimics the functionality of a human arm. Components include: base, joints (revolute or prismatic), links (rigid segments), end-effector (gripper/tool), actuators (motors/pneumatic), and sensors (encoders, force sensors). Characterized by degrees of freedom (DOF), workspace, payload capacity, and repeatability. Used in welding, assembly, painting, surgery, and pick-and-place operations.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>ANATOMY OF A ROBOT ARM:</strong> Base (provides stability), Joints (where movement happens — like your shoulder, elbow, wrist), Links (rigid segments connecting joints — like your upper arm and forearm), End-Effector (the 'hand' — can be a gripper, welding torch, spray painter, or surgical tool).</p>
+            <p><strong>TYPES OF JOINTS:</strong> Revolute (R): Rotational movement — like turning a door handle. Most robot arms are mostly revolute joints. Prismatic (P): Linear sliding movement — like a telescope extending.</p>
+            <p><strong>DEGREES OF FREEDOM (DOF):</strong> How many independent movements the arm can make. A human arm has 7 DOF. Most industrial robots have 6 DOF — enough to position an object at any point in space at any angle.</p>
+            <p><strong>KEY SPECIFICATIONS:</strong> Reach: How far the arm can extend. Payload: Maximum weight it can handle. Repeatability: Can it return to the exact same position repeatedly? Industrial arms achieve ±0.02mm repeatability.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q44 -->
+    <div class="q-card" data-topic="robotics">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q44</span>
+        <span class="q-title">Types of Grippers</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Grippers are end-effectors that allow robots to grasp objects. Types include: Mechanical grippers (parallel jaw, angular, multi-finger) – most common. Vacuum/Suction grippers – use negative pressure for flat, non-porous objects. Magnetic grippers – for ferromagnetic metal objects. Adhesive grippers – gecko-inspired, use van der Waals forces. Soft grippers – made of flexible materials for delicate objects (food, biological tissue). Pneumatic grippers – air-powered, for high-speed pick-and-place.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>MECHANICAL GRIPPERS (Jaw Grippers):</strong> Two or more fingers that open and close around an object. The most common type. Three-finger grippers can handle round objects better. Powered by electric motors or compressed air.</p>
+            <p><strong>VACUUM/SUCTION GRIPPERS:</strong> A suction cup attached to a vacuum pump. Press against a flat surface, pump air out — creates a seal. Perfect for picking up cardboard boxes, glass panels, electronic circuit boards. Only works on flat, non-porous surfaces. Used heavily in e-commerce warehouses.</p>
+            <p><strong>MAGNETIC GRIPPERS:</strong> Electromagnets that pick up metal objects. Turn magnet on → picks up. Turn off → releases. Perfect for metal sheets in manufacturing. Only works on ferromagnetic metals (iron, steel — not aluminum).</p>
+            <p><strong>SOFT GRIPPERS:</strong> Made from flexible materials (silicone, rubber) that conform to the shape of an object. Perfect for fruit, vegetables, eggs, and medical tissue where rigid grippers would crush.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q45 -->
+    <div class="q-card" data-topic="robotics">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q45</span>
+        <span class="q-title">Robot vs Cobot (Collaborative Robots)</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Traditional industrial robots operate in caged, isolated areas away from humans due to safety risks — fast, powerful, and dangerous. Cobots (Collaborative Robots) are designed to work safely alongside human workers. They have force/torque sensors to detect and respond to human contact, rounded designs, speed limits, and compliance mechanisms. Cobots are: easier to program (hand-guided teaching), flexible, cost-effective for SMEs, used in assembly, packaging, quality inspection, and healthcare.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>TRADITIONAL INDUSTRIAL ROBOTS:</strong> Built for one task, run at full speed (sometimes 2m/s), generate enormous force. If a human entered the work zone, serious injury would result. They're fenced off in safety cages. Require specialist programmers. Best for: high-volume, identical repetitive tasks.</p>
+            <p><strong>COBOTS:</strong> Designed from the ground up to be safe around humans. Have force/torque sensors in every joint — if a cobot touches a human, it immediately slows or stops.</p>
+            <p><strong>HOW COBOTS ARE PROGRAMMED:</strong> You can physically grab the cobot arm and guide it through the motions you want — it 'remembers' the path. No coding needed. Factory workers (not engineers) can reprogram a cobot for a new task in minutes.</p>
+            <p><strong>ADVANTAGES OF COBOTS:</strong> Work alongside humans. Quick to redeploy to new tasks — flexible manufacturing. Lower cost (Universal Robots' UR5e ~$35,000 vs $150,000+ for industrial robots). BMW uses cobots to work alongside humans on assembly lines.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q46 -->
+    <div class="q-card" data-topic="robotics">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q46</span>
+        <span class="q-title">Swarm Robotics</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Swarm robotics is inspired by biological swarms (ant colonies, bee swarms, bird flocks) where large numbers of simple robots collectively exhibit complex, intelligent behavior through local interactions. Key principles: Decentralization (no single controller), Self-organization, Scalability, Robustness (system works even if individual robots fail). Applications: search and rescue, precision agriculture (swarm drones), construction, environmental monitoring, and military.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>THE CORE IDEA:</strong> Instead of one complex expensive robot, use many simple cheap robots that follow basic rules and interact locally. The complex, intelligent behavior 'emerges' from their collective interactions — just like in a bee colony or murmuration of starlings.</p>
+            <p><strong>KEY PROPERTIES:</strong> Decentralization: No single robot is the leader. Each robot makes decisions based on local information. Losing one or many robots doesn't collapse the mission. Scalability: Adding more robots makes the swarm more capable without redesigning the system.</p>
+            <p><strong>REAL APPLICATIONS:</strong></p>
+            <ul>
+              <li><strong>Search and Rescue:</strong> Swarm of small drones search a collapsed building simultaneously — much faster than one robot.</li>
+              <li><strong>Agriculture:</strong> Swarm drones pollinate flowers or spray pesticides on specific plants.</li>
+              <li><strong>Space Exploration:</strong> A swarm of mini-satellites can cover far more area than a single large spacecraft.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q47 -->
+    <div class="q-card" data-topic="robotics">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q47</span>
+        <span class="q-title">Key Technologies of Industry 4.0 and Smart Factories</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Industry 4.0 is the 4th industrial revolution characterized by digital transformation of manufacturing. Key technologies: IoT and IIoT, Cyber-Physical Systems (CPS), AI/ML, Big Data Analytics, Cloud Computing, Digital Twins – virtual replicas of physical systems, Additive Manufacturing (3D printing), Autonomous Robots and Cobots, AR/VR for training, Blockchain for supply chain. Smart factories achieve flexible, efficient, self-optimizing production.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>HISTORICAL CONTEXT:</strong> Industry 1.0 = Steam power. Industry 2.0 = Electricity and mass production. Industry 3.0 = Computers and automation. Industry 4.0 = Physical-digital integration and intelligent systems.</p>
+            <p><strong>IIOT (Industrial IoT):</strong> Every machine in the factory has sensors reporting its status, performance, and health in real-time.</p>
+            <p><strong>DIGITAL TWINS:</strong> A real-time virtual replica of a physical machine or entire factory. Engineers can test changes, simulate failures, and optimize processes in the digital copy before touching the real machine — saving millions.</p>
+            <p><strong>AI &amp; PREDICTIVE MAINTENANCE:</strong> ML models analyze vibration, temperature, and performance data to predict machine failures weeks in advance, scheduling maintenance before breakdown.</p>
+            <p><strong>RESULT — THE SMART FACTORY:</strong> A lights-out factory that can run without humans overnight, adapting production lines in real-time based on orders, quality data, and machine health.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q48 -->
+    <div class="q-card" data-topic="robotics">
+      <div class="q-header" onclick="toggle(this)">
+        <span class="q-num">Q48</span>
+        <span class="q-title">Advantages of Bio-Inspired Robotics</span>
+        <svg class="q-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+      </div>
+      <div class="q-body">
+        <div class="answer-section">
+          <div class="answer-label short-label">Short Answer · Exam Standard</div>
+          <div class="short-answer">Bio-inspired robotics designs robots by mimicking biological systems. Advantages: Adaptability – biological locomotion handles uneven terrain better than wheel-based robots. Efficiency – bird flight patterns inspire energy-efficient drone design. Robustness – distributed systems maintain function with damage. Soft robotics – muscle-inspired actuators for delicate manipulation. Examples: Boston Dynamics' robot (dog locomotion), snake robots (pipeline inspection), gecko-inspired grippers, fish-inspired underwater robots.</div>
+        </div>
+        <div class="answer-section">
+          <div class="answer-label long-label">Long Answer · Beginner-Friendly Explainer</div>
+          <div class="long-answer">
+            <p><strong>WHY COPY NATURE?</strong> Evolution has solved problems engineers struggle with: moving efficiently on rough terrain, gripping objects of any shape, swimming through turbulent water, flying in wind — all without centralized computers.</p>
+            <p><strong>LOCOMOTION ON COMPLEX TERRAIN:</strong> Wheeled robots fail on rocky, sandy, or rubble-filled ground. Legged robots inspired by insects and mammals can navigate almost any surface. Boston Dynamics' Spot (dog-inspired) can climb stairs, traverse rocky terrain, and recover from being pushed over.</p>
+            <p><strong>ENERGY EFFICIENCY:</strong> Bird wing shapes minimize drag — applied to drone design. Fish locomotion patterns are more energy-efficient than traditional propellers — leading to fish-inspired underwater robots for ocean monitoring.</p>
+            <p><strong>SOFT AND FLEXIBLE:</strong> Traditional robots are rigid. Biological muscles are soft and flexible — they can grip a raw egg without crushing it. Soft robotics (inspired by octopus tentacles) creates robots that can handle delicate objects and safely work near humans.</p>
+            <p><strong>GECKO-INSPIRED GRIPPERS:</strong> Gecko feet stick to vertical glass using Van der Waals forces — no adhesive, no suction. This has been replicated in robotic grippers that work in vacuum (space applications).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<div class="footer">48 Questions · 5 Topics · End Semester Study Guide</div>
+
+<script>
+function toggle(header) {
+  const card = header.parentElement;
+  card.classList.toggle('open');
+}
+
+// Topic filter
+const pills = document.querySelectorAll('.pill');
+const cards = document.querySelectorAll('.q-card');
+const groups = document.querySelectorAll('.section-group');
+
+pills.forEach(pill => {
+  pill.addEventListener('click', () => {
+    pills.forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+
+    const topic = pill.dataset.topic;
+
+    groups.forEach(group => {
+      const groupTopic = group.dataset.topic;
+      if (topic === 'all' || topic === groupTopic) {
+        group.classList.remove('hidden');
+      } else {
+        group.classList.add('hidden');
+      }
+    });
+
+    // Re-apply search if any
+    applySearch();
+  });
+});
+
+// Search
+const searchInput = document.getElementById('searchInput');
+function applySearch() {
+  const query = searchInput.value.toLowerCase().trim();
+  const activeTopic = document.querySelector('.pill.active').dataset.topic;
+
+  cards.forEach(card => {
+    const cardTopic = card.dataset.topic;
+    const topicMatch = activeTopic === 'all' || activeTopic === cardTopic;
+    const textMatch = !query || card.textContent.toLowerCase().includes(query);
+    card.classList.toggle('hidden', !(topicMatch && textMatch));
+  });
+
+  // Hide section groups with no visible cards
+  groups.forEach(group => {
+    const visibleCards = group.querySelectorAll('.q-card:not(.hidden)');
+    const topicMatch = activeTopic === 'all' || activeTopic === group.dataset.topic;
+    group.classList.toggle('hidden', visibleCards.length === 0 || !topicMatch);
+  });
+}
+
+searchInput.addEventListener('input', applySearch);
+</script>
+</body>
+</html>
